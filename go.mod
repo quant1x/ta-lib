@@ -3,9 +3,9 @@ module gitee.com/quant1x/ta-lib
 go 1.21.1
 
 require (
-	gitee.com/quant1x/gotdx v1.14.5
-	gitee.com/quant1x/gox v1.10.7
-	gitee.com/quant1x/pandas v1.1.3
+	gitee.com/quant1x/gotdx v1.15.1
+	gitee.com/quant1x/gox v1.11.3
+	gitee.com/quant1x/pandas v1.1.5
 	gitee.com/quant1x/stock v1.10.5
 	gonum.org/v1/plot v0.14.0
 )
@@ -33,7 +33,7 @@ require (
 	github.com/rogpeppe/fastuuid v1.2.0 // indirect
 	github.com/rogpeppe/go-internal v1.11.0 // indirect
 	github.com/shabbyrobe/xmlwriter v0.0.0-20230525083848-85336ec334fa // indirect
-	github.com/tealeg/xlsx/v3 v3.3.0 // indirect
+	github.com/tealeg/xlsx/v3 v3.3.1 // indirect
 	golang.org/x/exp v0.0.0-20230905200255-921286631fa9 // indirect
 	golang.org/x/image v0.12.0 // indirect
 	golang.org/x/sys v0.12.0 // indirect
