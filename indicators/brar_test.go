@@ -2,12 +2,12 @@ package indicators
 
 import (
 	"fmt"
-	"gitee.com/quant1x/stock/features"
+	"gitee.com/quant1x/ta-lib/testfiles"
 	"testing"
 )
 
 func TestBRAR(t *testing.T) {
-	df := features.KLine("sz002528")
+	df := testfiles.LoadTestData()
 	fmt.Println(df)
 	df1 := BRAR(df, 26)
 	fmt.Println(df1)

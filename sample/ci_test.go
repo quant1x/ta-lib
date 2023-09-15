@@ -2,13 +2,12 @@ package sample
 
 import (
 	"fmt"
-	"gitee.com/quant1x/stock/features"
+	"gitee.com/quant1x/ta-lib/testfiles"
 	"testing"
 )
 
 func TestConfidenceInterval(t *testing.T) {
-	code := "688351.sh"
-	df := features.KLine(code)
+	df := testfiles.LoadTestData()
 	fmt.Println(df)
 	df = ConfidenceInterval(df, 5)
 	fmt.Println(df)

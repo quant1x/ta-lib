@@ -4,17 +4,14 @@ import (
 	"fmt"
 	"gitee.com/quant1x/pandas"
 	"gitee.com/quant1x/pandas/stat"
-	"gitee.com/quant1x/stock/features"
+	"gitee.com/quant1x/ta-lib/testfiles"
 	"testing"
 )
 
 func TestPeakDetect(t *testing.T) {
-	code := "sh000905"
-	code = "sz002528"
-	//code = "sz002951"
-	code = "sh600602"
+	code := "sh600105"
 	length := 89
-	df := features.KLine(code)
+	df := testfiles.LoadTestData()
 	df = df.Subset(df.Nrow()-length, df.Nrow())
 	fmt.Println(df)
 	//v := [...]float64{0.0, 1.0, 2.0, 1.0, 0.0, -1.0, 0.0, 3.0, 0.0}

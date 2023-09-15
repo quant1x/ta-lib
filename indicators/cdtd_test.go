@@ -2,14 +2,12 @@ package indicators
 
 import (
 	"fmt"
-	"gitee.com/quant1x/stock/features"
+	"gitee.com/quant1x/ta-lib/testfiles"
 	"testing"
 )
 
 func TestCDTD(t *testing.T) {
-	code := "002528.sz"
-	code = "sh600025"
-	df := features.KLine(code)
+	df := testfiles.LoadTestData()
 	fmt.Println(df)
 	df1 := CDTD(df)
 	fmt.Println(df1)
