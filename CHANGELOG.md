@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.1.1] - 2023-10-08
+### Changed
+- 增加89K指标源代码.
+
 ## [0.1.0] - 2023-09-15
 ### Changed
 - Add LICENSE.
@@ -22,7 +26,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - 第一次提交.
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.1.0...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.1.1...HEAD
+[0.1.1]: https://gitee.com/quant1x/ta-lib/compare/v0.1.0...v0.1.1
 [0.1.0]: https://gitee.com/quant1x/ta-lib/compare/v0.0.3...v0.1.0
 [0.0.3]: https://gitee.com/quant1x/ta-lib/compare/v0.0.2...v0.0.3
 [0.0.2]: https://gitee.com/quant1x/ta-lib/compare/v0.0.1...v0.0.2
