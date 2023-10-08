@@ -3,7 +3,7 @@ module gitee.com/quant1x/ta-lib
 go 1.21.1
 
 require (
-	gitee.com/quant1x/gox v1.11.3
+	gitee.com/quant1x/gox v1.12.0
 	gitee.com/quant1x/pandas v1.1.5
 	gonum.org/v1/plot v0.14.0
 )
