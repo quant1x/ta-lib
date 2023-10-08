@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.1.3] - 2023-10-08
+### Changed
+- 更新pandas版本.
+
 ## [0.1.2] - 2023-10-08
 ### Changed
 - 更新gox版本.
@@ -30,7 +34,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - 第一次提交.
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.1.2...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.1.3...HEAD
+[0.1.3]: https://gitee.com/quant1x/ta-lib/compare/v0.1.2...v0.1.3
 [0.1.2]: https://gitee.com/quant1x/ta-lib/compare/v0.1.1...v0.1.2
 [0.1.1]: https://gitee.com/quant1x/ta-lib/compare/v0.1.0...v0.1.1
 [0.1.0]: https://gitee.com/quant1x/ta-lib/compare/v0.0.3...v0.1.0
