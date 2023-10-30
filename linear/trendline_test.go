@@ -2,7 +2,7 @@ package linear
 
 import (
 	"fmt"
-	"gitee.com/quant1x/ta-lib/testfiles"
+	"gitee.com/quant1x/engine/datasets"
 	"gonum.org/v1/plot"
 	"gonum.org/v1/plot/plotutil"
 	"gonum.org/v1/plot/vg"
@@ -11,8 +11,10 @@ import (
 )
 
 func TestTrendLine(t *testing.T) {
-	code := "sh600105"
-	df := testfiles.LoadTestData()
+	code := "sh000905"
+	code = "sz002528"
+	//code = "sz002322"
+	df := datasets.KLine(code)
 	df = TrendLine(df)
 	fmt.Println(df)
 
@@ -36,8 +38,13 @@ func TestTrendLine(t *testing.T) {
 }
 
 func TestCrossTrend(t *testing.T) {
-	code := "sh600105"
-	df := testfiles.LoadTestData()
+	code := "sh000905"
+	code = "sz002528"
+	//code = "sz002322"
+	code = "sh600018"
+	code = "sh603130"
+	code = "sz002209"
+	df := datasets.KLine(code)
 	df = CrossTrend(df)
 	fmt.Println(df)
 

@@ -2,12 +2,14 @@ package linear
 
 import (
 	"fmt"
-	"gitee.com/quant1x/ta-lib/testfiles"
+	"gitee.com/quant1x/engine/datasets"
 	"testing"
 )
 
 func TestCurveRegression(t *testing.T) {
-	df := testfiles.LoadTestData()
+	code := "688351"
+	code = "002564.sz"
+	df := datasets.KLine(code)
 	df = df.Subset(0, df.Nrow()-1)
 	fmt.Println(df)
 	N := 3

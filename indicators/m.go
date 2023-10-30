@@ -10,7 +10,7 @@ import (
 // M M头跌破颈线
 func M(raw pandas.DataFrame, argv ...bool) (stat.DType, bool) {
 	const (
-		__delta = float64(0.0191)
+		__delta = float64(0)
 		//__delta = linear.TrendDelta
 	)
 	var (
@@ -71,8 +71,8 @@ func M(raw pandas.DataFrame, argv ...bool) (stat.DType, bool) {
 		cl := len(closes)
 		if __ignoreSignal || (closes[cl-2] < closes[cl-1] && closes[cl-2] < ylY1 && closes[cl-1] > ylY1) {
 			if __debug {
-				fmt.Printf("M头跌破颈线: 颈线(%s)=%f, %s\n", dates[minX], minY, dates[cl-1])
 				fmt.Printf("       M头: 左高(%s)=%f, 右高(%s)=%f, 颈线(%s)=%f\n", dates[ylX1], ylY1, dates[ylX2], ylY2, dates[minX], minY)
+				fmt.Printf("M头跌破颈线: 颈线(%s)=%f, %s\n", dates[minX], minY, dates[cl-1])
 				fmt.Printf("预计目标位置: 最低=%f, 最高=%f\n", pLow, pHigh)
 			}
 			return pHigh, true

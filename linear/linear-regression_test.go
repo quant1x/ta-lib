@@ -2,13 +2,13 @@ package linear
 
 import (
 	"fmt"
+	"gitee.com/quant1x/engine/datasets"
 	"gitee.com/quant1x/pandas/stat"
-	"gitee.com/quant1x/ta-lib/testfiles"
 	"testing"
 )
 
 func TestPredictStock(t *testing.T) {
-	df := testfiles.LoadTestData()
+	df := datasets.KLine("002528")
 	fmt.Println(df)
 	length := df.Nrow() - 1
 	df1 := df.Subset(length-3, length)
