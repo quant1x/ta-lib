@@ -2,7 +2,7 @@ package linear
 
 import (
 	"fmt"
-	"gitee.com/quant1x/engine/datasets"
+	"gitee.com/quant1x/engine/factors"
 	"gitee.com/quant1x/pandas"
 	"gitee.com/quant1x/pandas/stat"
 	"gonum.org/v1/plot"
@@ -17,7 +17,7 @@ func TestFindPeaks(t *testing.T) {
 	code = "sz002528"
 	code = "sh600602"
 	length := 89
-	df := datasets.KLine(code)
+	df := factors.KLine(code)
 	df = df.Subset(df.Nrow()-length, df.Nrow())
 	fmt.Println(df)
 	vh := df.Col("close")

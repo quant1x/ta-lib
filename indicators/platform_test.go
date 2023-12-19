@@ -2,7 +2,7 @@ package indicators
 
 import (
 	"fmt"
-	"gitee.com/quant1x/engine/datasets"
+	"gitee.com/quant1x/engine/factors"
 	"testing"
 )
 
@@ -27,7 +27,7 @@ func TestPlatform(t *testing.T) {
 	code = "sz300678"
 	code = "sh605162"
 	code = "sz002992"
-	df := datasets.KLine(code)
+	df := factors.KLine(code)
 	fmt.Println(df)
 	df1 := Platform(df)
 	fmt.Println(df1)

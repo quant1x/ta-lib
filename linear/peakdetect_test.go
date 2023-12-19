@@ -2,7 +2,7 @@ package linear
 
 import (
 	"fmt"
-	"gitee.com/quant1x/engine/datasets"
+	"gitee.com/quant1x/engine/factors"
 	"gitee.com/quant1x/pandas"
 	"gitee.com/quant1x/pandas/stat"
 	"testing"
@@ -14,7 +14,7 @@ func TestPeakDetect(t *testing.T) {
 	//code = "sz002951"
 	code = "sh600602"
 	length := 89
-	df := datasets.KLine(code)
+	df := factors.KLine(code)
 	df = df.Subset(df.Nrow()-length, df.Nrow())
 	fmt.Println(df)
 	//v := [...]float64{0.0, 1.0, 2.0, 1.0, 0.0, -1.0, 0.0, 3.0, 0.0}

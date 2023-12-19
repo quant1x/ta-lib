@@ -2,7 +2,7 @@ package indicators
 
 import (
 	"fmt"
-	"gitee.com/quant1x/engine/datasets"
+	"gitee.com/quant1x/engine/factors"
 	"testing"
 )
 
@@ -22,7 +22,7 @@ func TestW(t *testing.T) {
 	code = "sh603528"
 	code = "000888"
 	code = "sh000001"
-	df := datasets.KLine(code)
+	df := factors.KLine(code)
 	//df = df.SelectRows(stat.RangeFinite(0, -5))
 	fmt.Println(df)
 	fmt.Printf("   证券代码: %s\n", code)
