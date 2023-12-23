@@ -3,16 +3,16 @@ module gitee.com/quant1x/ta-lib
 go 1.21.5
 
 require (
-	gitee.com/quant1x/engine v0.8.8
-	gitee.com/quant1x/gotdx v1.17.9
-	gitee.com/quant1x/gox v1.15.8
-	gitee.com/quant1x/pandas v1.2.5
+	gitee.com/quant1x/engine v0.9.6
+	gitee.com/quant1x/gotdx v1.18.1
+	gitee.com/quant1x/gox v1.16.2
+	gitee.com/quant1x/pandas v1.2.6
 	gonum.org/v1/plot v0.14.0
 )
 
 require (
 	git.sr.ht/~sbinet/gg v0.5.0 // indirect
-	gitee.com/quant1x/pkg v0.1.5 // indirect
+	gitee.com/quant1x/pkg v0.1.7 // indirect
 	github.com/ajstarks/svgo v0.0.0-20211024235047-1546f124cd8b // indirect
 	github.com/campoy/embedmd v1.0.0 // indirect
 	github.com/dlclark/regexp2 v1.10.0 // indirect
@@ -34,7 +34,7 @@ require (
 	github.com/rogpeppe/go-internal v1.11.0 // indirect
 	github.com/shabbyrobe/xmlwriter v0.0.0-20230525083848-85336ec334fa // indirect
 	github.com/tealeg/xlsx/v3 v3.3.4 // indirect
-	golang.org/x/exp v0.0.0-20231206192017-f3f8817b8deb // indirect
+	golang.org/x/exp v0.0.0-20231219180239-dc181d75b848 // indirect
 	golang.org/x/image v0.14.0 // indirect
 	golang.org/x/sys v0.15.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
