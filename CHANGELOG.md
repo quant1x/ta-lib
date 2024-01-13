@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.3.2] - 2024-01-13
+### Changed
+- 适配新版本的engine.
+
 ## [0.3.1] - 2023-12-24
 ### Changed
 - 适配新版本的engine.
@@ -75,7 +79,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - 第一次提交.
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.3.1...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.3.2...HEAD
+[0.3.2]: https://gitee.com/quant1x/ta-lib/compare/v0.3.1...v0.3.2
 [0.3.1]: https://gitee.com/quant1x/ta-lib/compare/v0.3.0...v0.3.1
 [0.3.0]: https://gitee.com/quant1x/ta-lib/compare/v0.2.1...v0.3.0
 [0.2.1]: https://gitee.com/quant1x/ta-lib/compare/v0.2.0...v0.2.1
