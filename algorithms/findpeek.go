@@ -5,7 +5,8 @@ import (
 	"strings"
 )
 
-type FindPeeks struct {
+// PeeksAndValleys 波峰波谷
+type PeeksAndValleys struct {
 	Data      []float64 // 原始数据
 	Diff      []float64 // 一阶差分
 	PosPeak   []int     // 波峰位置存储
@@ -14,13 +15,13 @@ type FindPeeks struct {
 	Vcnt      int       // 所识别的波谷计数
 }
 
-func InitPV(data []float64) *FindPeeks {
+// InitPV 创建并初始化波峰波谷
+func InitPV(data []float64) *PeeksAndValleys {
 	n := len(data)
 	if n == 0 {
 		return nil
 	}
-
-	pv := FindPeeks{
+	pv := PeeksAndValleys{
 		Data:      data,
 		Diff:      make([]float64, n),
 		PosPeak:   make([]int, n),
@@ -38,13 +39,10 @@ func InitPV(data []float64) *FindPeeks {
 }
 
 // Find 找波峰波谷
-func (this *FindPeeks) Find() {
+func (this *PeeksAndValleys) Find() {
 	n := len(this.Data)
 	//step 1 :首先进行前向差分，并归一化
-	for i := 0; i < n; i++ {
-		if i+1 == n {
-			break
-		}
+	for i := 0; i < n-1; i++ {
 		//int samplei=Sample[i]/1000;
 		c := this.Data[i]
 		//int samplei1=Sample[i+1]/1000;
@@ -91,7 +89,7 @@ func (this *FindPeeks) Find() {
 	}
 }
 
-func (this *FindPeeks) String() string {
+func (this *PeeksAndValleys) String() string {
 	sb := strings.Builder{}
 	sb.WriteString(fmt.Sprintf("Peak count %d \n", this.Pcnt))
 	for _, v := range this.PosPeak {
