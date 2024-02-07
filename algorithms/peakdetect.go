@@ -40,6 +40,7 @@ type peakDetector struct {
 // Brakel, J.P.G. van (2014). "Robust peak detection algorithm using z-scores". Stack Overflow. Available
 // at: https://stackoverflow.com/questions/22583391/peak-signal-detection-in-realtime-timeseries-data/22640362#22640362
 // (version: 2020-11-08).
+// Deprecated: 原理需要设置阀值, 不推荐使用 [wangfeng on 2024/2/7 11:20]
 type PeakDetector interface {
 	// Initialize initializes the PeakDetector with its configuration and initialValues. The initialValues are the first
 	// values to be processed by the PeakDetector. The length of these values are used to configure the PeakDetector's
