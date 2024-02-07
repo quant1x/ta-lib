@@ -9,6 +9,8 @@ import (
 
 func TestM(t *testing.T) {
 	code := "sh000001"
+	//code = "sh600178"
+	//code = "603066"
 	df := factors.KLine(code)
 	//df = df.SelectRows(stat.RangeFinite(0, -5))
 	fmt.Println(df)

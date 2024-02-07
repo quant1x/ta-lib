@@ -22,6 +22,8 @@ func TestW(t *testing.T) {
 	code = "sh603528"
 	code = "000888"
 	code = "sh000001"
+	//code = "sh600178"
+	//code = "603066"
 	df := factors.KLine(code)
 	//df = df.SelectRows(stat.RangeFinite(0, -5))
 	fmt.Println(df)
