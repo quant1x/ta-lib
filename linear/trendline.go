@@ -2,6 +2,7 @@ package linear
 
 import (
 	"fmt"
+	"gitee.com/quant1x/num"
 	"gitee.com/quant1x/pandas"
 	"gitee.com/quant1x/pandas/stat"
 )
@@ -30,7 +31,7 @@ func TrendLine(raw pandas.DataFrame) pandas.DataFrame {
 		zcY1 = minv[w-2]
 		zcX2 = mini[w-1]
 		zcY2 = minv[w-1]
-		zcSlope = stat.Slope(zcX1, zcY1, zcX2, zcY2)
+		zcSlope = num.Slope(zcX1, zcY1, zcX2, zcY2)
 		fmt.Println("波谷x =", mini)
 		fmt.Println("波谷y =", minv)
 		//fmt.Println("波峰x =", maxi)
@@ -48,7 +49,7 @@ func TrendLine(raw pandas.DataFrame) pandas.DataFrame {
 		ylY1 = maxv[w-2]
 		ylX2 = maxi[w-1]
 		ylY2 = maxv[w-1]
-		ylSlope = stat.Slope(ylX1, ylY1, ylX2, ylY2)
+		ylSlope = num.Slope(ylX1, ylY1, ylX2, ylY2)
 		//fmt.Println("波谷x =", mini)
 		//fmt.Println("波谷y =", minv)
 		fmt.Println("波峰x =", maxi)
@@ -58,17 +59,17 @@ func TrendLine(raw pandas.DataFrame) pandas.DataFrame {
 	fmt.Println("支撑趋势线斜率 =", zcSlope, "压力趋势线斜率 =", ylSlope)
 	CLOSE := df.Col("close")
 	length := raw.Nrow()
-	tZc := make([]stat.DType, length)
-	tYl := make([]stat.DType, length)
+	tZc := make([]num.DType, length)
+	tYl := make([]num.DType, length)
 	cross := make([]bool, length)
 	pos := length - MaximumTrendPeriod
 	CLOSE.Apply(func(idx int, v any) {
 		//vf := stat.AnyToFloat64(v)
 		if idx >= zcX1 {
-			tZc[pos+idx] = stat.TriangleBevel(zcSlope, zcX1, zcY1, idx)
+			tZc[pos+idx] = num.TriangleBevel(zcSlope, zcX1, zcY1, idx)
 		}
 		if idx >= ylX1 {
-			tYl[pos+idx] = stat.TriangleBevel(ylSlope, ylX1, ylY1, idx)
+			tYl[pos+idx] = num.TriangleBevel(ylSlope, ylX1, ylY1, idx)
 		}
 	})
 	zc := pandas.NewSeries(stat.SERIES_TYPE_DTYPE, "zc", tZc)
@@ -97,7 +98,7 @@ func CrossTrend(raw pandas.DataFrame) pandas.DataFrame {
 		ylY1 = maxv[w-2]
 		ylX2 = maxi[w-1]
 		ylY2 = maxv[w-1]
-		ylSlope = stat.Slope(ylX1, ylY1, ylX2, ylY2)
+		ylSlope = num.Slope(ylX1, ylY1, ylX2, ylY2)
 		//fmt.Println("波谷x =", mini)
 		//fmt.Println("波谷y =", minv)
 		//fmt.Println("波峰x =", maxi)
@@ -107,14 +108,14 @@ func CrossTrend(raw pandas.DataFrame) pandas.DataFrame {
 	//fmt.Println("压力趋势线斜率 =", ylSlope)
 	CLOSE := df.Col("close")
 	length := raw.Nrow()
-	tZc := make([]stat.DType, length)
-	tYl := make([]stat.DType, length)
+	tZc := make([]num.DType, length)
+	tYl := make([]num.DType, length)
 	cross := make([]bool, length)
 	pos := length - MaximumTrendPeriod
 	CLOSE.Apply(func(idx int, v any) {
-		vf := stat.AnyToFloat64(v)
+		vf := num.AnyToFloat64(v)
 		if idx >= ylX1 {
-			tYl[pos+idx] = stat.TriangleBevel(ylSlope, ylX1, ylY1, idx)
+			tYl[pos+idx] = num.TriangleBevel(ylSlope, ylX1, ylY1, idx)
 		}
 		if vf > tYl[pos+idx] {
 			cross[pos+idx] = true

@@ -2,6 +2,7 @@ package linear
 
 import (
 	"gitee.com/quant1x/gox/api"
+	"gitee.com/quant1x/num"
 	"gitee.com/quant1x/pandas/stat"
 )
 
@@ -21,25 +22,25 @@ func CurveRegression(S stat.Series, argv ...int) stat.Series {
 	}
 
 	y := S.Select(api.RangeFinite(-N)).DTypes()
-	x := stat.Arange[stat.DType](1, float64(N)+1, 1)
-	t1 := stat.Pow[stat.DType](x, 2)
+	x := num.Arange[num.DType](1, float64(N)+1, 1)
+	t1 := num.Pow[num.DType](x, 2)
 	t2 := x
-	t3 := stat.Ones[stat.DType](x)
+	t3 := num.Ones[num.DType](x)
 
-	A := stat.Concat1D(t1, t2, t3)
-	T := stat.Transpose2D(A)
+	A := num.Concat1D(t1, t2, t3)
+	T := num.Transpose2D(A)
 
-	w0 := stat.Dot2D[stat.DType](T, A)
-	w1 := stat.Inverse(w0)
+	w0 := num.Dot2D[num.DType](T, A)
+	w1 := num.Inverse(w0)
 
-	w2 := stat.Dot2D(w1, T)
-	W := stat.Dot2D1[stat.DType](w2, y)
+	w2 := num.Dot2D(w1, T)
+	W := num.Dot2D1[num.DType](w2, y)
 
-	d1 := stat.Arange[stat.DType](1, stat.DType(N)+2, 1)
+	d1 := num.Arange[num.DType](1, num.DType(N)+2, 1)
 
-	d21 := stat.Pow(d1, 2)
-	d2 := stat.NDArray[stat.DType](d21).Mul(W[0])
-	d3 := stat.NDArray[stat.DType](d1).Mul(W[1]).Add(W[2])
+	d21 := num.Pow(d1, 2)
+	d2 := stat.NDArray[num.DType](d21).Mul(W[0])
+	d3 := stat.NDArray[num.DType](d1).Mul(W[1]).Add(W[2])
 
 	D := d2.Add(d3)
 	return D
