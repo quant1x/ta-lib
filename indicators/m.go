@@ -2,13 +2,13 @@ package indicators
 
 import (
 	"fmt"
+	"gitee.com/quant1x/num"
 	"gitee.com/quant1x/pandas"
-	"gitee.com/quant1x/pandas/stat"
 	"gitee.com/quant1x/ta-lib/linear"
 )
 
 // M M头跌破颈线
-func M(raw pandas.DataFrame, argv ...bool) (stat.DType, bool) {
+func M(raw pandas.DataFrame, argv ...bool) (num.DType, bool) {
 	const (
 		__delta = float64(0)
 		//__delta = linear.TrendDelta

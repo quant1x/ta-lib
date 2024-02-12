@@ -1,9 +1,9 @@
 package sample
 
 import (
+	"gitee.com/quant1x/num"
 	"gitee.com/quant1x/pandas"
 	. "gitee.com/quant1x/pandas/formula"
-	"gitee.com/quant1x/pandas/stat"
 )
 
 // ConfidenceInterval 置信区间(Confidence Interval, CI)
@@ -20,18 +20,18 @@ func ConfidenceInterval(df pandas.DataFrame, argv ...int) pandas.DataFrame {
 	)
 	if len(argv) > 0 {
 		__n := argv[0]
-		N = stat.Repeat[stat.DType](stat.DType(__n), LEN)
+		N = num.Repeat[num.DType](num.DType(__n), LEN)
 	}
 	mid := MA(CLOSE, N)
 	variance := STD(CLOSE, N)
-	Z := stat.ConfidenceIntervalToZscore(CI)
+	Z := num.ConfidenceIntervalToZscore(CI)
 	sd := variance.Mul(Z)
 	UP := mid.Add(sd)
 	LOWER := mid.Sub(sd)
 
 	B := LOW.Gt(LOWER).And(HIGH.Lt(UP))
 	df = pandas.NewDataFrame(df.Col("date"))
-	ob := pandas.NewSeries(stat.SERIES_TYPE_BOOL, "cib", B)
+	ob := pandas.NewSeries(pandas.SERIES_TYPE_BOOL, "cib", B)
 	df = df.Join(ob)
 	return df
 }

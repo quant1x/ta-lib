@@ -1,9 +1,9 @@
 package indicators
 
 import (
+	"gitee.com/quant1x/num"
 	"gitee.com/quant1x/pandas"
 	. "gitee.com/quant1x/pandas/formula"
-	"gitee.com/quant1x/pandas/stat"
 )
 
 // Platform 平台整理
@@ -54,8 +54,8 @@ func Platform(df pandas.DataFrame) pandas.DataFrame {
 	SL21 := BARSLASTCOUNT(SL.Lte(0.50))
 	//{为REF修复SL21,需要-1}
 	//SL2:=IFF(SL21>0,SL21-1,DRAWNULL),NODRAW;
-	nan := stat.Repeat(stat.NaN(), DATALEN)
-	null := stat.NewSeries[stat.DType](nan...)
+	nan := num.Repeat(num.NaN(), DATALEN)
+	null := pandas.ToSeries[num.DType](nan...)
 	SL2 := IFF(SL21.Gt(0), SL21.Sub(1), null)
 	//SL2 := SL21.Sub(1)
 	//SL2 = SL21
@@ -71,17 +71,17 @@ func Platform(df pandas.DataFrame) pandas.DataFrame {
 	//缩量L:REF(STL,SLN),DOTLINE,COLORLIGREEN;
 	SLL := REF(STL, SLN)
 
-	oBlN := pandas.NewSeries(stat.SERIES_TYPE_DTYPE, "BLN", BLN)
-	oBlH := pandas.NewSeries(stat.SERIES_TYPE_DTYPE, "BLH", BLH)
-	oBlL := pandas.NewSeries(stat.SERIES_TYPE_DTYPE, "BLL", BLL)
-	oBlzc := pandas.NewSeries(stat.SERIES_TYPE_DTYPE, "BLZC", BLZC)
-	oSL := pandas.NewSeries(stat.SERIES_TYPE_DTYPE, "SL", SL)
-	oBLVH := pandas.NewSeries(stat.SERIES_TYPE_DTYPE, "BLVH", BLVH)
-	//oBLVHN := pandas.NewSeries(stat.SERIES_TYPE_DTYPE, "BLVHN", BLVHN)
-	oSlN := pandas.NewSeries(stat.SERIES_TYPE_DTYPE, "SLN", SLN)
-	//oSlNx := pandas.NewSeries(stat.SERIES_TYPE_DTYPE, "SLNx", SL20)
-	oSlH := pandas.NewSeries(stat.SERIES_TYPE_DTYPE, "SLH", SLH)
-	oSlL := pandas.NewSeries(stat.SERIES_TYPE_DTYPE, "SLL", SLL)
+	oBlN := pandas.NewSeries(pandas.SERIES_TYPE_DTYPE, "BLN", BLN)
+	oBlH := pandas.NewSeries(pandas.SERIES_TYPE_DTYPE, "BLH", BLH)
+	oBlL := pandas.NewSeries(pandas.SERIES_TYPE_DTYPE, "BLL", BLL)
+	oBlzc := pandas.NewSeries(pandas.SERIES_TYPE_DTYPE, "BLZC", BLZC)
+	oSL := pandas.NewSeries(pandas.SERIES_TYPE_DTYPE, "SL", SL)
+	oBLVH := pandas.NewSeries(pandas.SERIES_TYPE_DTYPE, "BLVH", BLVH)
+	//oBLVHN := pandas.NewSeries(pandas.SERIES_TYPE_DTYPE, "BLVHN", BLVHN)
+	oSlN := pandas.NewSeries(pandas.SERIES_TYPE_DTYPE, "SLN", SLN)
+	//oSlNx := pandas.NewSeries(pandas.SERIES_TYPE_DTYPE, "SLNx", SL20)
+	oSlH := pandas.NewSeries(pandas.SERIES_TYPE_DTYPE, "SLH", SLH)
+	oSlL := pandas.NewSeries(pandas.SERIES_TYPE_DTYPE, "SLL", SLL)
 
 	//B:倍量H<缩量H AND 倍量支撑=REF(倍量支撑,1) AND CROSS(缩量L,倍量支撑),COLORRED,NODRAW;
 	x1 := BLH.Lte(SLH)
@@ -91,18 +91,18 @@ func Platform(df pandas.DataFrame) pandas.DataFrame {
 	//x6 := REF(LOW, 1).Lt(BLZC)
 	//x6 := REF(LOW, 1).Lt(BLZC)
 	b1 := x1.And(x2).And(x3)
-	oB1 := pandas.NewSeries(stat.SERIES_TYPE_BOOL, "B1", b1)
+	oB1 := pandas.NewSeries(pandas.SERIES_TYPE_BOOL, "B1", b1)
 
 	//B1:CROSS(CLOSE,缩量L),NODRAW;
 	b2 := CROSS(CLOSE, SLL)
-	oB2 := pandas.NewSeries(stat.SERIES_TYPE_BOOL, "B2", b2)
+	oB2 := pandas.NewSeries(pandas.SERIES_TYPE_BOOL, "B2", b2)
 	//B2:CROSS(CLOSE,倍量H) AND CROSS(CLOSE,倍量L),NODRAW;
 	b3 := CROSS(CLOSE, BLH).And(CROSS(CLOSE, BLL))
-	oB3 := pandas.NewSeries(stat.SERIES_TYPE_BOOL, "B3", b3)
+	oB3 := pandas.NewSeries(pandas.SERIES_TYPE_BOOL, "B3", b3)
 	mb := BA.Div(BV).Div(100)
 	ms := SA.Div(SV).Div(100)
-	oMb := pandas.NewSeries(stat.SERIES_TYPE_DTYPE, "mb", mb)
-	oMs := pandas.NewSeries(stat.SERIES_TYPE_DTYPE, "ms", ms)
+	oMb := pandas.NewSeries(pandas.SERIES_TYPE_DTYPE, "mb", mb)
+	oMs := pandas.NewSeries(pandas.SERIES_TYPE_DTYPE, "ms", ms)
 	df = df.Join(oBLVH, oBlzc, oBlN, oBlH, oBlL, oSlN, oSlH, oSlL, oSL, oB1, oB2, oB3, oMb, oMs)
 	return df
 }

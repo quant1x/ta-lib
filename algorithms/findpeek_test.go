@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"gitee.com/quant1x/engine/datasource/base"
 	"gitee.com/quant1x/gox/api"
+	"gitee.com/quant1x/num"
 	"gitee.com/quant1x/pandas"
-	"gitee.com/quant1x/pandas/stat"
 	"gitee.com/quant1x/pkg/testify/assert"
 	"gitee.com/quant1x/ta-lib/plot"
 	"github.com/wcharczuk/go-chart/v2"
@@ -475,7 +475,7 @@ func TestFindPeekV1(t *testing.T) {
 	// 输出图表
 	rows = len(data)
 	dataY := data
-	x := stat.Range[float64](rows)
+	x := num.Range[float64](rows)
 	dataX := x
 	font, _ := plot.GetDefaultFont()
 	peekY := make([]float64, 0, pv.Pcnt)
@@ -577,7 +577,7 @@ func TestFindPeek(t *testing.T) {
 	// 输出图表
 	rows = len(data)
 	dataY := data
-	x := stat.Range[float64](rows)
+	x := num.Range[float64](rows)
 	dataX := x
 	font, _ := plot.GetDefaultFont()
 	font.Bounds(1)

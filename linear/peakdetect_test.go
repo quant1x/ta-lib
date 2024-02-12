@@ -3,8 +3,8 @@ package linear
 import (
 	"fmt"
 	"gitee.com/quant1x/engine/factors"
+	"gitee.com/quant1x/num"
 	"gitee.com/quant1x/pandas"
-	"gitee.com/quant1x/pandas/stat"
 	"testing"
 )
 
@@ -54,21 +54,21 @@ func TestPeakDetect(t *testing.T) {
 	x2 = maxi[w-1]
 	y2 = maxv[w-1]
 
-	slope := stat.Slope(x1, y1, x2, y2)
+	slope := num.Slope(x1, y1, x2, y2)
 	fmt.Println("斜率 =", slope)
 	CLOSE := df.Col("close")
 	// slope*float64(xn-x1) + y1
-	p1 := make([]stat.DType, CLOSE.Len())
+	p1 := make([]num.DType, CLOSE.Len())
 	cross := make([]bool, CLOSE.Len())
 	CLOSE.Apply(func(idx int, v any) {
-		vf := stat.AnyToFloat64(v)
+		vf := num.AnyToFloat64(v)
 		if idx > x2 {
-			p1[idx] = stat.TriangleBevel(slope, x1, y1, idx)
+			p1[idx] = num.TriangleBevel(slope, x1, y1, idx)
 			cross[idx] = vf > p1[idx]
 		}
 	})
-	sp := pandas.NewSeries(stat.SERIES_TYPE_DTYPE, "p1", p1)
-	sc := pandas.NewSeries(stat.SERIES_TYPE_BOOL, "cross", cross)
+	sp := pandas.NewSeries(pandas.SERIES_TYPE_DTYPE, "p1", p1)
+	sc := pandas.NewSeries(pandas.SERIES_TYPE_BOOL, "cross", cross)
 	df = df.Join(sp).Join(sc)
 	fmt.Println(df)
 	_ = df.WriteCSV(code + ".csv")

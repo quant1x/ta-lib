@@ -3,7 +3,6 @@ package indicators
 import (
 	"gitee.com/quant1x/pandas"
 	. "gitee.com/quant1x/pandas/formula"
-	"gitee.com/quant1x/pandas/stat"
 )
 
 // MA4X 缠论时间窗口
@@ -47,8 +46,8 @@ func MA4X(df pandas.DataFrame, N int) pandas.DataFrame {
 	s2 := SJ.Gt(70)
 	S := s2.And(s1)
 	//DRAWTEXT(S,H+0.1,'←高抛'),COLOR0077FF;
-	OB := pandas.NewSeries(stat.SERIES_TYPE_BOOL, "B", B)
-	OS := pandas.NewSeries(stat.SERIES_TYPE_BOOL, "S", S)
+	OB := pandas.NewSeries(pandas.SERIES_TYPE_BOOL, "B", B)
+	OS := pandas.NewSeries(pandas.SERIES_TYPE_BOOL, "S", S)
 	//df := pandas.NewDataFrame(OB, OS)
 	df = pandas.NewDataFrame(df.Col("date"), df.Col("close"))
 	df = df.Join(ZX, SJ, ZJ, OB, OS)

@@ -1,9 +1,9 @@
 package indicators
 
 import (
+	"gitee.com/quant1x/num"
 	"gitee.com/quant1x/pandas"
 	. "gitee.com/quant1x/pandas/formula"
-	"gitee.com/quant1x/pandas/stat"
 )
 
 // F89K 89k测试
@@ -35,7 +35,7 @@ func F89K(df pandas.DataFrame, N int) pandas.DataFrame {
 	//{确定⑦}
 	//N7:BARSLAST(H89=HIGH),NODRAW,COLORLIGRAY;
 	x7 := EQ(H89, HIGH)
-	N7 := BARSLAST(stat.NDArray[bool](x7))
+	N7 := BARSLAST(pandas.NDArray[bool](x7))
 	//T7:=REF(HIGH,N7);
 	//T7 := REF(HIGH, N7)
 	//K7:T7,NODRAW,COLORRED;
@@ -45,10 +45,10 @@ func F89K(df pandas.DataFrame, N int) pandas.DataFrame {
 	T8 := LLV(LOW, N7)
 	//N8:BARSLAST(T8=LOW AND N1>N7),NODRAW,COLORLIGRAY;
 	x81 := EQ(T8, LOW)
-	xn1 := stat.Repeat[stat.DType](stat.DType(N1), length)
+	xn1 := num.Repeat[num.DType](num.DType(N1), length)
 	x82 := CompareGt(xn1, N7)
 	x8 := AND(x81, x82)
-	N8 := BARSLAST(stat.NDArray[bool](x8))
+	N8 := BARSLAST(pandas.NDArray[bool](x8))
 	//K8:T8,NODRAW,COLORGREEN;
 	//K8 := T8
 	//{确定⑨}
@@ -161,11 +161,11 @@ func F89K(df pandas.DataFrame, N int) pandas.DataFrame {
 	//B0 := AND(B03, C3)
 	B0 := B03.And(C3)
 	//B:50*B0,COLORYELLOW;
-	OB := pandas.NewSeries(stat.SERIES_TYPE_BOOL, "B", B0)
-	OZS := pandas.NewSeries(stat.SERIES_TYPE_DTYPE, "ZS", ZS_LOW)
+	OB := pandas.NewSeries(pandas.SERIES_TYPE_BOOL, "B", B0)
+	OZS := pandas.NewSeries(pandas.SERIES_TYPE_DTYPE, "ZS", ZS_LOW)
 	//ODT := pandas.NewSeries(stat.SERIES_TYPE_STRING, "date", DATE.Values().([]string))
 	//return pandas.NewDataFrame(ODT, ON9, OK9, ON10, OK10, OB)
-	ODN := pandas.NewSeries(stat.SERIES_TYPE_INT64, "N", DN)
+	ODN := pandas.NewSeries(pandas.SERIES_TYPE_INT64, "N", DN)
 	_ = K9
 	return pandas.NewDataFrame(df.Col("date"), df.Col("open"), df.Col("close"), df.Col("high"), df.Col("low"), OZS, OB, ODN)
 }

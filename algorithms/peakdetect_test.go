@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"gitee.com/quant1x/engine/datasource/base"
 	"gitee.com/quant1x/gox/api"
+	"gitee.com/quant1x/num"
 	"gitee.com/quant1x/pandas"
-	"gitee.com/quant1x/pandas/stat"
 	"gitee.com/quant1x/ta-lib/plot"
 	"github.com/wcharczuk/go-chart/v2" //exposes "chart"
 	"log"
@@ -140,7 +140,7 @@ func TestPeekForGoCharts(t *testing.T) {
 	fmt.Println(signals)
 	println(fmt.Sprintf("1:1 ratio of batch inputs to signal outputs: %t", len(signals) == len(data)))
 	// 输出图表
-	x := stat.Range[float64](CLOSE.Len())
+	x := num.Range[float64](CLOSE.Len())
 	font, _ := plot.GetDefaultFont()
 	peeks := make([]float64, 0, rows)
 	frontValue := float64(0)

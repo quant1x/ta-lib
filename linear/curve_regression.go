@@ -3,7 +3,7 @@ package linear
 import (
 	"gitee.com/quant1x/gox/api"
 	"gitee.com/quant1x/num"
-	"gitee.com/quant1x/pandas/stat"
+	"gitee.com/quant1x/pandas"
 )
 
 // CurveRegression 曲线回归
@@ -12,7 +12,7 @@ import (
 //	https://blog.csdn.net/llittleSun/article/details/115045660
 //	默认只预1个周期
 //	argv 第一个参数为数据长度, 即周期数, 默认为S的长度
-func CurveRegression(S stat.Series, argv ...int) stat.Series {
+func CurveRegression(S pandas.Series, argv ...int) pandas.Series {
 	N := S.Len()
 	if len(argv) > 0 {
 		N = argv[0]
@@ -39,8 +39,8 @@ func CurveRegression(S stat.Series, argv ...int) stat.Series {
 	d1 := num.Arange[num.DType](1, num.DType(N)+2, 1)
 
 	d21 := num.Pow(d1, 2)
-	d2 := stat.NDArray[num.DType](d21).Mul(W[0])
-	d3 := stat.NDArray[num.DType](d1).Mul(W[1]).Add(W[2])
+	d2 := pandas.NDArray[num.DType](d21).Mul(W[0])
+	d3 := pandas.NDArray[num.DType](d1).Mul(W[1]).Add(W[2])
 
 	D := d2.Add(d3)
 	return D

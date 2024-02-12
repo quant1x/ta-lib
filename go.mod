@@ -6,18 +6,15 @@ require (
 	gitee.com/quant1x/engine v1.5.0
 	gitee.com/quant1x/gotdx v1.21.0
 	gitee.com/quant1x/gox v1.19.9
-	gitee.com/quant1x/pandas v1.3.1
+	gitee.com/quant1x/num v0.0.8
+	gitee.com/quant1x/pandas v1.3.2
 	gitee.com/quant1x/pkg v0.2.6
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
 	github.com/wcharczuk/go-chart/v2 v2.1.1
 	gonum.org/v1/plot v0.14.0
 )
 
-replace (
-	gitee.com/quant1x/go-num v0.0.8 => ../go-num
-	gitee.com/quant1x/gox v1.19.9 => ../gox
-	gitee.com/quant1x/pandas v1.3.1 => ../pandas
-)
+replace gitee.com/quant1x/engine v1.5.0 => ../engine
 
 require (
 	git.sr.ht/~sbinet/gg v0.5.0 // indirect
@@ -44,7 +41,6 @@ require (
 	github.com/rogpeppe/go-internal v1.12.0 // indirect
 	github.com/shabbyrobe/xmlwriter v0.0.0-20230525083848-85336ec334fa // indirect
 	github.com/tealeg/xlsx/v3 v3.3.5 // indirect
-	golang.org/x/exp v0.0.0-20240205201215-2c58cdc269a3 // indirect
 	golang.org/x/image v0.15.0 // indirect
 	golang.org/x/sys v0.17.0 // indirect
 	golang.org/x/text v0.14.0 // indirect

@@ -3,7 +3,6 @@ package indicators
 import (
 	"gitee.com/quant1x/pandas"
 	. "gitee.com/quant1x/pandas/formula"
-	"gitee.com/quant1x/pandas/stat"
 )
 
 // CDTD 抄底逃顶
@@ -68,12 +67,12 @@ func CDTD(df pandas.DataFrame) pandas.DataFrame {
 	//STICKLINE(COUNT(趋势线<REF(趋势线,1) AND 趋势线<=5,2)=2,0,20,8,0),COLORRED;
 	//STICKLINE(CROSS(J2,J1) AND J2>=85,100,80,8,0),COLORGREEN;
 	df = pandas.NewDataFrame(df.Col("date"), df.Col("close"))
-	OS1 := pandas.NewSeries(stat.SERIES_TYPE_BOOL, "S1", S1)
-	OS2 := pandas.NewSeries(stat.SERIES_TYPE_BOOL, "S2", S2)
-	OS := pandas.NewSeries(stat.SERIES_TYPE_BOOL, "S", S)
-	OB := pandas.NewSeries(stat.SERIES_TYPE_BOOL, "B", B)
-	OWS := pandas.NewSeries(stat.SERIES_TYPE_BOOL, "WS", WS)
-	OWB := pandas.NewSeries(stat.SERIES_TYPE_BOOL, "WB", WB)
+	OS1 := pandas.NewSeries(pandas.SERIES_TYPE_BOOL, "S1", S1)
+	OS2 := pandas.NewSeries(pandas.SERIES_TYPE_BOOL, "S2", S2)
+	OS := pandas.NewSeries(pandas.SERIES_TYPE_BOOL, "S", S)
+	OB := pandas.NewSeries(pandas.SERIES_TYPE_BOOL, "B", B)
+	OWS := pandas.NewSeries(pandas.SERIES_TYPE_BOOL, "WS", WS)
+	OWB := pandas.NewSeries(pandas.SERIES_TYPE_BOOL, "WB", WB)
 	df = df.Join(OB, OS, OS1, OS2, OWS, OWB)
 	return df
 }

@@ -2,12 +2,12 @@ package indicators
 
 import (
 	"fmt"
+	"gitee.com/quant1x/num"
 	"gitee.com/quant1x/pandas"
-	"gitee.com/quant1x/pandas/stat"
 	"gitee.com/quant1x/ta-lib/linear"
 )
 
-func MAX_GO[T stat.Ordered](a, b T) (x, y T) {
+func MAX_GO[T num.Ordered](a, b T) (x, y T) {
 	if a >= b {
 		return a, b
 	}
@@ -15,7 +15,7 @@ func MAX_GO[T stat.Ordered](a, b T) (x, y T) {
 }
 
 // W W底突破颈线
-func W(raw pandas.DataFrame, argv ...bool) (stat.DType, bool) {
+func W(raw pandas.DataFrame, argv ...bool) (num.DType, bool) {
 	const (
 		//__delta = float64(0.0191)
 		__delta = linear.TrendDelta

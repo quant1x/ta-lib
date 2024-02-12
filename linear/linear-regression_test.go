@@ -3,7 +3,7 @@ package linear
 import (
 	"fmt"
 	"gitee.com/quant1x/engine/factors"
-	"gitee.com/quant1x/pandas/stat"
+	"gitee.com/quant1x/num"
 	"testing"
 )
 
@@ -28,7 +28,7 @@ func TestPredictStock(t *testing.T) {
 	}
 
 	fmt.Println("------------------------------------------------------------")
-	p1 := stat.PolyFit(y, x, 2)
+	p1 := num.PolyFit(y, x, 2)
 	fmt.Println("p1 =", p1)
 	fmt.Println("------------------------------------------------------------")
 
@@ -43,17 +43,17 @@ func TestPredictStock(t *testing.T) {
 func TestPolyFit(t *testing.T) {
 	x := []float64{0.0, 0.1, 0.2, 0.3, 0.5, 0.8, 1.0}
 	y := []float64{1.0, 0.41, 0.50, 0.61, 0.91, 2.02, 2.46}
-	A := stat.PolyFit(x, y, 2)
+	A := num.PolyFit(x, y, 2)
 	fmt.Println("A =", A)
 
 	//A2 := []float64{3.131561350718812, -1.2400367769976413, 0.7355767301905694}
-	z1 := stat.PolyVal(A, x)
+	z1 := num.PolyVal(A, x)
 	fmt.Println("z1 =", z1)
 
 	W := 5
-	A2 := stat.PolyFit(y, stat.Range[float64](W), 1)
+	A2 := num.PolyFit(y, num.Range[float64](W), 1)
 	fmt.Println("A2 =", A2)
-	x2 := stat.Repeat[float64](float64(W), W)
-	z2 := stat.PolyVal(A2, x2)
+	x2 := num.Repeat[float64](float64(W), W)
+	z2 := num.PolyVal(A2, x2)
 	fmt.Println("z2 =", z2)
 }
