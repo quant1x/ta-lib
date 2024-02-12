@@ -3,6 +3,19 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.3.4] - 2024-02-12
+### Changed
+- 更新依赖库版本.
+- 更新依赖库版本.
+- 调整波峰波谷结构体名.
+- 调整m头和w底测试代码.
+- 新增FindPeeks查找波峰波谷功能.
+- 测试PeekDetect功能.
+- 测试PeekDetect功能.
+- 调试绘图用法.
+- 新增series整型索引函数.
+- 新增默认的字体SimHei.
+
 ## [0.3.3] - 2024-01-28
 ### Changed
 - 更新pandas版本.
@@ -83,7 +96,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - 第一次提交.
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.3.3...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.3.4...HEAD
+[0.3.4]: https://gitee.com/quant1x/ta-lib/compare/v0.3.3...v0.3.4
 [0.3.3]: https://gitee.com/quant1x/ta-lib/compare/v0.3.2...v0.3.3
 [0.3.2]: https://gitee.com/quant1x/ta-lib/compare/v0.3.1...v0.3.2
 [0.3.1]: https://gitee.com/quant1x/ta-lib/compare/v0.3.0...v0.3.1
