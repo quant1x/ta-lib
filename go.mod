@@ -3,7 +3,7 @@ module gitee.com/quant1x/ta-lib
 go 1.21.5
 
 require (
-	gitee.com/quant1x/engine v1.5.0
+	gitee.com/quant1x/engine v1.5.1
 	gitee.com/quant1x/gotdx v1.21.0
 	gitee.com/quant1x/gox v1.19.9
 	gitee.com/quant1x/num v0.0.8
@@ -13,8 +13,6 @@ require (
 	github.com/wcharczuk/go-chart/v2 v2.1.1
 	gonum.org/v1/plot v0.14.0
 )
-
-replace gitee.com/quant1x/engine v1.5.0 => ../engine
 
 require (
 	git.sr.ht/~sbinet/gg v0.5.0 // indirect
