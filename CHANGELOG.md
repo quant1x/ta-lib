@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.3.8] - 2024-02-19
+### Changed
+- 适配新版本pandas.
+
 ## [0.3.7] - 2024-02-19
 ### Changed
 - 调整series函数.
@@ -108,7 +112,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - 第一次提交.
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.3.7...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.3.8...HEAD
+[0.3.8]: https://gitee.com/quant1x/ta-lib/compare/v0.3.7...v0.3.8
 [0.3.7]: https://gitee.com/quant1x/ta-lib/compare/v0.3.6...v0.3.7
 [0.3.6]: https://gitee.com/quant1x/ta-lib/compare/v0.3.5...v0.3.6
 [0.3.5]: https://gitee.com/quant1x/ta-lib/compare/v0.3.4...v0.3.5
