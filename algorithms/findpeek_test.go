@@ -554,7 +554,7 @@ func TestFindPeekV1(t *testing.T) {
 
 func TestFindPeek(t *testing.T) {
 	code := "sh000001"
-	date := "20240206"
+	date := "20240219"
 	klines := base.CheckoutKLines(code, date)
 	if len(klines) == 0 {
 		return
@@ -589,7 +589,7 @@ func TestFindPeek(t *testing.T) {
 		if i >= pv.Pcnt {
 			break
 		}
-		fmt.Println("\t", DATE[v], pv.Data[v])
+		fmt.Println("\t", i, DATE[v], pv.Data[v])
 		peekX = append(peekX, float64(v))
 		peekY = append(peekY, pv.Data[v])
 	}
@@ -597,10 +597,10 @@ func TestFindPeek(t *testing.T) {
 	valleyX := make([]float64, 0, pv.Vcnt)
 	valleyY := make([]float64, 0, pv.Vcnt)
 	for i, v := range pv.PosValley {
-		if i >= pv.Pcnt {
+		if i >= pv.Vcnt {
 			break
 		}
-		fmt.Println("\t", DATE[v], pv.Data[v])
+		fmt.Println("\t", i, DATE[v], pv.Data[v])
 		valleyX = append(valleyX, float64(v))
 		valleyY = append(valleyY, pv.Data[v])
 	}

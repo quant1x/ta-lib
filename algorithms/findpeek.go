@@ -43,11 +43,8 @@ func (this *PeeksAndValleys) Find() {
 	n := len(this.Data)
 	//step 1 :首先进行前向差分，并归一化
 	for i := 0; i < n-1; i++ {
-		//int samplei=Sample[i]/1000;
 		c := this.Data[i]
-		//int samplei1=Sample[i+1]/1000;
 		b := this.Data[i+1]
-		//printf("%d   %d \n",samplei1,samplei);
 		if b-c > 0 {
 			this.Diff[i] = 1
 		} else if b-c < 0 {
