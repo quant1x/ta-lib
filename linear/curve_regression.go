@@ -39,8 +39,8 @@ func CurveRegression(S pandas.Series, argv ...int) pandas.Series {
 	d1 := num.Arange[num.DType](1, num.DType(N)+2, 1)
 
 	d21 := num.Pow(d1, 2)
-	d2 := pandas.NDArray[num.DType](d21).Mul(W[0])
-	d3 := pandas.NDArray[num.DType](d1).Mul(W[1]).Add(W[2])
+	d2 := pandas.ToSeries(d21...).Mul(W[0])
+	d3 := pandas.ToSeries(d1...).Mul(W[1]).Add(W[2])
 
 	D := d2.Add(d3)
 	return D

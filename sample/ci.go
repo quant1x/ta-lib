@@ -31,7 +31,7 @@ func ConfidenceInterval(df pandas.DataFrame, argv ...int) pandas.DataFrame {
 
 	B := LOW.Gt(LOWER).And(HIGH.Lt(UP))
 	df = pandas.NewDataFrame(df.Col("date"))
-	ob := pandas.NewSeries(pandas.SERIES_TYPE_BOOL, "cib", B)
+	ob := pandas.NewSeriesWithType(pandas.SERIES_TYPE_BOOL, "cib", B)
 	df = df.Join(ob)
 	return df
 }

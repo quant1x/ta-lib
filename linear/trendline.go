@@ -71,9 +71,9 @@ func TrendLine(raw pandas.DataFrame) pandas.DataFrame {
 			tYl[pos+idx] = num.TriangleBevel(ylSlope, ylX1, ylY1, idx)
 		}
 	})
-	zc := pandas.NewSeries(pandas.SERIES_TYPE_DTYPE, "zc", tZc)
-	yl := pandas.NewSeries(pandas.SERIES_TYPE_DTYPE, "yl", tYl)
-	sc := pandas.NewSeries(pandas.SERIES_TYPE_BOOL, "cross", cross)
+	zc := pandas.NewSeriesWithType(pandas.SERIES_TYPE_DTYPE, "zc", tZc)
+	yl := pandas.NewSeriesWithType(pandas.SERIES_TYPE_DTYPE, "yl", tYl)
+	sc := pandas.NewSeriesWithType(pandas.SERIES_TYPE_BOOL, "cross", cross)
 	df = raw.Join(zc).Join(yl).Join(sc)
 	return df
 }
@@ -120,9 +120,9 @@ func CrossTrend(raw pandas.DataFrame) pandas.DataFrame {
 			cross[pos+idx] = true
 		}
 	})
-	zc := pandas.NewSeries(pandas.SERIES_TYPE_DTYPE, "zc", tZc)
-	yl := pandas.NewSeries(pandas.SERIES_TYPE_DTYPE, "yl", tYl)
-	sc := pandas.NewSeries(pandas.SERIES_TYPE_BOOL, "cross", cross)
+	zc := pandas.NewSeriesWithType(pandas.SERIES_TYPE_DTYPE, "zc", tZc)
+	yl := pandas.NewSeriesWithType(pandas.SERIES_TYPE_DTYPE, "yl", tYl)
+	sc := pandas.NewSeriesWithType(pandas.SERIES_TYPE_BOOL, "cross", cross)
 	df = raw.Join(zc).Join(yl).Join(sc)
 	_ = mini
 	_ = minv
