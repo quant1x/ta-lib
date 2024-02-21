@@ -12,6 +12,7 @@ import (
 	"gitee.com/quant1x/ta-lib/plot"
 	"github.com/wcharczuk/go-chart/v2"
 	"github.com/wcharczuk/go-chart/v2/drawing"
+	"math"
 	"math/rand"
 	"os"
 	"testing"
@@ -554,7 +555,7 @@ func TestFindPeekV1(t *testing.T) {
 
 func TestFindPeek(t *testing.T) {
 	code := "sh000001"
-	date := "20240219"
+	date := "20240221"
 	klines := base.CheckoutKLines(code, date)
 	if len(klines) == 0 {
 		return
@@ -604,7 +605,51 @@ func TestFindPeek(t *testing.T) {
 		valleyX = append(valleyX, float64(v))
 		valleyY = append(valleyY, pv.Data[v])
 	}
+	// 找到最后2个波谷
+	vn := len(valleyX)
+	leftX := valleyX[vn-2]
+	leftY := valleyY[vn-2]
+	rightX := valleyX[vn-1]
+	rightY := valleyY[vn-1]
+	fmt.Println("最近的两个底部")
+	fmt.Println("\t=> 左:", leftX, leftY)
+	fmt.Println("\t=> 右:", rightX, rightY)
+	fmt.Println("计算斜率")
+	xl := num.Slope(int(leftX), leftY, int(rightX), rightY)
+	fmt.Println("\t=>", xl)
+	// 找到最后一个波峰
+	fmt.Println("最近的波峰")
+	pn := len(peekX)
+	// 颈线的点
+	neckPointX := int(peekX[pn-1])
+	neckPointY := peekY[pn-1]
+	fmt.Println("\t颈线:", neckPointX, neckPointY)
+	fmt.Println("计算目前为止")
+	//cjx := num.TriangleBevel(xl, neckPointX, neckPointY, rows-neckPointX)
+	supportLine := calculateLineEquation(Point{x: leftX, y: leftY}, Point{x: rightX, y: rightY})
+	neckLine := calculateEquidistantLine(supportLine, Point{x: float64(neckPointX), y: neckPointY})
+	fmt.Println("\t目前颈线所在位置", neckLine.m*float64(rows-1)+neckLine.c)
+	pressurePointX := neckPointX
+	supportY := supportLine.m*float64(pressurePointX) + supportLine.c
+	d := neckPointY - supportY
+	pressurePointY := neckPointY + d
+	pressureLine := calculateEquidistantLine(neckLine, Point{x: float64(pressurePointX), y: pressurePointY})
+	//high := pressureLine.m*float64(rows-1) + pressureLine.c
+	neckX := []float64{float64(neckPointX), float64(rows - 1)}
+	neckY := []float64{neckLine.m*float64(neckPointX) + neckLine.c, neckLine.m*float64(rows-1) + neckLine.c}
+	pressureX := []float64{float64(neckPointX), float64(rows - 1)}
+	pressureY := []float64{pressurePointY, pressureLine.m*float64(rows-1) + pressureLine.c}
+	fmt.Println("\t", pressureY)
+	fmt.Println("\t", pressureLine.m*float64(rows)+pressureLine.c)
+	neckValue := neckPointY - math.Abs(leftY-rightY)
+	pressureMin := neckValue*2 - rightY
+	pressureMax := neckValue*2 - leftY
+	if pressureMin > pressureMax {
+		pressureMin, pressureMax = pressureMax, pressureMin
+	}
+	fmt.Println("\t反弹高度", pressureMin, "~", pressureMax)
 	_ = frontValue
+
 	xAxisFormat := func(v interface{}) string {
 		f := v.(float64)
 		idx := int(f)
@@ -644,8 +689,25 @@ func TestFindPeek(t *testing.T) {
 				XValueFormatter: xAxisFormat,
 				Style:           chart.Style{StrokeColor: chart.ColorGreen},
 			},
+			chart.ContinuousSeries{
+				Name:            "颈线",
+				XValues:         neckX,
+				YValues:         neckY,
+				XValueFormatter: xAxisFormat,
+				Style:           chart.Style{StrokeColor: chart.ColorBlue},
+			},
+			chart.ContinuousSeries{
+				Name:            "压力线",
+				XValues:         pressureX,
+				YValues:         pressureY,
+				XValueFormatter: xAxisFormat,
+				Style:           chart.Style{StrokeColor: chart.ColorRed},
+			},
 		},
 	}
+
+	//_ = pressureX
+	//_ = pressureY
 
 	graph.Elements = []chart.Renderable{
 		chart.LegendLeft(&graph),
