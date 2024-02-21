@@ -680,14 +680,14 @@ func TestFindPeek(t *testing.T) {
 				XValues:         peekX,
 				YValues:         peekY,
 				XValueFormatter: xAxisFormat,
-				Style:           chart.Style{StrokeColor: chart.ColorRed},
+				Style:           chart.Style{StrokeColor: chart.ColorRed, DotWidth: 5, DotColor: chart.ColorRed},
 			},
 			chart.ContinuousSeries{
 				Name:            "波谷",
 				XValues:         valleyX,
 				YValues:         valleyY,
 				XValueFormatter: xAxisFormat,
-				Style:           chart.Style{StrokeColor: chart.ColorGreen},
+				Style:           chart.Style{StrokeColor: chart.ColorGreen, DotWidth: 5, DotColor: chart.ColorGreen},
 			},
 			chart.ContinuousSeries{
 				Name:            "颈线",
@@ -701,7 +701,7 @@ func TestFindPeek(t *testing.T) {
 				XValues:         pressureX,
 				YValues:         pressureY,
 				XValueFormatter: xAxisFormat,
-				Style:           chart.Style{StrokeColor: chart.ColorRed},
+				Style:           chart.Style{StrokeColor: chart.ColorRed, StrokeDashArray: []float64{5.0, 5.0}},
 			},
 		},
 	}
