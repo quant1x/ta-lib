@@ -555,7 +555,10 @@ func TestFindPeekV1(t *testing.T) {
 
 func TestFindPeek(t *testing.T) {
 	code := "sh000001"
-	date := "20240221"
+	code = "sh603933"
+	code = "sh603230"
+	code = "sh605577"
+	date := "20240222"
 	klines := base.CheckoutKLines(code, date)
 	if len(klines) == 0 {
 		return
@@ -639,8 +642,8 @@ func TestFindPeek(t *testing.T) {
 	neckY := []float64{neckLine.m*float64(neckPointX) + neckLine.c, neckLine.m*float64(rows-1) + neckLine.c}
 	pressureX := []float64{float64(neckPointX), float64(rows - 1)}
 	pressureY := []float64{pressurePointY, pressureLine.m*float64(rows-1) + pressureLine.c}
-	fmt.Println("\t", pressureY)
-	fmt.Println("\t", pressureLine.m*float64(rows)+pressureLine.c)
+	fmt.Println("\t最近压力", pressureY)
+	fmt.Println("\t明天压力", pressureLine.m*float64(rows)+pressureLine.c)
 	neckValue := neckPointY - math.Abs(leftY-rightY)
 	pressureMin := neckValue*2 - rightY
 	pressureMax := neckValue*2 - leftY
@@ -660,6 +663,20 @@ func TestFindPeek(t *testing.T) {
 			//Top:  10,
 			Left: 50,
 		},
+	}
+	jx := chart.ContinuousSeries{
+		Name:            "颈线",
+		XValues:         neckX,
+		YValues:         neckY,
+		XValueFormatter: xAxisFormat,
+		Style:           chart.Style{StrokeColor: chart.ColorBlue},
+	}
+	ylx := chart.ContinuousSeries{
+		Name:            "压力线",
+		XValues:         pressureX,
+		YValues:         pressureY,
+		XValueFormatter: xAxisFormat,
+		Style:           chart.Style{StrokeColor: chart.ColorRed, StrokeDashArray: []float64{5.0, 5.0}},
 	}
 	graph := chart.Chart{
 		Title:      code + "走势图",
@@ -689,20 +706,10 @@ func TestFindPeek(t *testing.T) {
 				XValueFormatter: xAxisFormat,
 				Style:           chart.Style{StrokeColor: chart.ColorGreen, DotWidth: 5, DotColor: chart.ColorGreen},
 			},
-			chart.ContinuousSeries{
-				Name:            "颈线",
-				XValues:         neckX,
-				YValues:         neckY,
-				XValueFormatter: xAxisFormat,
-				Style:           chart.Style{StrokeColor: chart.ColorBlue},
-			},
-			chart.ContinuousSeries{
-				Name:            "压力线",
-				XValues:         pressureX,
-				YValues:         pressureY,
-				XValueFormatter: xAxisFormat,
-				Style:           chart.Style{StrokeColor: chart.ColorRed, StrokeDashArray: []float64{5.0, 5.0}},
-			},
+			jx,
+			chart.LastValueAnnotationSeries(jx),
+			ylx,
+			chart.LastValueAnnotationSeries(ylx),
 		},
 	}
 
