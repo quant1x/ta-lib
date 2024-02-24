@@ -555,10 +555,10 @@ func TestFindPeekV1(t *testing.T) {
 
 func TestFindPeek(t *testing.T) {
 	code := "sh000001"
-	code = "sh603933"
-	code = "sh603230"
-	code = "sh605577"
-	date := "20240222"
+	//code = "sh603933"
+	//code = "sh603230"
+	//code = "sh605577"
+	date := "20240103"
 	klines := base.CheckoutKLines(code, date)
 	if len(klines) == 0 {
 		return
@@ -731,5 +731,6 @@ func TestFindPeek(t *testing.T) {
 		fmt.Println(err)
 		return
 	}
+	//_ = plot.OpenImage(graph)
 	_ = DATE
 }
