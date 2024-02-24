@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.4.0] - 2024-02-25
+### Changed
+- 调整测试代码.
+- 更新依赖库版本.
+- 新增打开默认浏览器的函数.
+- 图表新增右侧Y轴的提示.
+- 新增点的style.
+
 ## [0.3.9] - 2024-02-21
 ### Changed
 - 增加变形W底的计算测试代码.
@@ -116,7 +124,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - 第一次提交.
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.3.9...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.4.0...HEAD
+[0.4.0]: https://gitee.com/quant1x/ta-lib/compare/v0.3.9...v0.4.0
 [0.3.9]: https://gitee.com/quant1x/ta-lib/compare/v0.3.8...v0.3.9
 [0.3.8]: https://gitee.com/quant1x/ta-lib/compare/v0.3.7...v0.3.8
 [0.3.7]: https://gitee.com/quant1x/ta-lib/compare/v0.3.6...v0.3.7
