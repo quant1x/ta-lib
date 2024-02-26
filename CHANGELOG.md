@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.4.1] - 2024-02-26
+### Changed
+- 更新依赖库版本.
+
 ## [0.4.0] - 2024-02-25
 ### Changed
 - 调整测试代码.
@@ -124,7 +128,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - 第一次提交.
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.4.0...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.4.1...HEAD
+[0.4.1]: https://gitee.com/quant1x/ta-lib/compare/v0.4.0...v0.4.1
 [0.4.0]: https://gitee.com/quant1x/ta-lib/compare/v0.3.9...v0.4.0
 [0.3.9]: https://gitee.com/quant1x/ta-lib/compare/v0.3.8...v0.3.9
 [0.3.8]: https://gitee.com/quant1x/ta-lib/compare/v0.3.7...v0.3.8
