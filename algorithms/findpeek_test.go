@@ -630,13 +630,16 @@ func TestFindPeek(t *testing.T) {
 	fmt.Println("计算目前为止")
 	//cjx := num.TriangleBevel(xl, neckPointX, neckPointY, rows-neckPointX)
 	supportLine := calculateLineEquation(Point{x: leftX, y: leftY}, Point{x: rightX, y: rightY})
+	fmt.Println("supportLine =", supportLine)
 	neckLine := calculateEquidistantLine(supportLine, Point{x: float64(neckPointX), y: neckPointY})
+	fmt.Println("neckLine =", neckLine)
 	fmt.Println("\t目前颈线所在位置", neckLine.m*float64(rows-1)+neckLine.c)
 	pressurePointX := neckPointX
 	supportY := supportLine.m*float64(pressurePointX) + supportLine.c
 	d := neckPointY - supportY
 	pressurePointY := neckPointY + d
 	pressureLine := calculateEquidistantLine(neckLine, Point{x: float64(pressurePointX), y: pressurePointY})
+	fmt.Println("pressureLine =", pressureLine)
 	//high := pressureLine.m*float64(rows-1) + pressureLine.c
 	neckX := []float64{float64(neckPointX), float64(rows - 1)}
 	neckY := []float64{neckLine.m*float64(neckPointX) + neckLine.c, neckLine.m*float64(rows-1) + neckLine.c}

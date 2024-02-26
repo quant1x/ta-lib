@@ -6,15 +6,15 @@ require (
 	gitee.com/quant1x/engine v1.5.3
 	gitee.com/quant1x/gotdx v1.21.0
 	gitee.com/quant1x/gox v1.20.1
-	gitee.com/quant1x/num v0.1.5
-	gitee.com/quant1x/pandas v1.3.7
+	gitee.com/quant1x/num v0.1.6
+	gitee.com/quant1x/pandas v1.3.8
 	gitee.com/quant1x/pkg v0.2.6
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
 	github.com/wcharczuk/go-chart/v2 v2.1.1
 	gonum.org/v1/plot v0.14.0
 )
 
-//replace gitee.com/quant1x/num v0.1.5 => ../num
+//replace gitee.com/quant1x/num v0.1.6 => ../num
 
 require (
 	git.sr.ht/~sbinet/gg v0.5.0 // indirect
