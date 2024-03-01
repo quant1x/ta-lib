@@ -67,8 +67,8 @@ func TestPeakDetect(t *testing.T) {
 			cross[idx] = vf > p1[idx]
 		}
 	})
-	sp := pandas.NewSeries(pandas.SERIES_TYPE_DTYPE, "p1", p1)
-	sc := pandas.NewSeries(pandas.SERIES_TYPE_BOOL, "cross", cross)
+	sp := pandas.SeriesWithName[num.DType]("p1", p1)
+	sc := pandas.SeriesWithName[bool]("cross", cross)
 	df = df.Join(sp).Join(sc)
 	fmt.Println(df)
 	_ = df.WriteCSV(code + ".csv")
