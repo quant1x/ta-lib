@@ -5,11 +5,22 @@ import (
 	"fmt"
 	"gitee.com/quant1x/gox/api"
 	"github.com/wcharczuk/go-chart/v2"
+	"github.com/wcharczuk/go-chart/v2/drawing"
 	"os"
 )
 
 const (
 	DotWidth = 3 // 点的宽度
+)
+
+var (
+	ColorRed   = drawing.Color{R: 0xff, G: 0x00, B: 0x00, A: 0xff} // 红色
+	ColorGreen = chart.ColorGreen                                  // 绿色
+	ColorBlue  = chart.ColorBlue                                   // 蓝色
+)
+
+var (
+	DashedLine = []float64{5.0, 5.0} // 虚线
 )
 
 func CreateChart() chart.Chart {
