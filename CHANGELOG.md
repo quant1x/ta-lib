@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.4.2] - 2024-03-03
+### Changed
+- 新增红色定义, go-chart颜色中红色不准确的.
+- 实验代码,新增html样式的K线图.
+- 抽象部分常用的go-chart用法.
+- 修复测试代码没有适配pandas的问题.
+- 补充ta-lib基本信息.
+
 ## [0.4.1] - 2024-02-26
 ### Changed
 - 更新依赖库版本.
@@ -128,7 +136,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - 第一次提交.
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.4.1...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.4.2...HEAD
+[0.4.2]: https://gitee.com/quant1x/ta-lib/compare/v0.4.1...v0.4.2
 [0.4.1]: https://gitee.com/quant1x/ta-lib/compare/v0.4.0...v0.4.1
 [0.4.0]: https://gitee.com/quant1x/ta-lib/compare/v0.3.9...v0.4.0
 [0.3.9]: https://gitee.com/quant1x/ta-lib/compare/v0.3.8...v0.3.9
