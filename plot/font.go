@@ -49,3 +49,9 @@ func GetDefaultFont() (*truetype.Font, error) {
 	}
 	return _defaultFont, nil
 }
+
+// DefaultFont 默认字体
+func DefaultFont() *truetype.Font {
+	font, _ := GetDefaultFont()
+	return font
+}
