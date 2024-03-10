@@ -14,13 +14,13 @@ const (
 )
 
 var (
-	ColorRed   = drawing.Color{R: 0xff, G: 0x00, B: 0x00, A: 0xff} // 红色
-	ColorGreen = chart.ColorGreen                                  // 绿色
-	ColorBlue  = chart.ColorBlue                                   // 蓝色
+	DashedLine = []float64{5.0, 5.0} // 虚线
 )
 
 var (
-	DashedLine = []float64{5.0, 5.0} // 虚线
+	ColorRed   = drawing.Color{R: 0xFF, G: 0x00, B: 0x00, A: 0xFF} // 红色
+	ColorGreen = drawing.Color{R: 0x00, G: 0xFF, B: 0x00, A: 0xFF} // 绿色
+	ColorBlue  = drawing.Color{R: 0x00, G: 0x00, B: 0xFF, A: 0xFF} // 蓝色
 )
 
 func CreateChart() chart.Chart {
@@ -28,8 +28,7 @@ func CreateChart() chart.Chart {
 	font.Bounds(1)
 	lineChartStyle := chart.Style{
 		Padding: chart.Box{
-			//Top:  10,
-			Left: 50,
+			Top: 20,
 		},
 	}
 	graph := chart.Chart{
