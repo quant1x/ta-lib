@@ -52,7 +52,7 @@ func ImageContent(c chart.Chart) (string, error) {
 	return imgToStr(imgContent), nil
 }
 
-// TODO: 打开chart有点问题, 原因可能是生成的URL过长
+// OpenImage TODO: 打开chart有点问题, 原因可能是生成的URL过长
 func OpenImage(c chart.Chart) error {
 	img, err := ImageContent(c)
 	if err != nil {
