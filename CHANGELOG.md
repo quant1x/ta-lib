@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.4.4] - 2024-03-11
+### Changed
+- 更新依赖库num版本.
+- 补充注释.
+
 ## [0.4.3] - 2024-03-10
 ### Changed
 - 新增字体默认值函数, 不返回错误.
@@ -142,7 +147,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - 第一次提交.
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.4.3...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.4.4...HEAD
+[0.4.4]: https://gitee.com/quant1x/ta-lib/compare/v0.4.3...v0.4.4
 [0.4.3]: https://gitee.com/quant1x/ta-lib/compare/v0.4.2...v0.4.3
 [0.4.2]: https://gitee.com/quant1x/ta-lib/compare/v0.4.1...v0.4.2
 [0.4.1]: https://gitee.com/quant1x/ta-lib/compare/v0.4.0...v0.4.1
