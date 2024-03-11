@@ -4,9 +4,9 @@ go 1.21.5
 
 require (
 	gitee.com/quant1x/engine v1.5.7
-	gitee.com/quant1x/gotdx v1.21.1
-	gitee.com/quant1x/gox v1.20.2
-	gitee.com/quant1x/num v0.2.0
+	gitee.com/quant1x/gotdx v1.21.2
+	gitee.com/quant1x/gox v1.20.4
+	gitee.com/quant1x/num v0.2.1
 	gitee.com/quant1x/pandas v1.3.8
 	gitee.com/quant1x/pkg v0.2.6
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
@@ -16,7 +16,7 @@ require (
 
 require (
 	git.sr.ht/~sbinet/gg v0.5.0 // indirect
-	gitee.com/quant1x/exchange v0.4.0 // indirect
+	gitee.com/quant1x/exchange v0.4.1 // indirect
 	github.com/ajstarks/svgo v0.0.0-20211024235047-1546f124cd8b // indirect
 	github.com/blend/go-sdk v1.20220411.3 // indirect
 	github.com/campoy/embedmd v1.0.0 // indirect
