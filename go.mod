@@ -3,10 +3,10 @@ module gitee.com/quant1x/ta-lib
 go 1.21.5
 
 require (
-	gitee.com/quant1x/engine v1.5.4
+	gitee.com/quant1x/engine v1.5.5
 	gitee.com/quant1x/gotdx v1.21.1
 	gitee.com/quant1x/gox v1.20.2
-	gitee.com/quant1x/num v0.1.8
+	gitee.com/quant1x/num v0.2.0
 	gitee.com/quant1x/pandas v1.3.8
 	gitee.com/quant1x/pkg v0.2.6
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
