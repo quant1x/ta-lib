@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.4.9] - 2024-03-12
+### Changed
+- 更新依赖库版本及go版本.
+
 ## [0.4.8] - 2024-03-12
 ### Changed
 - 更新依赖库版本及go版本.
@@ -163,7 +167,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - 第一次提交.
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.4.8...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.4.9...HEAD
+[0.4.9]: https://gitee.com/quant1x/ta-lib/compare/v0.4.8...v0.4.9
 [0.4.8]: https://gitee.com/quant1x/ta-lib/compare/v0.4.7...v0.4.8
 [0.4.7]: https://gitee.com/quant1x/ta-lib/compare/v0.4.6...v0.4.7
 [0.4.6]: https://gitee.com/quant1x/ta-lib/compare/v0.4.5...v0.4.6
