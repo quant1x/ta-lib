@@ -5,10 +5,6 @@ import (
 	"gitee.com/quant1x/engine/factors"
 	"gitee.com/quant1x/num"
 	"gitee.com/quant1x/pandas"
-	"gonum.org/v1/plot"
-	"gonum.org/v1/plot/plotutil"
-	"gonum.org/v1/plot/vg"
-	"log"
 	"testing"
 )
 
@@ -66,21 +62,4 @@ func TestFindPeaks(t *testing.T) {
 	fmt.Println(df)
 	_ = df.WriteCSV(code + ".csv")
 
-	p := plot.New()
-
-	p.Title.Text = code
-	p.X.Label.Text = "X"
-	p.Y.Label.Text = "Y"
-
-	err := plotutil.AddLinePoints(p,
-		"close", sliceToPoints(df.Col("close").DTypes()),
-		"p1", sliceToPoints(df.Col("p1").DTypes()),
-		"low", sliceToPoints(df.Col("low").DTypes()))
-	if err != nil {
-		log.Fatal(err)
-	}
-	//pngSize := 6
-	if err = p.Save(10*vg.Inch, 10*vg.Inch, code+".png"); err != nil {
-		log.Fatal(err)
-	}
 }

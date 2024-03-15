@@ -8,14 +8,14 @@ import "math"
 //
 //	A point is considered a maximum peak if it has the maximal
 //	value, and was preceded (to the left) by a value lower by DELTA.
-func PeakDetect(vals []float64, delta float64) ([]int, []float64, []int, []float64) {
+func PeakDetect(data []float64, delta float64) ([]int, []float64, []int, []float64) {
 	minx := make([]int, 0, 0)
 	maxx := make([]int, 0, 0)
 	minvals := make([]float64, 0, 0)
 	maxvals := make([]float64, 0, 0)
 
-	xvals := make([]int, len(vals), len(vals))
-	for i := 0; i < len(vals); i++ {
+	xvals := make([]int, len(data), len(data))
+	for i := 0; i < len(data); i++ {
 		xvals[i] = i
 	}
 
@@ -30,7 +30,7 @@ func PeakDetect(vals []float64, delta float64) ([]int, []float64, []int, []float
 
 	lookForMax := true
 
-	for i, val := range vals {
+	for i, val := range data {
 		if val > mx {
 			mx = val
 			mxpos = i
