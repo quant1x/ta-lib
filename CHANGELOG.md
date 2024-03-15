@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.5.0] - 2024-03-16
+### Changed
+- 优化部分代码,删除对gonum.org/v1/plot的依赖.
+
 ## [0.4.9] - 2024-03-12
 ### Changed
 - 更新依赖库版本及go版本.
@@ -167,7 +171,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - 第一次提交.
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.4.9...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.5.0...HEAD
+[0.5.0]: https://gitee.com/quant1x/ta-lib/compare/v0.4.9...v0.5.0
 [0.4.9]: https://gitee.com/quant1x/ta-lib/compare/v0.4.8...v0.4.9
 [0.4.8]: https://gitee.com/quant1x/ta-lib/compare/v0.4.7...v0.4.8
 [0.4.7]: https://gitee.com/quant1x/ta-lib/compare/v0.4.6...v0.4.7
