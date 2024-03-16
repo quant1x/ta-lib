@@ -8,11 +8,11 @@ import (
 
 func TestCurveRegression(t *testing.T) {
 	code := "688351"
-	code = "002564.sz"
+	code = "sh000001"
 	df := factors.KLine(code)
 	df = df.Subset(0, df.Nrow()-1)
 	fmt.Println(df)
-	N := 3
+	N := 5
 	V := df.Col("open")
 	d := CurveRegression(V, N)
 	fmt.Println(d)
