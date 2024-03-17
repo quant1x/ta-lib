@@ -3,7 +3,7 @@ module gitee.com/quant1x/ta-lib
 go 1.21.8
 
 require (
-	gitee.com/quant1x/engine v1.6.2
+	gitee.com/quant1x/engine v1.6.4
 	gitee.com/quant1x/gotdx v1.21.5
 	gitee.com/quant1x/gox v1.20.8
 	gitee.com/quant1x/num v0.2.4
