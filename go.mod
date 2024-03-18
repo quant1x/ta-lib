@@ -3,8 +3,8 @@ module gitee.com/quant1x/ta-lib
 go 1.21.8
 
 require (
-	gitee.com/quant1x/engine v1.6.4
-	gitee.com/quant1x/gotdx v1.21.5
+	gitee.com/quant1x/engine v1.6.5
+	gitee.com/quant1x/gotdx v1.21.6
 	gitee.com/quant1x/gox v1.20.8
 	gitee.com/quant1x/num v0.2.4
 	gitee.com/quant1x/pandas v1.4.1
@@ -14,7 +14,7 @@ require (
 )
 
 require (
-	gitee.com/quant1x/exchange v0.4.4 // indirect
+	gitee.com/quant1x/exchange v0.4.5 // indirect
 	github.com/blend/go-sdk v1.20220411.3 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dlclark/regexp2 v1.11.0 // indirect
