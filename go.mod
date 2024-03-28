@@ -19,7 +19,7 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dlclark/regexp2 v1.11.0 // indirect
 	github.com/go-sourcemap/sourcemap v2.1.4+incompatible // indirect
-	github.com/google/pprof v0.0.0-20240320155624-b11c3daa6f07 // indirect
+	github.com/google/pprof v0.0.0-20240327155427-868f304927ed // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	golang.org/x/image v0.15.0 // indirect
