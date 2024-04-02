@@ -16,10 +16,11 @@ import (
 
 func TestWedge_basic(t *testing.T) {
 	requiredKLines := 89
+	requiredKLines = 34
 	//requiredKLines = 250
 	code := "sh000001"
 	//code = "sz300629"
-	code = "000917"
+	//code = "000917"
 	//code = "600843"
 	date := "2024-04-01"
 	//date = "2024-03-29"
@@ -103,7 +104,6 @@ func TestWedge_basic(t *testing.T) {
 	}
 
 	pattern := MatchWedge(waves)
-
 	if pattern != nil {
 		fmt.Printf("wedge=%+v\n", pattern)
 		series := pattern.ExportSeries(sample)

@@ -216,20 +216,21 @@ func v1FindPeaks(sample DataSample) Wave {
 		pos := i + 1
 		if sampleDiff == -2 {
 			// 波峰识别
-			//if pos == 80 {
-			//	fmt.Println("debug")
+			//if i+2 < n {
+			//	tmp := []float64{sample.High(i), sample.High(i + 1), sample.High(i + 2)}
+			//	n := num.ArgMax(tmp)
+			//	pos = i + n
 			//}
-			if pos+1 < n && sample.High(pos) < sample.High(pos+1) {
-				pos = pos + 1
-			}
 			price := sample.High(pos)
 			wave.peaks[wave.peakCount] = num.DataPoint{X: pos, Y: price}
 			wave.peakCount++
 		} else if sampleDiff == 2 {
 			// 波谷识别
-			if pos+1 < n && sample.Low(pos) < sample.Low(pos+1) {
-				pos = pos + 1
-			}
+			//if i+2 < n {
+			//	tmp := []float64{sample.Low(i), sample.Low(i + 1), sample.Low(i + 2)}
+			//	n := num.ArgMin(tmp)
+			//	pos = i + n
+			//}
 			price := sample.Low(pos)
 			wave.valleys[wave.valleyCount] = num.DataPoint{X: pos, Y: price}
 			wave.valleyCount++
