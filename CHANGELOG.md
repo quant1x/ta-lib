@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.5.8] - 2024-04-02
+### Changed
+- 趋势用当前值, 波峰用最高, 波谷用最低.
+- 新增楔形趋势算法.
+- 更新依赖库版本.
+
 ## [0.5.7] - 2024-03-30
 ### Changed
 - 更新依赖库版本.
@@ -203,7 +209,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - 第一次提交.
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.5.7...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.5.8...HEAD
+[0.5.8]: https://gitee.com/quant1x/ta-lib/compare/v0.5.7...v0.5.8
 [0.5.7]: https://gitee.com/quant1x/ta-lib/compare/v0.5.6...v0.5.7
 [0.5.6]: https://gitee.com/quant1x/ta-lib/compare/v0.5.5...v0.5.6
 [0.5.5]: https://gitee.com/quant1x/ta-lib/compare/v0.5.4...v0.5.5
