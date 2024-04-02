@@ -4,17 +4,17 @@ go 1.21.8
 
 require (
 	gitee.com/quant1x/engine v1.7.0
-	gitee.com/quant1x/gotdx v1.21.8
+	gitee.com/quant1x/exchange v0.4.7
+	gitee.com/quant1x/gotdx v1.21.9
 	gitee.com/quant1x/gox v1.21.0
 	gitee.com/quant1x/num v0.2.6
-	gitee.com/quant1x/pandas v1.4.3
+	gitee.com/quant1x/pandas v1.4.4
 	gitee.com/quant1x/pkg v0.2.7
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
 	github.com/wcharczuk/go-chart/v2 v2.1.1
 )
 
 require (
-	gitee.com/quant1x/exchange v0.4.6 // indirect
 	github.com/blend/go-sdk v1.20220411.3 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dlclark/regexp2 v1.11.0 // indirect
