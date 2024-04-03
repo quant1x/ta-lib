@@ -1,9 +1,11 @@
 package blas
 
 import (
+	"gitee.com/quant1x/engine/config"
 	"gitee.com/quant1x/engine/datasource/base"
 	"gitee.com/quant1x/num"
 	"gitee.com/quant1x/ta-lib/plot"
+	"strings"
 )
 
 // DataSample 数据样本
@@ -34,16 +36,33 @@ func (k KLineSample) Len() int {
 	return len(k.data)
 }
 
+func (k KLineSample) value(n int, fieldName string) float64 {
+	fieldName = strings.ToLower(fieldName)
+	switch fieldName {
+	case "open":
+		return k.data[n].Open
+	case "close":
+		return k.data[n].Close
+	case "high":
+		return k.data[n].High
+	case "low":
+		return k.data[n].Low
+	}
+	return k.Current(n)
+}
+
 func (k KLineSample) Current(n int) float64 {
 	return k.data[n].Close
 }
 
 func (k KLineSample) High(n int) float64 {
-	return k.data[n].High
+	wave := config.GetDataConfig().Feature.Wave
+	return k.value(n, wave.Fields.Peak)
 }
 
 func (k KLineSample) Low(n int) float64 {
-	return k.data[n].Low
+	wave := config.GetDataConfig().Feature.Wave
+	return k.value(n, wave.Fields.Valley)
 }
 
 func (k KLineSample) Volume(n int) float64 {
