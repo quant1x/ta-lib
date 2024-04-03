@@ -8,13 +8,13 @@ import (
 
 // DataSample 数据样本
 type DataSample interface {
-	Time(n int) string            // 时间
-	Len() int                     // 数据长度
-	Current(n int) float64        // 当前值
-	High(n int) float64           // 最高
-	Low(n int) float64            // 最低
-	Volume(n int) float64         // 量
-	Chart(name string) plot.Chart // 图表
+	Time(n int) string             // 时间
+	Len() int                      // 数据长度
+	Current(n int) float64         // 当前值
+	High(n int) float64            // 最高
+	Low(n int) float64             // 最低
+	Volume(n int) float64          // 量
+	Chart(name string) *plot.Chart // 图表
 }
 
 type KLineSample struct {
@@ -50,7 +50,7 @@ func (k KLineSample) Volume(n int) float64 {
 	return k.data[n].Volume
 }
 
-func (k KLineSample) Chart(name string) plot.Chart {
+func (k KLineSample) Chart(name string) *plot.Chart {
 	xAxisFormat := func(v any) string {
 		f := v.(float64)
 		idx := int(f)
