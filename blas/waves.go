@@ -26,6 +26,10 @@ type Waves struct {
 	Digits      int             // 小数点几位
 }
 
+func (this Waves) Len() int {
+	return len(this.Data)
+}
+
 //// 初始化波峰波谷
 //func initializeWave(sample DataSample) *Wave {
 //	n := sample.Len()
