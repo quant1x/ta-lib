@@ -145,15 +145,15 @@ func NewChart() *Chart {
 }
 
 // AddSeries 添加图表序列
-func (c *Chart) AddSeries(series ...chart.Series) {
-	c.Series = append(c.Series, series...)
+func (this *Chart) AddSeries(series ...chart.Series) {
+	this.Series = append(this.Series, series...)
 }
 
 // Output 输出图表
-func (c *Chart) Output(name string) error {
-	c.Elements = []chart.Renderable{chart.LegendThin(&c.Chart)}
+func (this *Chart) Output(name string) error {
+	this.Elements = []chart.Renderable{chart.LegendThin(&this.Chart)}
 	buffer := bytes.NewBuffer([]byte{})
-	err := c.Render(chart.PNG, buffer)
+	err := this.Render(chart.PNG, buffer)
 	if err != nil {
 		return err
 	}
