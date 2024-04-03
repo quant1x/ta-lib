@@ -3,7 +3,7 @@ module gitee.com/quant1x/ta-lib
 go 1.21.8
 
 require (
-	gitee.com/quant1x/engine v1.7.0
+	gitee.com/quant1x/engine v1.7.1
 	gitee.com/quant1x/exchange v0.4.7
 	gitee.com/quant1x/gotdx v1.21.9
 	gitee.com/quant1x/gox v1.21.0
@@ -19,7 +19,7 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dlclark/regexp2 v1.11.0 // indirect
 	github.com/go-sourcemap/sourcemap v2.1.4+incompatible // indirect
-	github.com/google/pprof v0.0.0-20240327155427-868f304927ed // indirect
+	github.com/google/pprof v0.0.0-20240402174815-29b9bb013b0f // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	golang.org/x/image v0.15.0 // indirect
