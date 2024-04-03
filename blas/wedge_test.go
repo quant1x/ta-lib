@@ -39,8 +39,6 @@ func TestWedge_basic(t *testing.T) {
 	if pattern != nil {
 		fmt.Printf("wedge=%+v\n", pattern)
 		series := pattern.ExportSeries(sample)
-		//graph = plot.AddSeries(graph, series...)
-		//graph.Series = append(graph.Series, series...)
 		graph.AddSeries(series...)
 	}
 	name := "wedge-kline-" + securityCode
