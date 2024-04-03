@@ -1,6 +1,9 @@
 package blas
 
-import "github.com/wcharczuk/go-chart/v2"
+import (
+	"cmp"
+	"github.com/wcharczuk/go-chart/v2"
+)
 
 // TendencyDirection 交易方向
 type TendencyDirection = uint8
@@ -46,4 +49,14 @@ type Analysis interface {
 type Pattern interface {
 	//Match(waves Waves) Pattern
 	ExportSeries(sample DataSample) []chart.Series
+}
+
+// Asc 升序
+func Asc[T cmp.Ordered](x, y T) int {
+	return cmp.Compare(x, y)
+}
+
+// Desc 降序
+func Desc[T cmp.Ordered](x, y T) int {
+	return Asc(x, y) * -1
 }

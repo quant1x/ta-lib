@@ -5,10 +5,15 @@ import (
 	"gitee.com/quant1x/num"
 	"gitee.com/quant1x/ta-lib/plot"
 	"github.com/wcharczuk/go-chart/v2"
+	"slices"
 )
 
 // MatchWedge 模式匹配 楔形
 func MatchWedge(waves Waves) *Wedge {
+	return v1MatchWedge(waves)
+}
+
+func v1MatchWedge(waves Waves) *Wedge {
 	if waves.PeakCount < 2 || waves.ValleyCount < 2 {
 		return nil
 	}
@@ -21,6 +26,41 @@ func MatchWedge(waves Waves) *Wedge {
 	// 两个低点
 	m.BottomLeft = waves.Valleys[waves.ValleyCount-2]
 	m.BottomRight = waves.Valleys[waves.ValleyCount-1]
+	return &m
+}
+
+func v2MatchWedge(waves Waves) *Wedge {
+	if waves.PeakCount < 2 || waves.ValleyCount < 2 {
+		return nil
+	}
+
+	m := Wedge{}
+	m.Digits = waves.Digits
+	peaks := slices.Clone(waves.Peaks)
+	slices.SortFunc(peaks, func(a, b num.DataPoint) int {
+		return Desc(a.Y, b.Y)
+	})
+	peak1 := peaks[0]
+	peak2 := peaks[1]
+	if peak1.X < peak2.X {
+		peak1, peak2 = peak2, peak1
+	}
+	valleys := slices.Clone(waves.Valleys)
+	slices.SortFunc(valleys, func(a, b num.DataPoint) int {
+		return Asc(a.Y, b.Y)
+	})
+	valley1 := valleys[0]
+	valley2 := valleys[1]
+	if valley1.X < valley2.X {
+		valley1, valley2 = valley2, valley1
+	}
+
+	// 两个高点
+	m.TopLeft = peak1
+	m.TopRight = peak2
+	// 两个低点
+	m.BottomLeft = valley1
+	m.BottomRight = valley2
 	return &m
 }
 

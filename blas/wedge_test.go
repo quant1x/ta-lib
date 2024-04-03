@@ -11,7 +11,7 @@ import (
 func TestWedge_basic(t *testing.T) {
 	// 楔形模型测试
 	requiredKLines := 89
-	//requiredKLines = 34
+	requiredKLines = 34
 	//requiredKLines = 50
 	//requiredKLines = 250
 	code := "sh000001"
@@ -20,6 +20,7 @@ func TestWedge_basic(t *testing.T) {
 	//code = "600843"
 	//code = "sz000751"
 	code = "600603"
+	//code = "002085"
 	date := "2024-04-02"
 	//date = "2024-03-29"
 	//date = cache.DefaultCanReadDate()
