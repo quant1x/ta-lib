@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.6.0] - 2024-04-04
+### Changed
+- 调整测试代码的k线日期.
+- Charts新增最后数据的标签展示函数.
+- Waves新增Len方法.
+- 根据配置项确定波峰波谷的取值.
+- 新增三角形算法.
+- 更新依赖库版本.
+
 ## [0.5.9] - 2024-04-03
 ### Changed
 - 调整楔形算法.
@@ -219,7 +228,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - 第一次提交.
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.5.9...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.6.0...HEAD
+[0.6.0]: https://gitee.com/quant1x/ta-lib/compare/v0.5.9...v0.6.0
 [0.5.9]: https://gitee.com/quant1x/ta-lib/compare/v0.5.8...v0.5.9
 [0.5.8]: https://gitee.com/quant1x/ta-lib/compare/v0.5.7...v0.5.8
 [0.5.7]: https://gitee.com/quant1x/ta-lib/compare/v0.5.6...v0.5.7
