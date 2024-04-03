@@ -87,6 +87,9 @@ type Renderable = chart.Renderable
 ////go:linkname PNG github.com/wcharczuk/go-chart/v2.PNG
 //func PNG(width, height int) (chart.Renderer, error)
 
+//go:linkname LastValueAnnotationSeries github.com/wcharczuk/go-chart/v2.LastValueAnnotationSeries
+func LastValueAnnotationSeries(innerSeries chart.ValuesProvider, vfs ...chart.ValueFormatter) chart.AnnotationSeries
+
 // CreateChart 创建一个默认的图标
 func CreateChart() chart.Chart {
 	font, _ := GetDefaultFont()
