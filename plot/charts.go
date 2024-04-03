@@ -73,8 +73,6 @@ var (
 
 // 映射chart工具库, 收敛功能
 
-type Chart = chart.Chart
-
 type Series = chart.Series
 type ContinuousSeries = chart.ContinuousSeries
 type XAxis = chart.XAxis
@@ -83,11 +81,11 @@ type Style = chart.Style
 type Tick = chart.Tick
 type Renderable = chart.Renderable
 
-//go:linkname LegendThin github.com/wcharczuk/go-chart/v2.LegendThin
-func LegendThin(c *Chart, userDefaults ...Style) Renderable
-
-//go:linkname PNG github.com/wcharczuk/go-chart/v2.PNG
-func PNG(width, height int) (chart.Renderer, error)
+////go:linkname LegendThin github.com/wcharczuk/go-chart/v2.LegendThin
+//func LegendThin(c *Chart, userDefaults ...Style) Renderable
+//
+////go:linkname PNG github.com/wcharczuk/go-chart/v2.PNG
+//func PNG(width, height int) (chart.Renderer, error)
 
 // CreateChart 创建一个默认的图标
 func CreateChart() chart.Chart {
@@ -105,23 +103,7 @@ func CreateChart() chart.Chart {
 	return graph
 }
 
-// NewChart 创建默认的图表
-func NewChart() Chart {
-	font, _ := GetDefaultFont()
-	font.Bounds(1)
-	lineChartStyle := chart.Style{
-		Padding: chart.Box{
-			Top: 20,
-		},
-	}
-	graph := Chart{
-		Font:       font,
-		Background: lineChartStyle,
-	}
-	return graph
-}
-
-func AddSeries(graph Chart, series ...chart.Series) chart.Chart {
+func AddSeries(graph chart.Chart, series ...chart.Series) chart.Chart {
 	graph.Series = append(graph.Series, series...)
 	return graph
 }
@@ -141,18 +123,43 @@ func Render(graph chart.Chart, code string) {
 	}
 }
 
+// Chart 图表
+type Chart struct {
+	chart.Chart
+}
+
+// NewChart 创建默认的图表
+func NewChart() *Chart {
+	font, _ := GetDefaultFont()
+	font.Bounds(1)
+	lineChartStyle := chart.Style{
+		Padding: chart.Box{
+			Top: 20,
+		},
+	}
+	graph := chart.Chart{
+		Font:       font,
+		Background: lineChartStyle,
+	}
+	return &Chart{graph}
+}
+
+// AddSeries 添加图表序列
+func (c *Chart) AddSeries(series ...chart.Series) {
+	c.Series = append(c.Series, series...)
+}
+
 // Output 输出图表
-func Output(graph Chart, name string) {
-	graph.Elements = []Renderable{LegendThin(&graph)}
+func (c *Chart) Output(name string) error {
+	c.Elements = []chart.Renderable{chart.LegendThin(&c.Chart)}
 	buffer := bytes.NewBuffer([]byte{})
-	err := graph.Render(PNG, buffer)
+	err := c.Render(chart.PNG, buffer)
 	if err != nil {
-		fmt.Println(err)
-		return
+		return err
 	}
 	err = os.WriteFile(name+".png", buffer.Bytes(), api.CACHE_FILE_MODE)
 	if err != nil {
-		fmt.Println(err)
-		return
+		return err
 	}
+	return nil
 }
