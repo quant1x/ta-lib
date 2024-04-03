@@ -3,6 +3,16 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.5.9] - 2024-04-03
+### Changed
+- 调整楔形算法.
+- 调整结构体方法的接收器.
+- 修订测试代码.
+- 调整图表功能.
+- 调整图表功能.
+- 收敛图表功能.
+- 新增数据样本结构.
+
 ## [0.5.8] - 2024-04-02
 ### Changed
 - 趋势用当前值, 波峰用最高, 波谷用最低.
@@ -209,7 +219,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - 第一次提交.
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.5.8...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.5.9...HEAD
+[0.5.9]: https://gitee.com/quant1x/ta-lib/compare/v0.5.8...v0.5.9
 [0.5.8]: https://gitee.com/quant1x/ta-lib/compare/v0.5.7...v0.5.8
 [0.5.7]: https://gitee.com/quant1x/ta-lib/compare/v0.5.6...v0.5.7
 [0.5.6]: https://gitee.com/quant1x/ta-lib/compare/v0.5.5...v0.5.6
