@@ -19,6 +19,7 @@ type DataSample interface {
 	Chart(name string) *plot.Chart // 图表
 }
 
+// KLineSample K线样板的实现
 type KLineSample struct {
 	data []base.KLine
 }
