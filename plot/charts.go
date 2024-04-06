@@ -80,6 +80,8 @@ type YAxis = chart.YAxis
 type Style = chart.Style
 type Tick = chart.Tick
 type Renderable = chart.Renderable
+type AnnotationSeries = chart.AnnotationSeries
+type Value2 = chart.Value2
 
 ////go:linkname LegendThin github.com/wcharczuk/go-chart/v2.LegendThin
 //func LegendThin(c *Chart, userDefaults ...Style) Renderable
@@ -144,7 +146,7 @@ func NewChart() *Chart {
 		Font:       font,
 		Background: lineChartStyle,
 	}
-	return &Chart{graph}
+	return &Chart{Chart: graph}
 }
 
 // AddSeries 添加图表序列
