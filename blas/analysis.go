@@ -2,7 +2,8 @@ package blas
 
 import (
 	"cmp"
-	"github.com/wcharczuk/go-chart/v2"
+	"gitee.com/quant1x/num"
+	"gitee.com/quant1x/ta-lib/plot"
 )
 
 // TendencyDirection 交易方向
@@ -18,13 +19,13 @@ const (
 	TradingConsistentDecline TendencyDirection = 0x04   // 一致性下跌
 )
 
-// WaveTendency 波段趋势
-type WaveTendency = int
+// WavesTendency 波段趋势
+type WavesTendency = int
 
 const (
-	TendencyPrice          WaveTendency = 0 // 股价主导
-	TendencyLinear         WaveTendency = 1 // 线性趋势主导
-	TendencyPriceAndLinear WaveTendency = 2 // 股价和趋势并存
+	TendencyPrice          WavesTendency = 0 // 股价主导
+	TendencyLinear         WavesTendency = 1 // 线性趋势主导
+	TendencyPriceAndLinear WavesTendency = 2 // 股价和趋势并存
 )
 
 // OperationalSignal 操作信号
@@ -47,8 +48,12 @@ type Analysis interface {
 
 // Pattern 模式, 形态
 type Pattern interface {
-	//Match(waves Waves) Pattern
-	ExportSeries(sample DataSample) []chart.Series
+	// Fit 拟合, 输出支撑线, 颈线, 压力线
+	Fit() (neckLine, supportLine, pressureLine num.Line)
+	// ExportSeries 输出图表
+	ExportSeries(sample DataSample) []plot.Series
+	// NeckSeries 输出颈线
+	NeckSeries(sample DataSample) []plot.Series
 }
 
 // Asc 升序
