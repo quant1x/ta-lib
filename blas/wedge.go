@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"gitee.com/quant1x/num"
 	"gitee.com/quant1x/ta-lib/plot"
-	"github.com/wcharczuk/go-chart/v2"
 	"slices"
 )
 
@@ -73,18 +72,123 @@ type Wedge struct {
 	BottomRight num.DataPoint // 底 - 右
 }
 
-func (this *Wedge) ExportSeries(sample DataSample) []chart.Series {
-	top := chart.ContinuousSeries{
+// 双顶
+func (this *Wedge) doubleTop() *num.DataPoint {
+	if this.TopLeft.X < this.BottomLeft.X && this.BottomLeft.X < this.TopRight.X {
+		return &this.BottomLeft
+	}
+
+	if this.TopLeft.X < this.BottomRight.X && this.BottomRight.X < this.TopRight.X {
+		return &this.BottomRight
+	}
+	return nil
+}
+
+// 双底
+func (this *Wedge) doubleBottom() *num.DataPoint {
+	if this.BottomLeft.X < this.TopLeft.X && this.TopLeft.X < this.BottomRight.X {
+		return &this.TopLeft
+	}
+
+	if this.BottomLeft.X < this.TopRight.X && this.TopRight.X < this.BottomRight.X {
+		return &this.TopRight
+	}
+	return nil
+}
+
+// 锚点
+func (this *Wedge) anchorPoints() []num.DataPoint {
+	var list []num.DataPoint
+	anchorPoint := this.doubleTop()
+	if anchorPoint != nil {
+		list = append(list, *anchorPoint)
+	}
+	anchorPoint = this.doubleBottom()
+	if anchorPoint != nil {
+		list = append(list, *anchorPoint)
+	}
+	return list
+}
+
+func (this *Wedge) Fit() (neckLine, supportLine, pressureLine num.Line) {
+	pressureLine = num.CalculateLineEquation(this.TopLeft.ToPoint(), this.TopRight.ToPoint())
+	supportLine = num.CalculateLineEquation(this.BottomLeft.ToPoint(), this.BottomRight.ToPoint())
+	anchorPoint := this.doubleTop()
+	if anchorPoint == nil {
+		anchorPoint = this.doubleBottom()
+	}
+	if anchorPoint != nil {
+		neckLine = pressureLine.ParallelLine(anchorPoint.ToPoint())
+	}
+	return
+}
+
+func (this *Wedge) NeckLines() []num.Line {
+	var list []num.Line
+	pressureLine := num.CalculateLineEquation(this.TopLeft.ToPoint(), this.TopRight.ToPoint())
+	supportLine := num.CalculateLineEquation(this.BottomLeft.ToPoint(), this.BottomRight.ToPoint())
+	anchorPoint := this.doubleTop()
+	if anchorPoint != nil {
+		neckLine := pressureLine.ParallelLine(anchorPoint.ToPoint())
+		list = append(list, neckLine)
+	}
+	anchorPoint = this.doubleBottom()
+	if anchorPoint != nil {
+		neckLine := supportLine.ParallelLine(anchorPoint.ToPoint())
+		list = append(list, neckLine)
+	}
+	return list
+}
+
+func (this *Wedge) getChartSeries(sample DataSample, line num.Line, point num.DataPoint) plot.Series {
+	count := sample.Len()
+	neckX := make([]float64, count-point.X)
+	neckY := make([]float64, count-point.X)
+	for i := 0; i < count-point.X; i++ {
+		neckX[i] = float64(i + point.X)
+		neckY[i] = line.Y(neckX[i])
+		neckY[i] = num.Decimal(neckY[i], this.Digits)
+	}
+	neck := plot.ContinuousSeries{
+		Name:    "颈线",
+		XValues: neckX,
+		YValues: neckY,
+		Style:   plot.Style{StrokeColor: plot.ColorBlue, StrokeDashArray: plot.DashedLine},
+	}
+	return neck
+}
+
+func (this *Wedge) NeckSeries(sample DataSample) []plot.Series {
+	var list []plot.Series
+	pressureLine := num.CalculateLineEquation(this.TopLeft.ToPoint(), this.TopRight.ToPoint())
+	supportLine := num.CalculateLineEquation(this.BottomLeft.ToPoint(), this.BottomRight.ToPoint())
+	anchorPoint := this.doubleTop()
+	if anchorPoint != nil {
+		neckLine := pressureLine.ParallelLine(anchorPoint.ToPoint())
+		neckSeries := this.getChartSeries(sample, neckLine, *anchorPoint)
+		list = append(list, neckSeries)
+	}
+	anchorPoint = this.doubleBottom()
+	if anchorPoint != nil {
+		neckLine := supportLine.ParallelLine(anchorPoint.ToPoint())
+		neckSeries := this.getChartSeries(sample, neckLine, *anchorPoint)
+		list = append(list, neckSeries)
+	}
+	return list
+}
+
+func (this *Wedge) ExportSeries(sample DataSample) []plot.Series {
+	top := plot.ContinuousSeries{
 		Name:    "头",
 		XValues: []float64{float64(this.TopLeft.X), float64(this.TopRight.X)},
 		YValues: []float64{this.TopLeft.Y, this.TopRight.Y},
-		Style:   chart.Style{StrokeColor: plot.ColorRed, StrokeDashArray: plot.DashedLine, DotColor: plot.ColorRed, DotWidth: plot.DotWidth},
+		Style:   plot.Style{StrokeColor: plot.ColorRed, StrokeDashArray: plot.DashedLine, DotColor: plot.ColorRed, DotWidth: plot.DotWidth},
 	}
-	bottom := chart.ContinuousSeries{
+	bottom := plot.ContinuousSeries{
 		Name:    "底",
 		XValues: []float64{float64(this.BottomLeft.X), float64(this.BottomRight.X)},
 		YValues: []float64{this.BottomLeft.Y, this.BottomRight.Y},
-		Style:   chart.Style{StrokeColor: plot.ColorGreen, StrokeDashArray: plot.DashedLine, DotColor: plot.ColorGreen, DotWidth: plot.DotWidth},
+		Style:   plot.Style{StrokeColor: plot.ColorGreen, StrokeDashArray: plot.DashedLine, DotColor: plot.ColorGreen, DotWidth: plot.DotWidth},
 	}
 	// 支撑线
 	p1 := this.BottomLeft.ToPoint()
@@ -134,37 +238,37 @@ func (this *Wedge) ExportSeries(sample DataSample) []chart.Series {
 			fmt.Println("\t", "FOUND")
 		}
 	}
-	pressure := chart.ContinuousSeries{
+	pressure := plot.ContinuousSeries{
 		Name:    "压力线",
 		XValues: pressureX,
 		YValues: pressureY,
-		Style:   chart.Style{StrokeColor: plot.ColorRed, StrokeDashArray: plot.DashedLine},
+		Style:   plot.Style{StrokeColor: plot.ColorRed, StrokeDashArray: plot.DashedLine},
 	}
-	support := chart.ContinuousSeries{
+	support := plot.ContinuousSeries{
 		Name:    "支撑线",
 		XValues: supportX,
 		YValues: supportY,
-		Style:   chart.Style{StrokeColor: plot.ColorGreen, StrokeDashArray: plot.DashedLine},
+		Style:   plot.Style{StrokeColor: plot.ColorGreen, StrokeDashArray: plot.DashedLine},
 	}
-	list := []chart.Series{top, bottom, pressure, support}
+	list := []plot.Series{top, bottom, pressure, support}
 	if upFound {
 		this.Signal = TradingBuy
 		name := "突破"
 		operation := "买入"
 		color := plot.ColorRed
-		tendency := chart.ContinuousSeries{
+		tendency := plot.ContinuousSeries{
 			Name:    name,
 			XValues: []float64{upX},
 			YValues: []float64{upY},
-			Style:   chart.Style{StrokeColor: color, StrokeDashArray: plot.DashedLine, DotColor: plot.ColorBlue, DotWidth: plot.DotWidth},
+			Style:   plot.Style{StrokeColor: color, StrokeDashArray: plot.DashedLine, DotColor: plot.ColorBlue, DotWidth: plot.DotWidth},
 		}
-		signal := chart.AnnotationSeries{
-			Annotations: []chart.Value2{
+		signal := plot.AnnotationSeries{
+			Annotations: []plot.Value2{
 				{
 					Label:  operation + sample.Time(int(upX)),
 					XValue: upX,
 					YValue: upY,
-					Style: chart.Style{
+					Style: plot.Style{
 						StrokeColor: color,
 						StrokeWidth: 0,
 					},
@@ -178,19 +282,19 @@ func (this *Wedge) ExportSeries(sample DataSample) []chart.Series {
 		name := "跌破"
 		operation := "卖出"
 		color := plot.ColorGreen
-		tendency := chart.ContinuousSeries{
+		tendency := plot.ContinuousSeries{
 			Name:    name,
 			XValues: []float64{downX},
 			YValues: []float64{downY},
-			Style:   chart.Style{StrokeColor: color, StrokeDashArray: plot.DashedLine, DotColor: plot.ColorBlue, DotWidth: plot.DotWidth},
+			Style:   plot.Style{StrokeColor: color, StrokeDashArray: plot.DashedLine, DotColor: plot.ColorBlue, DotWidth: plot.DotWidth},
 		}
-		signal := chart.AnnotationSeries{
-			Annotations: []chart.Value2{
+		signal := plot.AnnotationSeries{
+			Annotations: []plot.Value2{
 				{
 					Label:  operation + sample.Time(int(downX)),
 					XValue: downX,
 					YValue: downY,
-					Style: chart.Style{
+					Style: plot.Style{
 						StrokeColor: color,
 						StrokeWidth: 0,
 					},
