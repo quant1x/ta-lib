@@ -96,6 +96,7 @@ func (this *Triangle) Fit() (neckLine, supportLine, pressureLine num.Line) {
 	return
 }
 
+// Analyze 趋势分析
 func (this *Triangle) Analyze(data []float64) []num.LinerTrend {
 	neckLine, _, _ := this.Fit()
 	offset := this.Right.X
