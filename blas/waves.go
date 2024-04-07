@@ -30,77 +30,8 @@ func (this Waves) Len() int {
 	return len(this.Data)
 }
 
-//// 初始化波峰波谷
-//func initializeWave(sample DataSample) *Wave {
-//	n := sample.Len()
-//	if n == 0 {
-//		return nil
-//	}
-//	wave := Wave{
-//		data:    make([]float64, n),
-//		diff:    make([]int, n),
-//		peaks:   make([]int, n),
-//		valleys: make([]int, n),
-//	}
-//	for i := 0; i < n; i++ {
-//		wave.data[i] = sample.Current(i)
-//		wave.diff[i] = 0
-//		wave.peaks[i] = -1
-//		wave.valleys[i] = -1
-//	}
-//	wave.peakCount = 0
-//	wave.valleyCount = 0
-//	//step 1: 首先进行前向差分，并归一化
-//	for i := 0; i < n-1; i++ {
-//		a := wave.data[i]
-//		b := wave.data[i+1]
-//		sampleDiff := b - a
-//		if sampleDiff > 0 {
-//			wave.diff[i] = 1
-//		} else if sampleDiff < 0 {
-//			wave.diff[i] = -1
-//		} else {
-//			wave.diff[i] = 0
-//		}
-//	}
-//
-//	// step 2: 对相邻相等的点进行领边坡度处理
-//	for i := 0; i < n-1; i++ {
-//		if wave.diff[i] == 0 {
-//			if i == (n - 2) {
-//				if wave.diff[i-1] >= 0 {
-//					wave.diff[i] = 1
-//				} else {
-//					wave.diff[i] = -1
-//				}
-//			} else {
-//				if wave.diff[i+1] >= 0 {
-//					wave.diff[i] = 1
-//				} else {
-//					wave.diff[i] = -1
-//				}
-//			}
-//		}
-//	}
-//	// step 3: 对相邻相等的点进行领边坡度处理
-//	for i := 0; i < n-1; i++ {
-//		sampleDiff := wave.diff[i+1] - wave.diff[i]
-//		if sampleDiff == -2 {
-//			// 波峰识别
-//			wave.peaks[wave.peakCount] = i + 1
-//			wave.peakCount++
-//		} else if sampleDiff == 2 {
-//			// 波谷识别
-//			wave.valleys[wave.valleyCount] = i + 1
-//			wave.valleyCount++
-//		}
-//	}
-//	wave.peaks = wave.peaks[:wave.peakCount]
-//	wave.valleys = wave.valleys[:wave.valleyCount]
-//	return &wave
-//}
-
-func findPeaks(n int, data func(x int) float64) Wave {
+// 初始化波峰波谷
+func v1FindPeaks(n int, data func(x int) float64) Wave {
 	wave := Wave{
 		//data:    make([]float64, n),
 		diff:    make([]int, n),
@@ -166,7 +97,8 @@ func findPeaks(n int, data func(x int) float64) Wave {
 	return wave
 }
 
-func v1FindPeaks(sample DataSample) Wave {
+// 初始化波峰波谷
+func v2FindPeaks(sample DataSample) Wave {
 	n := sample.Len()
 	wave := Wave{
 		//data:    make([]float64, n),
@@ -245,8 +177,8 @@ func v1FindPeaks(sample DataSample) Wave {
 	return wave
 }
 
-// NewWaves 创建一个新的波浪
-func v1NewWaves(sample DataSample, code ...string) Waves {
+// PeaksAndValleys 创建一个新的波浪
+func v1PeaksAndValleys(sample DataSample, code ...string) Waves {
 	n := sample.Len()
 	waves := Waves{
 		Data: make([]float64, n),
@@ -263,18 +195,18 @@ func v1NewWaves(sample DataSample, code ...string) Waves {
 	}
 	waves.Digits = digits
 	// 第一步, 高点
-	highs := findPeaks(n, sample.High)
+	highs := v1FindPeaks(n, sample.High)
 	waves.Peaks = highs.peaks
 	waves.PeakCount = highs.peakCount
 	// 第二步, 低点
-	lows := findPeaks(n, sample.Low)
+	lows := v1FindPeaks(n, sample.Low)
 	waves.Valleys = lows.valleys
 	waves.ValleyCount = lows.valleyCount
 	return waves
 }
 
-// NewWaves 创建一个新的波浪
-func NewWaves(sample DataSample, code ...string) Waves {
+// PeaksAndValleys 创建一个新的波浪
+func PeaksAndValleys(sample DataSample, code ...string) Waves {
 	n := sample.Len()
 	waves := Waves{
 		Data: make([]float64, n),
@@ -290,7 +222,7 @@ func NewWaves(sample DataSample, code ...string) Waves {
 		}
 	}
 	waves.Digits = digits
-	wave := v1FindPeaks(sample)
+	wave := v2FindPeaks(sample)
 	waves.Peaks = wave.peaks
 	waves.PeakCount = wave.peakCount
 	waves.Valleys = wave.valleys
