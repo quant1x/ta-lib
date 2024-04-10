@@ -15,14 +15,7 @@ func TestWedge_basic(t *testing.T) {
 	//requiredKLines = 50
 	//requiredKLines = 250
 	code := "sh000001"
-	//code = "sz300629"
-	//code = "000917"
-	//code = "600843"
-	//code = "sz000751"
-	code = "600603"
-	//code = "002085"
-	code = "300955"
-	date := "2024-04-03"
+	date := "2024-04-10"
 	//date = "2024-03-29"
 	//date = cache.DefaultCanReadDate()
 	list := base.CheckoutKLines(code, date)
@@ -31,7 +24,7 @@ func TestWedge_basic(t *testing.T) {
 	}
 	sample := LoadKLineSample(list)
 	securityCode := exchange.CorrectSecurityCode(code)
-	waves := NewWaves(sample, securityCode)
+	waves := PeaksAndValleys(sample, securityCode)
 	fmt.Println(waves)
 
 	chartName := securities.GetStockName(code) + "(" + securityCode + ")日线图 - " + date
@@ -41,6 +34,8 @@ func TestWedge_basic(t *testing.T) {
 	if pattern != nil {
 		fmt.Printf("wedge=%+v\n", pattern)
 		series := pattern.ExportSeries(sample)
+		graph.AddSeries(series...)
+		series = pattern.NeckSeries(sample)
 		graph.AddSeries(series...)
 	}
 	name := "wedge-kline-" + securityCode

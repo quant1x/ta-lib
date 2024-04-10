@@ -21,23 +21,7 @@ func TestPeakDetect(t *testing.T) {
 	vh := df.Col("low")
 	//vh.Mean()
 	v := vh.DTypes()
-	mini, minv, maxi, maxv := PeakDetect(v[:], 0.0618)
-
-	//if len(mini) != 1 {
-	//	t.Fail()
-	//}
-	//
-	//if len(maxi) != 2 {
-	//	t.Fail()
-	//}
-	//
-	//if minv[0] != -1 {
-	//	t.Fail()
-	//}
-	//
-	//if maxv[0] != 2 {
-	//	t.Fail()
-	//}
+	mini, minv, maxi, maxv := PeakDetect(v[:], 0.0)
 	fmt.Println("波谷x =", mini)
 	fmt.Println("波谷y =", minv)
 	fmt.Println("波峰x =", maxi)
@@ -71,5 +55,6 @@ func TestPeakDetect(t *testing.T) {
 	sc := pandas.SeriesWithName[bool]("cross", cross)
 	df = df.Join(sp).Join(sc)
 	fmt.Println(df)
-	_ = df.WriteCSV(code + ".csv")
+	err := df.WriteCSV(code + ".csv")
+	fmt.Println(err)
 }

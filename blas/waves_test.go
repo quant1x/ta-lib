@@ -22,6 +22,6 @@ func TestWaves_basic(t *testing.T) {
 	sample := LoadKLineSample(list)
 	//rows := sample.Len()
 	securityCode := exchange.CorrectSecurityCode(code)
-	waves := NewWaves(sample, securityCode)
+	waves := PeaksAndValleys(sample, securityCode)
 	fmt.Println(waves)
 }

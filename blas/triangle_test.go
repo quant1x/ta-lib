@@ -11,19 +11,11 @@ import (
 func TestChartKLine_Triangle(t *testing.T) {
 	// 楔形模型测试
 	requiredKLines := 89
-	//requiredKLines = 34
-	requiredKLines = 50
+	requiredKLines = 34
+	//requiredKLines = 50
 	//requiredKLines = 250
 	code := "sh000001"
-	//code = "sz300629"
-	//code = "000917"
-	//code = "600843"
-	//code = "sz000751"
-	//code = "600603"
-	//code = "002085"
-	code = "300955"
-	date := "2024-04-03"
-	//date = "2024-03-29"
+	date := "2024-04-10"
 	//date = cache.DefaultCanReadDate()
 	list := base.CheckoutKLines(code, date)
 	if len(list) >= requiredKLines {
@@ -31,7 +23,7 @@ func TestChartKLine_Triangle(t *testing.T) {
 	}
 	sample := LoadKLineSample(list)
 	securityCode := exchange.CorrectSecurityCode(code)
-	waves := NewWaves(sample, securityCode)
+	waves := PeaksAndValleys(sample, securityCode)
 	fmt.Println(waves)
 
 	chartName := securities.GetStockName(code) + "(" + securityCode + ")日线图 - " + date

@@ -210,6 +210,7 @@ func (this *Wedge) ExportSeries(sample DataSample) []plot.Series {
 			downFound = true
 			downX = supportX[i]
 			downY = sample.Current(pos)
+			fmt.Println("\tS:", "FOUND")
 		}
 	}
 	// 压力线
@@ -235,7 +236,7 @@ func (this *Wedge) ExportSeries(sample DataSample) []plot.Series {
 			upFound = true
 			upX = pressureX[i]
 			upY = sample.Current(pos)
-			fmt.Println("\t", "FOUND")
+			fmt.Println("\tB:", "FOUND")
 		}
 	}
 	pressure := plot.ContinuousSeries{

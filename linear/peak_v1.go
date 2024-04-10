@@ -69,7 +69,3 @@ func __lookahead(x, delta float64) float64 {
 	// 按比例
 	return x * (1 + delta)
 }
-
-func __lookahead_v1(x, delta float64) float64 {
-	return x + delta
-}
