@@ -3,6 +3,18 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.6.1] - 2024-04-12
+### Changed
+- 更新依赖库engine版本到1.7.5.
+- 更新依赖库版本.
+- 调整waves用法.
+- 调整waves初始化方法.
+- 补充方法注释.
+- 形态Pattern接口增加输出图表的方法.
+- 收敛chart引用.
+- 优化chart.
+- 补充K线样本结构的注释.
+
 ## [0.6.0] - 2024-04-04
 ### Changed
 - 调整测试代码的k线日期.
@@ -228,7 +240,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - 第一次提交.
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.6.0...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.6.1...HEAD
+[0.6.1]: https://gitee.com/quant1x/ta-lib/compare/v0.6.0...v0.6.1
 [0.6.0]: https://gitee.com/quant1x/ta-lib/compare/v0.5.9...v0.6.0
 [0.5.9]: https://gitee.com/quant1x/ta-lib/compare/v0.5.8...v0.5.9
 [0.5.8]: https://gitee.com/quant1x/ta-lib/compare/v0.5.7...v0.5.8
