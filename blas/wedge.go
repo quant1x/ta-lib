@@ -72,6 +72,33 @@ type Wedge struct {
 	BottomRight num.DataPoint // 底 - 右
 }
 
+func (this *Wedge) Cross() (dp, top, bottom num.DataPoint, ok bool) {
+	line1 := num.CalculateLineEquation(this.TopLeft.ToPoint(), this.TopRight.ToPoint())
+	line2 := num.CalculateLineEquation(this.BottomLeft.ToPoint(), this.BottomRight.ToPoint())
+	m1, _, b1 := line1.Equation()
+	m2, _, b2 := line2.Equation()
+	if m1 == m2 {
+		ok = false
+		return
+	}
+	// 计算交点的x坐标
+	x := (b2 - b1) / (m1 - m2)
+	// 计算交点的y坐标
+	y := m1*x + b1
+	n := int(x)
+	dp.X = n
+	if x > float64(n) {
+		dp.X++
+	}
+	dp.Y = y
+	ok = true
+	top.X = dp.X
+	top.Y = line1.Y(float64(top.X))
+	bottom.X = dp.X
+	bottom.Y = line2.Y(float64(bottom.X))
+	return
+}
+
 // 双顶
 func (this *Wedge) doubleTop() *num.DataPoint {
 	if this.TopLeft.X < this.BottomLeft.X && this.BottomLeft.X < this.TopRight.X {

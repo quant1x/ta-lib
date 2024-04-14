@@ -15,7 +15,9 @@ func TestWedge_basic(t *testing.T) {
 	//requiredKLines = 50
 	//requiredKLines = 250
 	code := "sh000001"
-	date := "2024-04-10"
+	code = "300824"
+	//code = "300945"
+	date := "2024-04-11"
 	//date = "2024-03-29"
 	//date = cache.DefaultCanReadDate()
 	list := base.CheckoutKLines(code, date)
@@ -32,6 +34,9 @@ func TestWedge_basic(t *testing.T) {
 	var pattern Pattern
 	pattern = MatchWedge(waves)
 	if pattern != nil {
+		wedge := pattern.(*Wedge)
+		dp, top, bottom, ok := wedge.Cross()
+		fmt.Println(dp, top, bottom, ok)
 		fmt.Printf("wedge=%+v\n", pattern)
 		series := pattern.ExportSeries(sample)
 		graph.AddSeries(series...)
