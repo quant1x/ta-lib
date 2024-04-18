@@ -3,12 +3,12 @@ module gitee.com/quant1x/ta-lib
 go 1.21.8
 
 require (
-	gitee.com/quant1x/engine v1.7.7
-	gitee.com/quant1x/exchange v0.5.0
-	gitee.com/quant1x/gotdx v1.22.2
+	gitee.com/quant1x/engine v1.7.8
+	gitee.com/quant1x/exchange v0.5.2
+	gitee.com/quant1x/gotdx v1.22.3
 	gitee.com/quant1x/gox v1.21.0
-	gitee.com/quant1x/num v0.2.6
-	gitee.com/quant1x/pandas v1.4.4
+	gitee.com/quant1x/num v0.2.9
+	gitee.com/quant1x/pandas v1.4.5
 	gitee.com/quant1x/pkg v0.2.7
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
 	github.com/wcharczuk/go-chart/v2 v2.1.1
