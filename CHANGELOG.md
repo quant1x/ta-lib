@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.6.4] - 2024-04-19
+### Changed
+- 更新依赖库版本.
+
 ## [0.6.3] - 2024-04-14
 ### Changed
 - 新增wedge趋势线交叉cross的方法.
@@ -249,7 +253,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - 第一次提交.
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.6.3...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.6.4...HEAD
+[0.6.4]: https://gitee.com/quant1x/ta-lib/compare/v0.6.3...v0.6.4
 [0.6.3]: https://gitee.com/quant1x/ta-lib/compare/v0.6.2...v0.6.3
 [0.6.2]: https://gitee.com/quant1x/ta-lib/compare/v0.6.1...v0.6.2
 [0.6.1]: https://gitee.com/quant1x/ta-lib/compare/v0.6.0...v0.6.1
