@@ -14,6 +14,8 @@ require (
 	github.com/wcharczuk/go-chart/v2 v2.1.1
 )
 
+replace gitee.com/quant1x/engine v1.7.8 => ../engine
+
 require (
 	github.com/blend/go-sdk v1.20220411.3 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect

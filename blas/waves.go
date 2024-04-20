@@ -177,6 +177,61 @@ func v2FindPeaks(sample DataSample) Wave {
 	return wave
 }
 
+func v3FindPeaks(sample DataSample) Wave {
+	n := sample.Len()
+	wave := Wave{
+		//data:    make([]float64, n),
+		diff:    make([]int, n),
+		peaks:   make([]num.DataPoint, n),
+		valleys: make([]num.DataPoint, n),
+	}
+	for i := 0; i < n; i++ {
+		wave.diff[i] = 0
+		wave.peaks[i].X = -1
+		wave.valleys[i].X = -1
+	}
+	wave.peakCount = 0
+	wave.valleyCount = 0
+	stat := 0
+	for i := 0; i < n-1; i++ {
+		pos1 := i
+		pos2 := i + 1
+		diffHigh := sample.High(pos2) - sample.High(pos1)
+		diffLow := sample.Low(pos1) - sample.Low(pos2)
+		switch stat {
+		case 0:
+			if diffHigh > 0 {
+				stat = 1
+			} else if diffLow > 0 {
+				stat = -1
+			}
+		case 1:
+			if diffHigh <= 0 {
+				stat = -1
+				price := sample.High(pos1)
+				wave.peaks[wave.peakCount] = num.DataPoint{X: pos1, Y: price}
+				wave.peakCount++
+			}
+		case -1:
+			if diffLow <= 0 {
+				stat = 1
+				price := sample.Low(pos1)
+				wave.valleys[wave.valleyCount] = num.DataPoint{X: pos1, Y: price}
+				wave.valleyCount++
+			}
+		}
+
+	}
+	wave.peaks = wave.peaks[:wave.peakCount]
+	wave.valleys = wave.valleys[:wave.valleyCount]
+	return wave
+}
+
+// PeaksAndValleys 创建一个新的波浪
+func PeaksAndValleys(sample DataSample, code ...string) Waves {
+	return v3PeaksAndValleys(sample, code...)
+}
+
 // PeaksAndValleys 创建一个新的波浪
 func v1PeaksAndValleys(sample DataSample, code ...string) Waves {
 	n := sample.Len()
@@ -206,7 +261,7 @@ func v1PeaksAndValleys(sample DataSample, code ...string) Waves {
 }
 
 // PeaksAndValleys 创建一个新的波浪
-func PeaksAndValleys(sample DataSample, code ...string) Waves {
+func v2PeaksAndValleys(sample DataSample, code ...string) Waves {
 	n := sample.Len()
 	waves := Waves{
 		Data: make([]float64, n),
@@ -223,6 +278,31 @@ func PeaksAndValleys(sample DataSample, code ...string) Waves {
 	}
 	waves.Digits = digits
 	wave := v2FindPeaks(sample)
+	waves.Peaks = wave.peaks
+	waves.PeakCount = wave.peakCount
+	waves.Valleys = wave.valleys
+	waves.ValleyCount = wave.valleyCount
+	return waves
+}
+
+// PeaksAndValleys 创建一个新的波浪
+func v3PeaksAndValleys(sample DataSample, code ...string) Waves {
+	n := sample.Len()
+	waves := Waves{
+		Data: make([]float64, n),
+	}
+	for i := 0; i < n; i++ {
+		waves.Data[i] = sample.Current(i)
+	}
+	digits := 2
+	if len(code) > 0 {
+		securityCode := exchange.CorrectSecurityCode(code[0])
+		if info, ok := securities.CheckoutSecurityInfo(securityCode); ok {
+			digits = int(info.DecimalPoint)
+		}
+	}
+	waves.Digits = digits
+	wave := v3FindPeaks(sample)
 	waves.Peaks = wave.peaks
 	waves.PeakCount = wave.peakCount
 	waves.Valleys = wave.valleys
