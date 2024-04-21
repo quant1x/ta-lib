@@ -3,7 +3,7 @@ module gitee.com/quant1x/ta-lib
 go 1.21.8
 
 require (
-	gitee.com/quant1x/engine v1.7.8
+	gitee.com/quant1x/engine v1.7.9
 	gitee.com/quant1x/exchange v0.5.2
 	gitee.com/quant1x/gotdx v1.22.3
 	gitee.com/quant1x/gox v1.21.0
@@ -13,8 +13,6 @@ require (
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
 	github.com/wcharczuk/go-chart/v2 v2.1.1
 )
-
-replace gitee.com/quant1x/engine v1.7.8 => ../engine
 
 require (
 	github.com/blend/go-sdk v1.20220411.3 // indirect
