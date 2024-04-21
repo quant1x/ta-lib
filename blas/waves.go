@@ -24,14 +24,19 @@ type Waves struct {
 	PeakCount   int             // 所识别的波峰计数
 	ValleyCount int             // 所识别的波谷计数
 	Digits      int             // 小数点几位
+	State       int8            // 点状态
+	LastHigh    num.DataPoint   // 最新的高点
+	LastLow     num.DataPoint   // 最新的地点
 }
 
 func (this Waves) Len() int {
 	return len(this.Data)
 }
 
-// 初始化波峰波谷
-func v1FindPeaks(n int, data func(x int) float64) Wave {
+// FindPeaks 波峰波谷
+//
+//	搜寻收盘价的高低点
+func FindPeaks(n int, data func(x int) float64) Wave {
 	wave := Wave{
 		//data:    make([]float64, n),
 		diff:    make([]int, n),
@@ -97,8 +102,35 @@ func v1FindPeaks(n int, data func(x int) float64) Wave {
 	return wave
 }
 
-// 初始化波峰波谷
-func v2FindPeaks(sample DataSample) Wave {
+// PeaksAndValleys 创建一个新的波浪
+//
+//	高点的波峰, 低点的波谷
+func PeaksAndValleys(sample DataSample, code ...string) Waves {
+	n := sample.Len()
+	waves := Waves{
+		Data: make([]float64, n),
+	}
+	for i := 0; i < n; i++ {
+		waves.Data[i] = sample.Current(i)
+	}
+	digits := 2
+	if len(code) > 0 {
+		securityCode := exchange.CorrectSecurityCode(code[0])
+		if info, ok := securities.CheckoutSecurityInfo(securityCode); ok {
+			digits = int(info.DecimalPoint)
+		}
+	}
+	waves.Digits = digits
+	wave := searchHighsAndLows(sample)
+	waves.Peaks = wave.peaks
+	waves.PeakCount = wave.peakCount
+	waves.Valleys = wave.valleys
+	waves.ValleyCount = wave.valleyCount
+	return waves
+}
+
+// 搜寻高点和低点
+func searchHighsAndLows(sample DataSample) Wave {
 	n := sample.Len()
 	wave := Wave{
 		//data:    make([]float64, n),
@@ -177,135 +209,60 @@ func v2FindPeaks(sample DataSample) Wave {
 	return wave
 }
 
-func v3FindPeaks(sample DataSample) Wave {
+// HighAndLow 关注低点高点变化的波浪
+func HighAndLow(sample DataSample, code ...string) Waves {
 	n := sample.Len()
-	wave := Wave{
-		//data:    make([]float64, n),
-		diff:    make([]int, n),
-		peaks:   make([]num.DataPoint, n),
-		valleys: make([]num.DataPoint, n),
+	waves := Waves{
+		Data:    make([]float64, n),
+		Peaks:   make([]num.DataPoint, n),
+		Valleys: make([]num.DataPoint, n),
 	}
 	for i := 0; i < n; i++ {
-		wave.diff[i] = 0
-		wave.peaks[i].X = -1
-		wave.valleys[i].X = -1
+		waves.Data[i] = sample.Current(i)
 	}
-	wave.peakCount = 0
-	wave.valleyCount = 0
-	stat := 0
-	for i := 0; i < n-1; i++ {
-		pos1 := i
-		pos2 := i + 1
-		diffHigh := sample.High(pos2) - sample.High(pos1)
-		diffLow := sample.Low(pos1) - sample.Low(pos2)
-		switch stat {
-		case 0:
+	digits := 2
+	if len(code) > 0 {
+		securityCode := exchange.CorrectSecurityCode(code[0])
+		if info, ok := securities.CheckoutSecurityInfo(securityCode); ok {
+			digits = int(info.DecimalPoint)
+		}
+	}
+	waves.Digits = digits
+	waves.PeakCount = 0
+	waves.ValleyCount = 0
+	waves.State = 0
+	pos := 0
+	waves.LastHigh = num.DataPoint{X: pos, Y: sample.High(pos)}
+	waves.LastLow = num.DataPoint{X: pos, Y: sample.Low(pos)}
+	for i := 1; i < n; i++ {
+		lastHigh := num.DataPoint{X: i, Y: sample.High(i)}
+		lastLow := num.DataPoint{X: i, Y: sample.Low(i)}
+		diffHigh := lastHigh.Y - waves.LastHigh.Y
+		diffLow := lastLow.Y - waves.LastLow.Y
+		switch waves.State {
+		case 0: // 初始状态
 			if diffHigh > 0 {
-				stat = 1
-			} else if diffLow > 0 {
-				stat = -1
+				waves.State = 1
+			} else if diffLow < 0 {
+				waves.State = -1
 			}
-		case 1:
+		case 1: // 升高
 			if diffHigh <= 0 {
-				stat = -1
-				price := sample.High(pos1)
-				wave.peaks[wave.peakCount] = num.DataPoint{X: pos1, Y: price}
-				wave.peakCount++
+				waves.State = -1
+				waves.Peaks[waves.PeakCount] = waves.LastHigh
+				waves.PeakCount++
 			}
-		case -1:
-			if diffLow <= 0 {
-				stat = 1
-				price := sample.Low(pos1)
-				wave.valleys[wave.valleyCount] = num.DataPoint{X: pos1, Y: price}
-				wave.valleyCount++
+		case -1: // 降低
+			if diffLow >= 0 {
+				waves.State = 1
+				waves.Valleys[waves.ValleyCount] = waves.LastLow
+				waves.ValleyCount++
 			}
 		}
-
+		waves.LastHigh = lastHigh
+		waves.LastLow = lastLow
 	}
-	wave.peaks = wave.peaks[:wave.peakCount]
-	wave.valleys = wave.valleys[:wave.valleyCount]
-	return wave
-}
-
-// PeaksAndValleys 创建一个新的波浪
-func PeaksAndValleys(sample DataSample, code ...string) Waves {
-	return v3PeaksAndValleys(sample, code...)
-}
-
-// PeaksAndValleys 创建一个新的波浪
-func v1PeaksAndValleys(sample DataSample, code ...string) Waves {
-	n := sample.Len()
-	waves := Waves{
-		Data: make([]float64, n),
-	}
-	for i := 0; i < n; i++ {
-		waves.Data[i] = sample.Current(i)
-	}
-	digits := 2
-	if len(code) > 0 {
-		securityCode := exchange.CorrectSecurityCode(code[0])
-		if info, ok := securities.CheckoutSecurityInfo(securityCode); ok {
-			digits = int(info.DecimalPoint)
-		}
-	}
-	waves.Digits = digits
-	// 第一步, 高点
-	highs := v1FindPeaks(n, sample.High)
-	waves.Peaks = highs.peaks
-	waves.PeakCount = highs.peakCount
-	// 第二步, 低点
-	lows := v1FindPeaks(n, sample.Low)
-	waves.Valleys = lows.valleys
-	waves.ValleyCount = lows.valleyCount
-	return waves
-}
-
-// PeaksAndValleys 创建一个新的波浪
-func v2PeaksAndValleys(sample DataSample, code ...string) Waves {
-	n := sample.Len()
-	waves := Waves{
-		Data: make([]float64, n),
-	}
-	for i := 0; i < n; i++ {
-		waves.Data[i] = sample.Current(i)
-	}
-	digits := 2
-	if len(code) > 0 {
-		securityCode := exchange.CorrectSecurityCode(code[0])
-		if info, ok := securities.CheckoutSecurityInfo(securityCode); ok {
-			digits = int(info.DecimalPoint)
-		}
-	}
-	waves.Digits = digits
-	wave := v2FindPeaks(sample)
-	waves.Peaks = wave.peaks
-	waves.PeakCount = wave.peakCount
-	waves.Valleys = wave.valleys
-	waves.ValleyCount = wave.valleyCount
-	return waves
-}
-
-// PeaksAndValleys 创建一个新的波浪
-func v3PeaksAndValleys(sample DataSample, code ...string) Waves {
-	n := sample.Len()
-	waves := Waves{
-		Data: make([]float64, n),
-	}
-	for i := 0; i < n; i++ {
-		waves.Data[i] = sample.Current(i)
-	}
-	digits := 2
-	if len(code) > 0 {
-		securityCode := exchange.CorrectSecurityCode(code[0])
-		if info, ok := securities.CheckoutSecurityInfo(securityCode); ok {
-			digits = int(info.DecimalPoint)
-		}
-	}
-	waves.Digits = digits
-	wave := v3FindPeaks(sample)
-	waves.Peaks = wave.peaks
-	waves.PeakCount = wave.peakCount
-	waves.Valleys = wave.valleys
-	waves.ValleyCount = wave.valleyCount
+	waves.Peaks = waves.Peaks[:waves.PeakCount]
+	waves.Valleys = waves.Valleys[:waves.ValleyCount]
 	return waves
 }
