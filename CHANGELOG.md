@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.6.5] - 2024-04-21
+### Changed
+- 拆分不同的wave用法.
+- 更新engine版本到1.7.9.
+- 新增v3版本的波浪处理逻辑.
+
 ## [0.6.4] - 2024-04-19
 ### Changed
 - 更新依赖库版本.
@@ -253,7 +259,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - 第一次提交.
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.6.4...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.6.5...HEAD
+[0.6.5]: https://gitee.com/quant1x/ta-lib/compare/v0.6.4...v0.6.5
 [0.6.4]: https://gitee.com/quant1x/ta-lib/compare/v0.6.3...v0.6.4
 [0.6.3]: https://gitee.com/quant1x/ta-lib/compare/v0.6.2...v0.6.3
 [0.6.2]: https://gitee.com/quant1x/ta-lib/compare/v0.6.1...v0.6.2
