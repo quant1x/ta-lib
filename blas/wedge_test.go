@@ -19,7 +19,8 @@ func TestWedge_basic(t *testing.T) {
 	//code = "300945"
 	code = "300107"
 	code = "002242"
-	date := "2024-04-18"
+	//code = "600855"
+	date := "2024-04-23"
 	//date = "2024-03-29"
 	//date = cache.DefaultCanReadDate()
 	list := base.CheckoutKLines(code, date)
@@ -28,7 +29,7 @@ func TestWedge_basic(t *testing.T) {
 	}
 	sample := LoadKLineSample(list)
 	securityCode := exchange.CorrectSecurityCode(code)
-	waves := PeaksAndValleys(sample, securityCode)
+	waves := HighAndLow(sample, securityCode)
 	fmt.Println(waves)
 
 	chartName := securities.GetStockName(code) + "(" + securityCode + ")日线图 - " + date
