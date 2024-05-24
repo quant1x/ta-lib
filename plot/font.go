@@ -5,7 +5,6 @@ import (
 	"gitee.com/quant1x/gox/api"
 	"github.com/golang/freetype/truetype"
 	"io"
-	"path/filepath"
 	"sync"
 )
 
@@ -32,7 +31,7 @@ func GetDefaultFont() (*truetype.Font, error) {
 		_defaultFontLock.Lock()
 		defer _defaultFontLock.Unlock()
 		if _defaultFont == nil {
-			f, err := api.OpenEmbed(fonts, filepath.Join(ResourcesPath, fontSimHei))
+			f, err := api.OpenEmbed(fonts, ResourcesPath+"/"+fontSimHei)
 			if err != nil {
 				return nil, err
 			}
