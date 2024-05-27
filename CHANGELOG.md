@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.7.8] - 2024-05-27
+### Changed
+- �新依赖库engine版本到1.8.17.
+
 ## [0.7.7] - 2024-05-24
 ### Changed
 - Embed资源路径是*nix格式, 否则在windows无法打开.
@@ -310,7 +314,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - 第一次提交.
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.7.7...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib/compare/v0.7.8...HEAD
+[0.7.8]: https://gitee.com/quant1x/ta-lib/compare/v0.7.7...v0.7.8
 [0.7.7]: https://gitee.com/quant1x/ta-lib/compare/v0.7.6...v0.7.7
 [0.7.6]: https://gitee.com/quant1x/ta-lib/compare/v0.7.5...v0.7.6
 [0.7.5]: https://gitee.com/quant1x/ta-lib/compare/v0.7.4...v0.7.5
