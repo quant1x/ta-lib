@@ -3,6 +3,22 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.7.11] - 2024-06-16
+### Changed
+- 新增SAR指标计算方法
+- 更新依赖库engine版本到1.8.22
+- sar算法增加注释
+- sar算法增加增量计算方法
+- 结构体增加说明文字
+- 调整sar实现的部分函数名
+- sar特征组合结构增加当前趋势的周期数, 上涨趋势, 周期数大于0, 下跌趋势, 周期数小于0, 绝对值就是已过多少天
+- sar特征组合结构周期数字段Period增加用途描述
+- 更新依赖库engine版本到1.8.23
+- 调整sar测试代码
+- 更新依赖库版本
+- 参数输出保留2位小数点
+- 调整sar代码, 剔除废弃的代码
+
 ## [0.7.10] - 2024-06-02
 ### Changed
 - 更新依赖库engine版本到1.8.20
@@ -10,6 +26,7 @@ All notable changes to this project will be documented in this file.
 ## [0.7.9] - 2024-05-27
 ### Changed
 - 更新engine版本到1.8.18
+- update changelog
 - update changelog
 - update changelog
 
@@ -388,7 +405,8 @@ All notable changes to this project will be documented in this file.
 - 第一次提交
 
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.10...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.11...HEAD
+[0.7.11]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.10...v0.7.11
 [0.7.10]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.9...v0.7.10
 [0.7.9]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.8...v0.7.9
 [0.7.8]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.7...v0.7.8
