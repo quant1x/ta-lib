@@ -17,10 +17,12 @@ func TestWedge_basic(t *testing.T) {
 	code := "sh000001"
 	//code = "300824"
 	//code = "300945"
-	code = "300107"
-	code = "002242"
+	//code = "300107"
+	//code = "002242"
 	//code = "600855"
-	date := "2024-04-26"
+	code = "300019"
+	code = "300107"
+	date := "2024-05-30"
 	//date = "2024-03-29"
 	//date = cache.DefaultCanReadDate()
 	list := base.CheckoutKLines(code, date)
