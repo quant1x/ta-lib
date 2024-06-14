@@ -8,6 +8,8 @@ type FeatureSar struct {
 	Sar  float64 // SAR[Pos]
 }
 
+// SAR指标又叫抛物线指标或停损转向操作点指标, 其全称叫“Stop and Reverse, 缩写SAR”,
+// 是由美国技术分析大师威尔斯-威尔德(Wells Wilder)所创造的, 是一种简单易学,比较准确的中短期技术分析工具.
 // https://baike.baidu.com/item/SAR%E6%8C%87%E6%A0%87
 func tdx_sar(firstIsBull bool, highs, lows []float64, accelerationFactor, accelerationFactorLimit float64) []FeatureSar {
 	length := len(highs)
