@@ -17,15 +17,15 @@ func TestSar_basic(t *testing.T) {
 	rows := len(list)
 	high := make([]float64, rows)
 	low := make([]float64, rows)
-	firstIsBull := false
 	for i, v := range list {
-		if i == 0 {
-			firstIsBull = v.Close > v.Open
-		}
 		high[i] = v.High
 		low[i] = v.Low
 	}
-	data := SAR(firstIsBull, high, low, 0.02, 0.20)
+	data := SAR(high, low)
 	df := pandas.LoadStructs(data)
 	fmt.Println(df)
+	last := data[rows-1]
+	// 增量计算SAR 2024-06-14
+	latest := last.Incr(18.77, 17.88)
+	fmt.Printf("%+v\n", latest)
 }

@@ -11,12 +11,24 @@ type FeatureSar struct {
 	Low  float64 // pos周期最低价
 }
 
+const (
+	// SarAccelerationFactor SAR 加速因子
+	SarAccelerationFactor = 0.02
+	// SarAccelerationFactorLimit SAR加速因子最大值
+	SarAccelerationFactorLimit = 0.20
+)
+
 // SAR 停损转向操作点指标
+func SAR(highs, lows []float64) []FeatureSar {
+	return StopAndReverse(true, highs, lows, SarAccelerationFactor, SarAccelerationFactorLimit)
+}
+
+// StopAndReverse 停损转向操作点指标
 //
 //	SAR指标又叫抛物线指标或停损转向操作点指标, 其全称叫“Stop and Reverse, 缩写SAR”,
 //	是由美国技术分析大师威尔斯-威尔德(Wells Wilder)所创造的, 是一种简单易学,比较准确的中短期技术分析工具.
 //	https://baike.baidu.com/item/SAR%E6%8C%87%E6%A0%87
-func SAR(firstIsBull bool, highs, lows []float64, accelerationFactor, accelerationFactorLimit float64) []FeatureSar {
+func StopAndReverse(firstIsBull bool, highs, lows []float64, accelerationFactor, accelerationFactorLimit float64) []FeatureSar {
 	return v2Sar(firstIsBull, highs, lows, accelerationFactor, accelerationFactorLimit)
 }
 
@@ -109,7 +121,7 @@ func v2Sar(firstIsBull bool, highs, lows []float64, accelerationFactor, accelera
 	data[0].Low = lows[0]
 	for i := 1; i < length; i++ {
 		//data[i] = sarIncr(data[i-1], accelerationFactor, accelerationFactorLimit, highs[i], lows[i])
-		data[i] = data[i-1].Incr(accelerationFactor, accelerationFactorLimit, highs[i], lows[i])
+		data[i] = data[i-1].RawIncr(accelerationFactor, accelerationFactorLimit, highs[i], lows[i])
 	}
 	return data
 }
@@ -172,7 +184,13 @@ func sarIncr(last FeatureSar, accelerationFactor, accelerationFactorLimit float6
 	return current
 }
 
-func (s FeatureSar) Incr(accelerationFactor, accelerationFactorLimit float64, high, low float64) FeatureSar {
+// Incr 增量计算
+func (s FeatureSar) Incr(high, low float64) FeatureSar {
+	return s.RawIncr(SarAccelerationFactor, SarAccelerationFactorLimit, high, low)
+}
+
+// RawIncr 增加1天的数据
+func (s FeatureSar) RawIncr(accelerationFactor, accelerationFactorLimit float64, high, low float64) FeatureSar {
 	current := s
 	current.Pos++
 	current.High = high
