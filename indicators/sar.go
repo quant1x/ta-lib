@@ -9,7 +9,7 @@ type FeatureSar struct {
 	Sar    float64 // SAR[Pos]
 	High   float64 // pos周期最高价
 	Low    float64 // pos周期最低价
-	Period int     // 周期数
+	Period int     // 周期数, 上涨趋势, 周期数大于0, 下跌趋势, 周期数小于0, 绝对值就是已过多少天
 }
 
 const (
