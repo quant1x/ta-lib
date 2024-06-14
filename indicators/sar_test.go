@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func Test_tdx_sar(t *testing.T) {
+func TestSar_basic(t *testing.T) {
 	code := "600171"
 	date := "2024-06-13"
 	code = exchange.CorrectSecurityCode(code)
@@ -25,7 +25,7 @@ func Test_tdx_sar(t *testing.T) {
 		high[i] = v.High
 		low[i] = v.Low
 	}
-	data := tdx_sar(firstIsBull, high, low, 0.02, 0.20)
+	data := SAR(firstIsBull, high, low, 0.02, 0.20)
 	df := pandas.LoadStructs(data)
 	fmt.Println(df)
 }
