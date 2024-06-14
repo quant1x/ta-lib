@@ -1,5 +1,7 @@
 package indicators
 
+import "gitee.com/quant1x/num"
+
 // FeatureSar SAR指标特征数据结构
 type FeatureSar struct {
 	Pos    int     // 坐标位置
@@ -252,5 +254,7 @@ func (s FeatureSar) RawIncr(accelerationFactor, accelerationFactorLimit float64,
 			current.Period--
 		}
 	}
+	current.Af = num.Decimal(current.Af)
+	current.Sar = num.Decimal(current.Sar)
 	return current
 }
