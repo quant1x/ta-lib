@@ -9,8 +9,8 @@ import (
 )
 
 func TestSar_basic(t *testing.T) {
-	code := "600171"
-	date := "2024-06-13"
+	code := "300046"
+	date := "2024-05-27"
 	code = exchange.CorrectSecurityCode(code)
 	date = exchange.FixTradeDate(date)
 	list := base.CheckoutKLines(code, date)
