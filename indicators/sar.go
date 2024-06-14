@@ -1,13 +1,14 @@
 package indicators
 
+// FeatureSar SAR指标特征数据结构
 type FeatureSar struct {
 	Pos  int     // 坐标位置
 	Bull bool    // 当前多空
 	Af   float64 // 加速因子(Acceleration Factor)
 	Ep   float64 // 极值点(Extreme Point)
 	Sar  float64 // SAR[Pos]
-	High float64
-	Low  float64
+	High float64 // pos周期最高价
+	Low  float64 // pos周期最低价
 }
 
 // SAR 停损转向操作点指标
