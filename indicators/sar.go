@@ -2,13 +2,14 @@ package indicators
 
 // FeatureSar SAR指标特征数据结构
 type FeatureSar struct {
-	Pos  int     // 坐标位置
-	Bull bool    // 当前多空
-	Af   float64 // 加速因子(Acceleration Factor)
-	Ep   float64 // 极值点(Extreme Point)
-	Sar  float64 // SAR[Pos]
-	High float64 // pos周期最高价
-	Low  float64 // pos周期最低价
+	Pos    int     // 坐标位置
+	Bull   bool    // 当前多空
+	Af     float64 // 加速因子(Acceleration Factor)
+	Ep     float64 // 极值点(Extreme Point)
+	Sar    float64 // SAR[Pos]
+	High   float64 // pos周期最高价
+	Low    float64 // pos周期最低价
+	Period int     // 周期数
 }
 
 const (
@@ -119,6 +120,7 @@ func v2Sar(firstIsBull bool, highs, lows []float64, accelerationFactor, accelera
 	data[0].Sar = lows[0]
 	data[0].High = highs[0]
 	data[0].Low = lows[0]
+	data[0].Period = 1
 	for i := 1; i < length; i++ {
 		//data[i] = sarIncr(data[i-1], accelerationFactor, accelerationFactorLimit, highs[i], lows[i])
 		data[i] = data[i-1].RawIncr(accelerationFactor, accelerationFactorLimit, highs[i], lows[i])
@@ -233,6 +235,9 @@ func (s FeatureSar) RawIncr(accelerationFactor, accelerationFactorLimit float64,
 			} else {
 				current.Sar = s.Ep + current.Af*(current.Ep-s.Ep)
 			}
+			current.Period = -1
+		} else {
+			current.Period++
 		}
 	} else {
 		// 空
@@ -242,6 +247,9 @@ func (s FeatureSar) RawIncr(accelerationFactor, accelerationFactorLimit float64,
 			current.Ep = high
 			current.Af = accelerationFactor
 			current.Sar = min(low, s.Low)
+			current.Period = 1
+		} else {
+			current.Period--
 		}
 	}
 	return current
