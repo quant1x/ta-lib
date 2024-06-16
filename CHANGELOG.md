@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.7.12] - 2024-06-20
+### Changed
+- 更新engine版本到1.8.27
+
 ## [0.7.11] - 2024-06-16
 ### Changed
 - 新增SAR指标计算方法
@@ -22,6 +26,7 @@ All notable changes to this project will be documented in this file.
 ## [0.7.10] - 2024-06-02
 ### Changed
 - 更新依赖库engine版本到1.8.20
+- update changelog
 
 ## [0.7.9] - 2024-05-27
 ### Changed
@@ -405,7 +410,8 @@ All notable changes to this project will be documented in this file.
 - 第一次提交
 
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.11...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.12...HEAD
+[0.7.12]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.11...v0.7.12
 [0.7.11]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.10...v0.7.11
 [0.7.10]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.9...v0.7.10
 [0.7.9]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.8...v0.7.9
