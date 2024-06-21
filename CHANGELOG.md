@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.7.15] - 2024-06-21
+### Changed
+- 删除测试数据
+
 ## [0.7.14] - 2024-06-21
 ### Changed
 - 更新engine版本到1.8.29
@@ -10,6 +14,7 @@ All notable changes to this project will be documented in this file.
 ## [0.7.13] - 2024-06-20
 ### Changed
 - 更新engine版本到1.8.28
+- update changelog
 
 ## [0.7.12] - 2024-06-20
 ### Changed
@@ -420,7 +425,8 @@ All notable changes to this project will be documented in this file.
 - 第一次提交
 
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.14...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.15...HEAD
+[0.7.15]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.14...v0.7.15
 [0.7.14]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.13...v0.7.14
 [0.7.13]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.12...v0.7.13
 [0.7.12]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.11...v0.7.12
