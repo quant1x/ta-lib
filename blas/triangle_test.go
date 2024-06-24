@@ -16,7 +16,7 @@ func TestChartKLine_Triangle(t *testing.T) {
 	//requiredKLines = 250
 	code := "sh000001"
 	//code = "300107"
-	date := "2024-04-24"
+	date := "2024-06-21"
 	//date = cache.DefaultCanReadDate()
 	list := base.CheckoutKLines(code, date)
 	if len(list) >= requiredKLines {
