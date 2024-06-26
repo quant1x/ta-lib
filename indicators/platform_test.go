@@ -2,7 +2,9 @@ package indicators
 
 import (
 	"fmt"
-	"gitee.com/quant1x/engine/factors"
+	"gitee.com/quant1x/engine/datasource/base"
+	"gitee.com/quant1x/exchange"
+	"gitee.com/quant1x/pandas"
 	"testing"
 )
 
@@ -27,7 +29,11 @@ func TestPlatform(t *testing.T) {
 	code = "sz300678"
 	code = "sh605162"
 	code = "sz002992"
-	df := factors.KLine(code)
+	date := "2024-06-25"
+	code = exchange.CorrectSecurityCode(code)
+	date = exchange.FixTradeDate(date)
+	rows := base.CheckoutKLines(code, date)
+	df := pandas.LoadStructs(rows)
 	fmt.Println(df)
 	df1 := Platform(df)
 	fmt.Println(df1)

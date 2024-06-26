@@ -2,12 +2,19 @@ package indicators
 
 import (
 	"fmt"
-	"gitee.com/quant1x/engine/factors"
+	"gitee.com/quant1x/engine/datasource/base"
+	"gitee.com/quant1x/exchange"
+	"gitee.com/quant1x/pandas"
 	"testing"
 )
 
 func TestMACD(t *testing.T) {
-	df := factors.KLine("sz002528")
+	code := "300781"
+	date := "2024-06-25"
+	code = exchange.CorrectSecurityCode(code)
+	date = exchange.FixTradeDate(date)
+	rows := base.CheckoutKLines(code, date)
+	df := pandas.LoadStructs(rows)
 	fmt.Println(df)
 	df1 := MACD(df, 5, 13, 3)
 	fmt.Println(df1)
