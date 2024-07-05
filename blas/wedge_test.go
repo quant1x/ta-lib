@@ -22,9 +22,11 @@ func TestWedge_basic(t *testing.T) {
 	//code = "600855"
 	//code = "300019"
 	//code = "300107"
-	date := "2024-06-25"
+	//code = "600719"
+	date := "2024-06-28"
 	//date = "2024-03-29"
 	//date = cache.DefaultCanReadDate()
+	date = exchange.FixTradeDate(date)
 	list := base.CheckoutKLines(code, date)
 	if len(list) >= requiredKLines {
 		list = list[len(list)-requiredKLines:]
