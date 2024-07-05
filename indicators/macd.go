@@ -29,3 +29,13 @@ func MACD(df pandas.DataFrame, SHORT, LONG, MID int) pandas.DataFrame {
 	MACD := DIF.Sub(DEA).Mul(2)
 	return pandas.NewDataFrame(DIF, DEA, MACD)
 }
+
+func macd(data pandas.Series, SHORT, LONG, MID int) pandas.DataFrame {
+	//DIF:EMA(CLOSE,SHORT)-EMA(CLOSE,LONG);
+	DIF := EMA(data, SHORT).Sub(EMA(data, LONG))
+	//DEA:EMA(DIF,MID)
+	DEA := EMA(DIF, MID)
+	//MACD:(DIF-DEA)*2,COLORSTICK;
+	MACD := DIF.Sub(DEA).Mul(2)
+	return pandas.NewDataFrame(DIF, DEA, MACD)
+}
