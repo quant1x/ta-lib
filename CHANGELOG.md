@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.7.25] - 2024-07-31
+### Changed
+- 更新engine版本到1.8.41
+
 ## [0.7.24] - 2024-07-14
 ### Changed
 - 更新engine版本到1.8.40
@@ -13,6 +17,7 @@ All notable changes to this project will be documented in this file.
 - 新增macd用series计算的函数
 - 更新依赖库版本
 - 调整部分测试代码
+- update changelog
 
 ## [0.7.22] - 2024-06-27
 ### Changed
@@ -474,7 +479,8 @@ All notable changes to this project will be documented in this file.
 - 第一次提交
 
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.24...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.25...HEAD
+[0.7.25]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.24...v0.7.25
 [0.7.24]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.23...v0.7.24
 [0.7.23]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.22...v0.7.23
 [0.7.22]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.21...v0.7.22
