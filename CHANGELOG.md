@@ -3,9 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.7.29] - 2024-12-27
+### Changed
+- 更新engine版本到1.8.46
+
 ## [0.7.28] - 2024-08-06
 ### Changed
 - 更新engine版本到1.8.45
+- update changelog
 
 ## [0.7.27] - 2024-08-06
 ### Changed
@@ -495,7 +500,8 @@ All notable changes to this project will be documented in this file.
 - 第一次提交
 
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.28...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.29...HEAD
+[0.7.29]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.28...v0.7.29
 [0.7.28]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.27...v0.7.28
 [0.7.27]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.26...v0.7.27
 [0.7.26]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.25...v0.7.26
