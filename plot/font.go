@@ -3,7 +3,7 @@ package plot
 import (
 	"embed"
 	"gitee.com/quant1x/gox/api"
-	"github.com/golang/freetype/truetype"
+	"gitee.com/quant1x/pkg/freetype/truetype"
 	"io"
 	"sync"
 )

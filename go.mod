@@ -10,12 +10,9 @@ require (
 	gitee.com/quant1x/num v0.3.6
 	gitee.com/quant1x/pandas v1.4.12
 	gitee.com/quant1x/pkg v0.3.1
-	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
-	github.com/wcharczuk/go-chart/v2 v2.1.1
 )
 
 require (
-	github.com/blend/go-sdk v1.20220411.3 // indirect
 	github.com/dlclark/regexp2 v1.11.4 // indirect
 	github.com/go-sourcemap/sourcemap v2.1.4+incompatible // indirect
 	github.com/google/pprof v0.0.0-20240727154555-813a5fbdbec8 // indirect
