@@ -3,9 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.8.1] - 2025-02-15
+### Changed
+- 更新依赖库engine版本到1.9.0
+
 ## [0.8.0] - 2025-02-15
 ### Changed
 - 更新依赖库版本, 以支持go1.24
+- update changelog
 
 ## [0.7.29] - 2024-12-27
 ### Changed
@@ -505,7 +510,8 @@ All notable changes to this project will be documented in this file.
 - 第一次提交
 
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.0...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.1...HEAD
+[0.8.1]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.0...v0.8.1
 [0.8.0]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.29...v0.8.0
 [0.7.29]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.28...v0.7.29
 [0.7.28]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.27...v0.7.28
