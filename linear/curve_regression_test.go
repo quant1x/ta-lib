@@ -2,14 +2,18 @@ package linear
 
 import (
 	"fmt"
-	"gitee.com/quant1x/engine/factors"
+	"gitee.com/quant1x/engine/datasource/base"
+	"gitee.com/quant1x/exchange"
+	"gitee.com/quant1x/pandas"
 	"testing"
 )
 
 func TestCurveRegression(t *testing.T) {
-	code := "688351"
-	code = "sh000001"
-	df := factors.KLine(code)
+	code := "600839"
+	code = exchange.CorrectSecurityCode(code)
+	date := exchange.GetCurrentlyDay()
+	rawData := base.CheckoutKLines(code, date)
+	df := pandas.LoadStructs(rawData)
 	df = df.Subset(0, df.Nrow()-1)
 	fmt.Println(df)
 	N := 5

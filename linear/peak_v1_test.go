@@ -2,19 +2,20 @@ package linear
 
 import (
 	"fmt"
-	"gitee.com/quant1x/engine/factors"
+	"gitee.com/quant1x/engine/datasource/base"
+	"gitee.com/quant1x/exchange"
 	"gitee.com/quant1x/num"
 	"gitee.com/quant1x/pandas"
 	"testing"
 )
 
 func TestPeakDetect(t *testing.T) {
-	code := "sh000905"
-	code = "sz002528"
-	//code = "sz002951"
-	code = "sh000001"
+	code := "600839"
+	code = exchange.CorrectSecurityCode(code)
+	date := exchange.GetCurrentlyDay()
+	rawData := base.CheckoutKLines(code, date)
+	df := pandas.LoadStructs(rawData)
 	length := 89
-	df := factors.KLine(code)
 	df = df.Subset(df.Nrow()-length, df.Nrow())
 	fmt.Println(df)
 	//v := [...]float64{0.0, 1.0, 2.0, 1.0, 0.0, -1.0, 0.0, 3.0, 0.0}

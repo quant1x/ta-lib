@@ -2,13 +2,19 @@ package linear
 
 import (
 	"fmt"
-	"gitee.com/quant1x/engine/factors"
+	"gitee.com/quant1x/engine/datasource/base"
+	"gitee.com/quant1x/exchange"
 	"gitee.com/quant1x/num"
+	"gitee.com/quant1x/pandas"
 	"testing"
 )
 
 func TestPredictStock(t *testing.T) {
-	df := factors.KLine("002528")
+	code := "600839"
+	code = exchange.CorrectSecurityCode(code)
+	date := exchange.GetCurrentlyDay()
+	rawData := base.CheckoutKLines(code, date)
+	df := pandas.LoadStructs(rawData)
 	fmt.Println(df)
 	length := df.Nrow() - 1
 	df1 := df.Subset(length-3, length)
