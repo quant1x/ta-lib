@@ -10,6 +10,7 @@ require (
 	gitee.com/quant1x/num v0.4.0
 	gitee.com/quant1x/pandas v1.5.0
 	gitee.com/quant1x/pkg v0.4.0
+	github.com/shopspring/decimal v1.4.0
 	github.com/stretchr/testify v1.10.0
 )
 
