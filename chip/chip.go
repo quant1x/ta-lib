@@ -2,7 +2,6 @@ package chip
 
 import (
 	"errors"
-	"fmt"
 	"gitee.com/quant1x/engine/datasource/base"
 	"gitee.com/quant1x/engine/factors"
 	"gitee.com/quant1x/num"
@@ -31,6 +30,7 @@ type ChipDistribution struct {
 	chipHistory map[string]map[float64]float64 // 历史筹码分布
 	data        []DailyData                    // 日线数据
 	config      Config                         // 计算配置
+	capital     float64                        // 流通股本
 	digits      int                            // 小数点位数
 }
 
@@ -75,12 +75,12 @@ func (cd *ChipDistribution) LoadCSV(code, date string) error {
 	if f10 == nil {
 		return errors.New("获取F10数据异常")
 	}
-	capital := f10.Capital
+	cd.capital = f10.Capital
 	cd.digits = f10.DecimalPoint
 	for _, record := range klines {
 		data := DailyData{
 			KLine:        record,
-			TurnoverRate: 100 * (record.Volume / capital),
+			TurnoverRate: 100 * (record.Volume / cd.capital),
 			Avg:          record.Amount / record.Volume,
 		}
 		data.Open = num.Decimal(data.Open, cd.digits)
@@ -91,6 +91,10 @@ func (cd *ChipDistribution) LoadCSV(code, date string) error {
 		cd.data = append(cd.data, data)
 	}
 	return nil
+}
+
+func (cd *ChipDistribution) RealVolume(proportion float64) float64 {
+	return cd.capital * proportion
 }
 
 // Calculate 执行筹码分布计算
@@ -144,7 +148,8 @@ func (cd *ChipDistribution) calculateTriangular(day DailyData) error {
 
 	// 情况2：常规价格区间校验
 	if day.High < day.Low {
-		return fmt.Errorf("无效价格区间: 日期 %s (High=%.2f < Low=%.2f)", day.Date, day.High, day.Low)
+		//return fmt.Errorf("无效价格区间: 日期 %s (High=%.2f < Low=%.2f)", day.Date, day.High, day.Low)
+		return nil
 	}
 
 	// 生成价格网格（包含容差处理）
@@ -163,6 +168,8 @@ func (cd *ChipDistribution) calculateTriangular(day DailyData) error {
 		// 分情况处理三角形分布
 		if price < day.Avg {
 			// 左三角形处理（包含Avg=Low的边界情况）
+			// 形态特征: 筹码密度从最低价向均价递增（类似直角三角形）
+			// 市场意义: 当日低位买盘活跃，形成下方支撑带
 			denominator := day.Avg - day.Low
 			if denominator <= 1e-8 { // 处理浮点精度误差
 				// 当Avg=Low时退化为矩形分布
@@ -174,6 +181,8 @@ func (cd *ChipDistribution) calculateTriangular(day DailyData) error {
 			}
 		} else {
 			// 右三角形处理（包含Avg=High的边界情况）
+			// 形态特征: 筹码密度从均价向最高价递减
+			// 市场意义: 当日高位抛压显现，形成上方阻力带
 			denominator := day.High - day.Avg
 			if denominator <= 1e-8 {
 				// 当Avg=High时退化为矩形分布
