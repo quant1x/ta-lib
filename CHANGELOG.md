@@ -3,9 +3,21 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.8.2] - 2025-02-25
+### Changed
+- 增加筹码峰算法
+- 调整最近和最大峰值的处理方式
+- 更新num库版本到0.4.1, 修复浮点四舍五入的bug
+- 调整测试代码
+- 增加流通股本字段
+- 增加废弃5年前数据的处理逻辑
+- 更新exchange版本到0.61, 修复GetCurrentDate跨2天仍然计算早9点初始化的bug
+- 调整测试标的
+
 ## [0.8.1] - 2025-02-15
 ### Changed
 - 更新依赖库engine版本到1.9.0
+- update changelog
 
 ## [0.8.0] - 2025-02-15
 ### Changed
@@ -510,7 +522,8 @@ All notable changes to this project will be documented in this file.
 - 第一次提交
 
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.1...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.2...HEAD
+[0.8.2]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.1...v0.8.2
 [0.8.1]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.0...v0.8.1
 [0.8.0]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.29...v0.8.0
 [0.7.29]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.28...v0.7.29
