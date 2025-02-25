@@ -4,9 +4,11 @@ import (
 	"errors"
 	"gitee.com/quant1x/engine/datasource/base"
 	"gitee.com/quant1x/engine/factors"
+	"gitee.com/quant1x/exchange"
 	"gitee.com/quant1x/num"
 	"math"
 	"sort"
+	"time"
 )
 
 // DailyData 日线数据结构
@@ -26,12 +28,11 @@ type ChipSignle struct {
 
 // ChipDistribution 筹码分布计算器
 type ChipDistribution struct {
-	chip        map[float64]float64            // 当前筹码分布
-	chipHistory map[string]map[float64]float64 // 历史筹码分布
-	data        []DailyData                    // 日线数据
-	config      Config                         // 计算配置
-	capital     float64                        // 流通股本
-	digits      int                            // 小数点位数
+	chip    map[float64]float64 // 当前筹码分布
+	data    []DailyData         // 日线数据
+	config  Config              // 计算配置
+	capital float64             // 流通股本
+	digits  int                 // 小数点位数
 }
 
 // Config 计算配置参数
@@ -61,11 +62,16 @@ func NewChipDistribution(cfg Config) *ChipDistribution {
 	}
 
 	return &ChipDistribution{
-		chip:        make(map[float64]float64),
-		chipHistory: make(map[string]map[float64]float64),
-		config:      cfg,
-		digits:      2, // 默认2位
+		chip:   make(map[float64]float64),
+		config: cfg,
+		digits: 2, // 默认2位
 	}
+}
+
+// FiveYearsAgoJanFirst 获取五年前的1月1日零点
+func FiveYearsAgoJanFirst() time.Time {
+	now := time.Now()
+	return time.Date(now.Year()-5, 1, 1, 0, 0, 0, 0, now.Location())
 }
 
 // LoadCSV 加载数据
@@ -77,7 +83,15 @@ func (cd *ChipDistribution) LoadCSV(code, date string) error {
 	}
 	cd.capital = f10.Capital
 	cd.digits = f10.DecimalPoint
+
+	// 计算数据的有效起始日期
+	activeDeadline := FiveYearsAgoJanFirst().Format(exchange.TradingDayDateFormat)
+	// 预分配切片容量
+	cd.data = make([]DailyData, 0, len(klines))
 	for _, record := range klines {
+		if record.Date < activeDeadline {
+			continue
+		}
 		data := DailyData{
 			KLine:        record,
 			TurnoverRate: 100 * (record.Volume / cd.capital),
@@ -232,30 +246,46 @@ func (cd *ChipDistribution) applyDecayAndMerge(day DailyData, newChip map[float6
 		cd.chip[price] += vol * decayRate
 	}
 
+	// 清理接近零的筹码
+	cleanupThreshold := 1e-6 // 根据实际情况调整阈值
+	for price := range cd.chip {
+		if cd.chip[price] < cleanupThreshold {
+			delete(cd.chip, price)
+		}
+	}
+
 	// 保存当前状态
-	cd.saveChipState(day.Date)
+	//cd.saveChipState(day.Date)
 }
 
 // 生成价格区间网格
-//
-//	TODO: 输出的网格会不会有重复的价格
 func generatePriceGrid(low, high, step float64, digits int) []float64 {
+	scale := math.Pow10(digits)
+	lowInt := int(math.Round(low * scale))
+	highInt := int(math.Round(high * scale))
+	stepInt := int(math.Round(step * scale))
+
+	if stepInt <= 0 {
+		stepInt = 1
+	}
+
 	var grid []float64
-	for price := low; price <= high; price += step {
-		price = num.Decimal(price, digits)
+	for priceInt := lowInt; priceInt <= highInt; priceInt += stepInt {
+		price := float64(priceInt) / scale
+		price = num.Decimal(price, digits) // 确保四舍五入
 		grid = append(grid, price)
 	}
 	return grid
 }
 
 // 保存筹码状态
-func (cd *ChipDistribution) saveChipState(date string) {
-	currentState := make(map[float64]float64)
-	for k, v := range cd.chip {
-		currentState[k] = v
-	}
-	cd.chipHistory[date] = currentState
-}
+//func (cd *ChipDistribution) saveChipState(date string) {
+//	currentState := make(map[float64]float64)
+//	for k, v := range cd.chip {
+//		currentState[k] = v
+//	}
+//	cd.chipHistory[date] = currentState
+//}
 
 // 辅助函数：查找局部峰值
 func (cd *ChipDistribution) findLocalPeaks(prices []float64, data map[float64]float64) []float64 {
@@ -289,20 +319,20 @@ func (cd *ChipDistribution) findLocalPeaks(prices []float64, data map[float64]fl
 	return peaks
 }
 
-// 辅助函数：获取最新筹码分布
-func (cd *ChipDistribution) getLatestDistribution() (map[float64]float64, error) {
-	if len(cd.chipHistory) == 0 {
-		return nil, errors.New("无可用筹码数据")
-	}
-
-	var latestDate string
-	for date := range cd.chipHistory {
-		if date > latestDate {
-			latestDate = date
-		}
-	}
-	return cd.chipHistory[latestDate], nil
-}
+//// 辅助函数：获取最新筹码分布
+//func (cd *ChipDistribution) getLatestDistribution() (map[float64]float64, error) {
+//	if len(cd.chipHistory) == 0 {
+//		return nil, errors.New("无可用筹码数据")
+//	}
+//
+//	var latestDate string
+//	for date := range cd.chipHistory {
+//		if date > latestDate {
+//			latestDate = date
+//		}
+//	}
+//	return cd.chipHistory[latestDate], nil
+//}
 
 func sortMapKeys(m map[float64]float64) []float64 {
 	keys := make([]float64, 0, len(m))
@@ -325,24 +355,23 @@ func v1findMaxPeak(prices []float64, data map[float64]float64) float64 {
 	return peak
 }
 
-// FindMainPeaks 增强版查找主峰（包含筹码量计算）
+// FindMainPeaks 直接使用当前chip
 func (cd *ChipDistribution) FindMainPeaks(targetPrice float64) (upper, lower ChipSignle, err error) {
-	latest, err := cd.getLatestDistribution()
-	if err != nil {
+	if len(cd.chip) == 0 {
+		err = errors.New("无可用筹码数据")
 		return
 	}
 
-	// 计算总筹码量
-	total := cd.calculateTotalVolume(latest)
+	total := cd.calculateTotalVolume(cd.chip)
 	if total <= 0 {
 		err = errors.New("总筹码量为零")
 		return
 	}
 
-	sorted := sortMapKeys(latest)
-	peaks := cd.findLocalPeaks(sorted, latest)
+	sorted := sortMapKeys(cd.chip)
+	peaks := cd.findLocalPeaks(sorted, cd.chip)
 
-	// 分离前后峰值
+	// 分离上下峰值
 	var lowerPeaks, upperPeaks []float64
 	for _, p := range peaks {
 		if p < targetPrice {
@@ -352,11 +381,10 @@ func (cd *ChipDistribution) FindMainPeaks(targetPrice float64) (upper, lower Chi
 		}
 	}
 
-	// 获取特征点并计算量能
-	lower = cd.calculateChipFeature(lowerPeaks, latest, total, false)
-	upper = cd.calculateChipFeature(upperPeaks, latest, total, true)
-
-	return upper, lower, nil
+	// 计算特征点
+	lower = cd.calculateChipFeature(lowerPeaks, cd.chip, total, false)
+	upper = cd.calculateChipFeature(upperPeaks, cd.chip, total, true)
+	return
 }
 
 // 计算单个特征点信息
