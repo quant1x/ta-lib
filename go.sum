@@ -1,11 +1,11 @@
-gitee.com/quant1x/engine v1.9.0 h1:TzyPK5sk0FhpFCa1SQ78EhqszFGCMcEkvyU4EGt/z8w=
-gitee.com/quant1x/engine v1.9.0/go.mod h1:KIsXwbi55YV+/Btni7KfqdkRMevjHblAykdOqpTUBKk=
+gitee.com/quant1x/engine v1.9.2 h1:CTyaekDABrxf2LSQUemu2aazwIXVZ1S873ruSinWK9Q=
+gitee.com/quant1x/engine v1.9.2/go.mod h1:HhM2iEieccXt4QMG8/ESelRqB6UkTs59CoBlDnngoNI=
 gitee.com/quant1x/exchange v0.6.1 h1:0z5u1nLLAp4nSdknXyuF8o2zLV/wHRd1UhltXd6cdRM=
 gitee.com/quant1x/exchange v0.6.1/go.mod h1:oMD7IieStFBGJFp81oO5wk/Q3jwPQ3DLZjSIylVAUvg=
 gitee.com/quant1x/gotdx v1.23.0 h1:TOo36WOyNbWun6tl5YDt/Jbq5/TNozNBip4wVYOav0E=
 gitee.com/quant1x/gotdx v1.23.0/go.mod h1:Sr7RViN36a0ccOv/HgapdVlzV1FDiH8s1IS6DwAdp8s=
-gitee.com/quant1x/gox v1.22.0 h1:pNt3VYk9HtG7dmbhnzsa5T0x5PQ5IzIpU4Sm+Sm7qVM=
-gitee.com/quant1x/gox v1.22.0/go.mod h1:+ZucEXb3/fD4O/woec3O0b02ekS1fPqY4+qMIaZT+sI=
+gitee.com/quant1x/gox v1.22.2 h1:sA54ghKA+UUWIpTDnDXczrVGk5bUSLn05apU5yVHRlY=
+gitee.com/quant1x/gox v1.22.2/go.mod h1:+ZucEXb3/fD4O/woec3O0b02ekS1fPqY4+qMIaZT+sI=
 gitee.com/quant1x/num v0.4.1 h1:Uh9IcNuoe8PVO0gb1kIJ58ujOsISEBpbEYl/wndlQFQ=
 gitee.com/quant1x/num v0.4.1/go.mod h1:rZEzDOaK+plWmN1uVG0yxmto0v/Mjq518g1VwZHM+rw=
 gitee.com/quant1x/pandas v1.5.0 h1:pGt32aJNJT3oh0fuDziU1uCWsHJhZwzK9u+lY04sJKs=
@@ -16,8 +16,8 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/dlclark/regexp2 v1.11.5 h1:Q/sSnsKerHeCkc/jSTNq1oCm7KiVgUMZRDUoRu0JQZQ=
 github.com/dlclark/regexp2 v1.11.5/go.mod h1:DHkYz0B9wPfa6wondMfaivmHpzrQ3v9q8cnmRbL6yW8=
-github.com/go-echarts/go-echarts/v2 v2.5.0 h1:P/JGanoIrpOOC4K9sRFeKSIUTIpPQwGHQJ/ELWre19Y=
-github.com/go-echarts/go-echarts/v2 v2.5.0/go.mod h1:56YlvzhW/a+du15f3S2qUGNDfKnFOeJSThBIrVFHDtI=
+github.com/go-echarts/go-echarts/v2 v2.5.1 h1:kFVNaS3IsszKOQmUyCi95D2IhipE5twfvaBhFLOfPrs=
+github.com/go-echarts/go-echarts/v2 v2.5.1/go.mod h1:56YlvzhW/a+du15f3S2qUGNDfKnFOeJSThBIrVFHDtI=
 github.com/go-sourcemap/sourcemap v2.1.4+incompatible h1:a+iTbH5auLKxaNwQFg0B+TCYl6lbukKPc7b5x0n1s6Q=
 github.com/go-sourcemap/sourcemap v2.1.4+incompatible/go.mod h1:F8jJfvm2KbVjc5NqelyYJmf/v5J0dwNLS2mL4sNA1Jg=
 github.com/google/pprof v0.0.0-20250208200701-d0013a598941 h1:43XjGa6toxLpeksjcxs1jIoIyr+vUfOqY2c6HB4bpoc=
