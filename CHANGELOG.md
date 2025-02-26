@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.8.3] - 2025-02-26
+### Changed
+- 更新gox版本到1.22.2
+- 调整测试代码
+- 更新engine版本到1.9.3
+
 ## [0.8.2] - 2025-02-25
 ### Changed
 - 增加筹码峰算法
@@ -13,6 +19,7 @@ All notable changes to this project will be documented in this file.
 - 增加废弃5年前数据的处理逻辑
 - 更新exchange版本到0.61, 修复GetCurrentDate跨2天仍然计算早9点初始化的bug
 - 调整测试标的
+- update changelog
 
 ## [0.8.1] - 2025-02-15
 ### Changed
@@ -522,7 +529,8 @@ All notable changes to this project will be documented in this file.
 - 第一次提交
 
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.2...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.3...HEAD
+[0.8.3]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.2...v0.8.3
 [0.8.2]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.1...v0.8.2
 [0.8.1]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.0...v0.8.1
 [0.8.0]: https://gitee.com/quant1x/ta-lib.git/compare/v0.7.29...v0.8.0
