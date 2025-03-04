@@ -7,9 +7,69 @@ import (
 	"gitee.com/quant1x/exchange"
 	"gitee.com/quant1x/num"
 	"math"
+	"slices"
 	"sort"
+	"strings"
 	"time"
 )
+
+// TechSignal 技术信号位掩码 (支持组合信号)
+type TechSignal uint64
+
+const (
+	ShortTermRebound  TechSignal = 1 << iota // 短线止跌     (0000 0001)
+	ShortTermBreakout                        // 短线突破     (0000 0010)
+	VolumeBreakout                           // 放量突破     (0000 0100)
+	VolumeBreakdown                          // 放量破位     (0000 1000)
+	StrongSupport                            // 强支撑       (0001 0000)
+	// 可继续扩展其他信号...
+)
+
+// 组合信号示例
+var (
+	ReboundWithSupport = ShortTermRebound | StrongSupport   // 0001 0001
+	BreakoutSignals    = ShortTermBreakout | VolumeBreakout // 0000 0110
+)
+
+// Has 判断是否包含某信号
+func (ts TechSignal) Has(signal TechSignal) bool {
+	return ts&signal != 0
+}
+
+// Add 添加信号
+func (ts *TechSignal) Add(signal TechSignal) {
+	*ts |= signal
+}
+
+// Remove 移除信号
+func (ts *TechSignal) Remove(signal TechSignal) {
+	*ts &^= signal
+}
+
+// 转换为可读字符串
+func (ts TechSignal) String() string {
+	var builder strings.Builder
+	if ts.Has(ShortTermRebound) {
+		builder.WriteString("短线止跌|")
+	}
+	if ts.Has(ShortTermBreakout) {
+		builder.WriteString("短线突破|")
+	}
+	if ts.Has(VolumeBreakout) {
+		builder.WriteString("放量突破|")
+	}
+	if ts.Has(VolumeBreakdown) {
+		builder.WriteString("放量破位|")
+	}
+	if ts.Has(StrongSupport) {
+		builder.WriteString("强支撑|")
+	}
+	str := builder.String()
+	if len(str) > 0 {
+		str = str[:len(str)-1] // 去除末尾的 |
+	}
+	return str
+}
 
 // DailyData 日线数据结构
 type DailyData struct {
@@ -18,21 +78,34 @@ type DailyData struct {
 	Avg          float64
 }
 
-// ChipSignle 增强版筹码特征点
-type ChipSignle struct {
-	Extremum   float64 // 极值价格
-	Closest    float64 // 最近峰值价格
-	Volume     float64 // 对应筹码量（股）
-	Proportion float64 // 占总筹码比例（0-1）
+// PeakSignal 峰值信号
+type PeakSignal struct {
+	Closest            float64 // 最近峰值价格
+	Extremum           float64 // 极值价格, 筹码最密集的价位
+	CurrentToPeakVol   float64 // 当前价格到峰值的累计筹码
+	CurrentToPeakRatio float64 // 当前价格到峰值的累计筹码占比 (0~1)
+	PeakVolume         float64 // 峰值对应筹码量
+	PeakRatio          float64 // 峰值价位本身的筹码占比 (0~1)
+
+	// 以下为扩展分析字段
+	LeftVolume    float64 // 峰值左侧筹码总量
+	RightVolume   float64 // 峰值右侧筹码总量
+	AvgHoldDays   int     // 峰值区平均持仓天数
+	Concentration float64 // 筹码集中度 (标准差)
+
 }
 
 // ChipDistribution 筹码分布计算器
 type ChipDistribution struct {
-	chip    map[float64]float64 // 当前筹码分布
-	data    []DailyData         // 日线数据
-	config  Config              // 计算配置
-	capital float64             // 流通股本
-	digits  int                 // 小数点位数
+	chip         map[float64]float64 // 当前筹码分布
+	data         []DailyData         // 日线数据
+	config       Config              // 计算配置
+	Capital      float64             // 流通股本
+	Digits       int                 // 小数点位数
+	HoldingPrice float64             // 目标价格
+	LastClose    float64             // 最新收盘
+	High         float64             // 最高价
+	Low          float64             // 最低价
 }
 
 // Config 计算配置参数
@@ -64,7 +137,7 @@ func NewChipDistribution(cfg Config) *ChipDistribution {
 	return &ChipDistribution{
 		chip:   make(map[float64]float64),
 		config: cfg,
-		digits: 2, // 默认2位
+		Digits: 2, // 默认2位小数点
 	}
 }
 
@@ -81,9 +154,12 @@ func (cd *ChipDistribution) LoadCSV(code, date string) error {
 	if f10 == nil {
 		return errors.New("获取F10数据异常")
 	}
-	cd.capital = f10.Capital
-	cd.digits = f10.DecimalPoint
+	cd.Capital = f10.Capital
+	cd.Digits = f10.DecimalPoint
 
+	high := math.Inf(-1)
+	low := math.Inf(1)
+	lastClose := 0.00
 	// 计算数据的有效起始日期
 	activeDeadline := FiveYearsAgoJanFirst().Format(exchange.TradingDayDateFormat)
 	// 预分配切片容量
@@ -94,21 +170,36 @@ func (cd *ChipDistribution) LoadCSV(code, date string) error {
 		}
 		data := DailyData{
 			KLine:        record,
-			TurnoverRate: 100 * (record.Volume / cd.capital),
+			TurnoverRate: 100 * (record.Volume / cd.Capital),
 			Avg:          record.Amount / record.Volume,
 		}
-		data.Open = num.Decimal(data.Open, cd.digits)
-		data.Close = num.Decimal(data.Close, cd.digits)
-		data.High = num.Decimal(data.High, cd.digits)
-		data.Low = num.Decimal(data.Low, cd.digits)
-		data.Avg = num.Decimal(data.Avg, cd.digits)
+		data.Open = num.Decimal(data.Open, cd.Digits)
+		data.Close = num.Decimal(data.Close, cd.Digits)
+		data.High = num.Decimal(data.High, cd.Digits)
+		data.Low = num.Decimal(data.Low, cd.Digits)
+		data.Avg = num.Decimal(data.Avg, cd.Digits)
+		if data.High > high {
+			high = data.High
+		}
+		if data.Low < low {
+			low = data.Low
+		}
 		cd.data = append(cd.data, data)
+		lastClose = data.Close
+	}
+	cd.data = slices.Clip(cd.data)
+	cd.LastClose = lastClose
+	if !math.IsInf(high, 0) {
+		cd.High = high
+	}
+	if !math.IsInf(low, 0) {
+		cd.Low = low
 	}
 	return nil
 }
 
 func (cd *ChipDistribution) RealVolume(proportion float64) float64 {
-	return cd.capital * proportion
+	return cd.Capital * proportion
 }
 
 // Calculate 执行筹码分布计算
@@ -138,7 +229,7 @@ func (cd *ChipDistribution) Calculate() error {
 func (cd *ChipDistribution) handleSinglePriceDay(day DailyData) {
 	// 生成唯一价格点（容差处理避免浮点误差）
 	//singlePrice  := round(day.Close, 2)
-	singlePrice := num.Decimal(day.Close, cd.digits)
+	singlePrice := num.Decimal(day.Close, cd.Digits)
 
 	// 构造全量筹码分布
 	tmpChip := map[float64]float64{
@@ -167,7 +258,7 @@ func (cd *ChipDistribution) calculateTriangular(day DailyData) error {
 	}
 
 	// 生成价格网格（包含容差处理）
-	priceGrid := generatePriceGrid(day.Low, day.High, cd.config.PriceStep, cd.digits)
+	priceGrid := generatePriceGrid(day.Low, day.High, cd.config.PriceStep, cd.Digits)
 	tmpChip := make(map[float64]float64, len(priceGrid)) // 预分配内存优化
 
 	// 计算归一化系数（处理可能的零除问题）
@@ -218,7 +309,7 @@ func (cd *ChipDistribution) calculateTriangular(day DailyData) error {
 
 // 均匀分布计算
 func (cd *ChipDistribution) calculateUniform(day DailyData) error {
-	priceGrid := generatePriceGrid(day.Low, day.High, cd.config.PriceStep, cd.digits)
+	priceGrid := generatePriceGrid(day.Low, day.High, cd.config.PriceStep, cd.Digits)
 	eachVol := day.Volume / float64(len(priceGrid))
 	tmpChip := make(map[float64]float64)
 
@@ -238,7 +329,7 @@ func (cd *ChipDistribution) applyDecayAndMerge(day DailyData, newChip map[float6
 
 	// 衰减现有筹码
 	for price := range cd.chip {
-		cd.chip[price] *= (1 - decayRate)
+		cd.chip[price] *= 1 - decayRate
 	}
 
 	// 合并新筹码
@@ -278,15 +369,6 @@ func generatePriceGrid(low, high, step float64, digits int) []float64 {
 	return grid
 }
 
-// 保存筹码状态
-//func (cd *ChipDistribution) saveChipState(date string) {
-//	currentState := make(map[float64]float64)
-//	for k, v := range cd.chip {
-//		currentState[k] = v
-//	}
-//	cd.chipHistory[date] = currentState
-//}
-
 // 辅助函数：查找局部峰值
 func (cd *ChipDistribution) findLocalPeaks(prices []float64, data map[float64]float64) []float64 {
 	var peaks []float64
@@ -319,21 +401,6 @@ func (cd *ChipDistribution) findLocalPeaks(prices []float64, data map[float64]fl
 	return peaks
 }
 
-//// 辅助函数：获取最新筹码分布
-//func (cd *ChipDistribution) getLatestDistribution() (map[float64]float64, error) {
-//	if len(cd.chipHistory) == 0 {
-//		return nil, errors.New("无可用筹码数据")
-//	}
-//
-//	var latestDate string
-//	for date := range cd.chipHistory {
-//		if date > latestDate {
-//			latestDate = date
-//		}
-//	}
-//	return cd.chipHistory[latestDate], nil
-//}
-
 func sortMapKeys(m map[float64]float64) []float64 {
 	keys := make([]float64, 0, len(m))
 	for k := range m {
@@ -343,7 +410,7 @@ func sortMapKeys(m map[float64]float64) []float64 {
 	return keys
 }
 
-func v1findMaxPeak(prices []float64, data map[float64]float64) float64 {
+func findMaxPeak(current float64, prices []float64, data map[float64]float64) (price, volume float64) {
 	maxVol := 0.0
 	var peak float64
 	for _, p := range prices {
@@ -352,11 +419,22 @@ func v1findMaxPeak(prices []float64, data map[float64]float64) float64 {
 			peak = p
 		}
 	}
-	return peak
+	high := peak
+	low := current
+	if high < low {
+		high, low = low, high
+	}
+	var vol float64
+	for _, p := range prices {
+		if p >= low && p <= high {
+			vol += data[p]
+		}
+	}
+	return peak, vol
 }
 
 // FindMainPeaks 直接使用当前chip
-func (cd *ChipDistribution) FindMainPeaks(targetPrice float64) (upper, lower ChipSignle, err error) {
+func (cd *ChipDistribution) FindMainPeaks(targetPrice float64) (upper, lower PeakSignal, err error) {
 	if len(cd.chip) == 0 {
 		err = errors.New("无可用筹码数据")
 		return
@@ -367,16 +445,16 @@ func (cd *ChipDistribution) FindMainPeaks(targetPrice float64) (upper, lower Chi
 		err = errors.New("总筹码量为零")
 		return
 	}
-
+	cd.HoldingPrice = targetPrice
 	sorted := sortMapKeys(cd.chip)
 	peaks := cd.findLocalPeaks(sorted, cd.chip)
 
 	// 分离上下峰值
 	var lowerPeaks, upperPeaks []float64
 	for _, p := range peaks {
-		if p < targetPrice {
+		if p < cd.HoldingPrice {
 			lowerPeaks = append(lowerPeaks, p)
-		} else if p > targetPrice {
+		} else if p > cd.HoldingPrice {
 			upperPeaks = append(upperPeaks, p)
 		}
 	}
@@ -388,66 +466,42 @@ func (cd *ChipDistribution) FindMainPeaks(targetPrice float64) (upper, lower Chi
 }
 
 // 计算单个特征点信息
-func (cd *ChipDistribution) calculateChipFeature(prices []float64, data map[float64]float64, total float64, isUpper bool) ChipSignle {
-	var feature ChipSignle
+func (cd *ChipDistribution) calculateChipFeature(prices []float64, data map[float64]float64, total float64, isUpper bool) PeakSignal {
+	var feature PeakSignal
 
 	if len(prices) == 0 {
 		return feature
 	}
 
 	// 极值计算
-	if maxPeak := v1findMaxPeak(prices, data); maxPeak > 0 {
-		feature.Extremum = maxPeak
-		feature.Volume = data[maxPeak]
-		feature.Proportion = data[maxPeak] / total
+	if maxPeakPrice, vol := findMaxPeak(cd.HoldingPrice, prices, data); maxPeakPrice > 0 {
+		feature.Extremum = maxPeakPrice
+		feature.PeakVolume = data[maxPeakPrice]
+		feature.PeakRatio = feature.PeakVolume / total
+		feature.CurrentToPeakVol = vol
+		feature.CurrentToPeakRatio = feature.CurrentToPeakVol / total
 	}
 
 	// 最近峰值计算
 	var closestPrice float64
 	if isUpper {
-		closestPrice = findMinPrice(prices)
+		//closestPrice = findMinPrice(prices)
+		closestPrice = num.Min2(prices)
 	} else {
-		closestPrice = findMaxPrice(prices)
+		//closestPrice = findMaxPrice(prices)
+		closestPrice = num.Max2(prices)
 	}
 
 	if closestPrice > 0 {
 		feature.Closest = closestPrice
 		// 如果极值未找到，使用最近峰值的量能
-		if feature.Volume == 0 {
-			feature.Volume = data[closestPrice]
-			feature.Proportion = data[closestPrice] / total
+		if feature.PeakVolume == 0 {
+			feature.PeakVolume = data[closestPrice]
+			feature.PeakRatio = feature.PeakVolume / total
 		}
 	}
 
 	return feature
-}
-
-// 工具函数：查找最小价格（用于上方最近峰）
-func findMinPrice(prices []float64) float64 {
-	if len(prices) == 0 {
-		return 0
-	}
-	min := prices[0]
-	for _, p := range prices {
-		if p < min {
-			min = p
-		}
-	}
-	return min
-}
-
-// 工具函数：查找最大价格（用于下方最近峰）
-func findMaxPrice(prices []float64) float64 {
-	if len(prices) == 0 {
-		return 0
-	}
-	max := prices[0]
-	for _, p := range prices {
-		if p > max {
-			max = p
-		}
-	}
-	return max
 }
 
 // 计算总筹码量
