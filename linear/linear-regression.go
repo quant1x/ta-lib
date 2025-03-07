@@ -15,6 +15,7 @@ func LeastSquares(x []float64, y []float64) (slope float64, intercept float64) {
 
 	if len(x) != len(y) {
 		logger.Debugf("最小二乘时，两数组长度不一致!")
+		return
 	} else {
 		xLen := len(x)
 		length := float64(xLen)
