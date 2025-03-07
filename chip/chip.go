@@ -141,10 +141,14 @@ func NewChipDistribution(cfg Config) *ChipDistribution {
 	}
 }
 
+const (
+	yearPeriod = 1
+)
+
 // FiveYearsAgoJanFirst 获取五年前的1月1日零点
 func FiveYearsAgoJanFirst() time.Time {
 	now := time.Now()
-	return time.Date(now.Year()-5, 1, 1, 0, 0, 0, 0, now.Location())
+	return time.Date(now.Year()-yearPeriod, 1, 1, 0, 0, 0, 0, now.Location())
 }
 
 // LoadCSV 加载数据
