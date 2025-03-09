@@ -3,11 +3,28 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.8.4] - 2025-03-09
+### Changed
+- 新增切片内存对齐函数
+- 删除util包，基础功能应该归于gox或者engine
+- 加速部分切片循环的计算
+- 新增OBV通达信指标
+- 新增计算分位数函数
+- 新增lstm算法建议版本
+- 新增最小二乘法拟合测试代码
+- 最小二乘法数据异常, 直接返回
+- 修订筹码数据, 只取最近1年的
+- 新增一种极值查找方法, 可用于波峰波谷的搜索
+- 新增最小二拟合方式, num里面也有, 这里作为一个新的实现方法
+- 修订昨日收盘的获取方式
+- 更新依赖库版本
+
 ## [0.8.3] - 2025-02-26
 ### Changed
 - 更新gox版本到1.22.2
 - 调整测试代码
 - 更新engine版本到1.9.3
+- update changelog
 
 ## [0.8.2] - 2025-02-25
 ### Changed
@@ -529,7 +546,8 @@ All notable changes to this project will be documented in this file.
 - 第一次提交
 
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.3...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.4...HEAD
+[0.8.4]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.3...v0.8.4
 [0.8.3]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.2...v0.8.3
 [0.8.2]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.1...v0.8.2
 [0.8.1]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.0...v0.8.1
