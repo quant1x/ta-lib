@@ -6,6 +6,7 @@ import (
 	"gitee.com/quant1x/exchange"
 	"gitee.com/quant1x/gotdx/quotes"
 	"gitee.com/quant1x/gotdx/securities"
+	"gitee.com/quant1x/num"
 	"testing"
 	// 使用decimal库处理精确计算
 	"github.com/shopspring/decimal"
@@ -41,7 +42,7 @@ func TestChisDecimal(t *testing.T) {
 func totalMinutes(data []quotes.MinuteTime, minPrice, maxPrice float64) float64 {
 	vol := 0.00
 	for _, v := range data {
-		currentPrice := float64(v.Price)
+		currentPrice := num.Decimal(float64(v.Price))
 		if currentPrice >= minPrice && currentPrice <= maxPrice {
 			vol += float64(v.Vol)
 		}
@@ -54,96 +55,55 @@ func TestChips(t *testing.T) {
 	config := defaultConfig
 
 	// 初始化计算器
-	calculator := NewChipDistribution(config)
+	cd := NewChipDistribution(config)
 
 	code := "300251"
-	//code = "301256"
-	code = "300543"
-	//code = "603980"
-	//code = "600126"
-	//code = "301487"
-	//code = "300098"
-	//code = "002281"
-	//code = "300170"
-	//code = "300699"
-	code = "881344"
-	code = "600126"
-	code = "300098"
-	//code = "300107"
-	//code = "300044"
-	//code = "300490"
-	//code = "300348"
-	code = "300255"
-	//code = "301256"
-	code = "600584"
-	code = "002156"
-	code = "603005"
-	code = "300699"
-	code = "300255"
-	code = "688981"
-	//code = "002474"
-	//code = "600600"
-	//code = "300245"
-	//code = "880736"
-	code = "300787"
-	code = "600156"
-	//code = "300508"
-	//code = "sh000001"
-	code = "603216"
-	code = "600126"
-	code = "002496"
-	code = "002848"
-	code = "600050"
-	code = "300543"
-	code = "603366"
-	code = "600185"
-	code = "600156"
-	date := "2025-01-24"
-	date = "2025-02-19"
-	date = "2025-02-24"
-	date = "2025-02-25"
+	code = "600580"
+	//code = "002195"
+	//code = "600633"
+	//code = "300076"
+	date := "2025-03-06"
 	securityCode := exchange.CorrectSecurityCode(code)
 	securityName := securities.GetStockName(securityCode)
 	tradeDate := exchange.GetCurrentDate(date)
 	fmt.Printf("%s(%s), 截至%s收盘: \n", securityName, securityCode, tradeDate)
 	// 加载数据
 	klines := base.CheckoutKLines(securityCode, tradeDate)
-	if err := calculator.LoadCSV(securityCode, tradeDate); err != nil {
+	if err := cd.LoadCSV(securityCode, tradeDate); err != nil {
 		fmt.Println("加载数据失败:", err)
 		return
 	}
 
 	// 计算筹码分布
-	if err := calculator.Calculate(); err != nil {
+	if err := cd.Calculate(); err != nil {
 		fmt.Println("计算失败:", err)
 		return
 	}
 
 	// 查找主要筹码峰
-	n := len(klines)
-	prevBar := klines[n-2]
-	lastBar := klines[n-1]
-	targetPrice := lastBar.Close
-	upper, lower, err := calculator.FindMainPeaks(targetPrice)
+	targetPrice := cd.LastClose
+	upper, lower, err := cd.FindMainPeaks(targetPrice)
 	if err != nil {
 		fmt.Println("查找峰值失败:", err)
 		return
 	}
 
 	fmt.Printf("当前价格 %.2f 附近的主要筹码峰:\n", targetPrice)
-	fmt.Printf("压力-1: 最接近=%.2f, 最大=%.2f, 成交量=%.2f股, 占比=%.2f%%\n", upper.Closest, upper.Extremum, upper.Volume, 100*upper.Proportion)
-	fmt.Printf("压力-2: 最接近=%.2f, 最大=%.2f, 成交量=%.2f股, 占比=%.2f%%\n", upper.Closest, upper.Extremum, calculator.RealVolume(upper.Proportion), 100*upper.Proportion)
-	fmt.Printf("支撑: 最接近=%.2f, 最大=%.2f, 成交量=%.2f股, 占比=%.2f%%\n", lower.Closest, lower.Extremum, lower.Volume, 100*lower.Proportion)
+	fmt.Printf("压力(上): 最接近=%.2f, 最大=%.2f, 成交量=%.2f股, 占比=%.2f%%\n", upper.Closest, upper.Extremum, cd.RealVolume(upper.CurrentToPeakRatio), 100*upper.CurrentToPeakRatio)
+	fmt.Printf("支撑(下): 最接近=%.2f, 最大=%.2f, 成交量=%.2f股, 占比=%.2f%%\n", lower.Closest, lower.Extremum, cd.RealVolume(lower.CurrentToPeakRatio), 100*lower.CurrentToPeakRatio)
 	// 计算短线是否获得支撑
+	n := len(klines)
+	prevBar := klines[n-2]
+	lastBar := klines[n-1]
 	fmt.Printf("%+v\n", prevBar)
 	fmt.Printf("%+v\n", lastBar)
-	if prevBar.Close > lastBar.Close && lastBar.Low <= lower.Extremum && lastBar.Close > lower.Extremum && lower.Volume > upper.Volume {
+	if prevBar.Close > lastBar.Close && lastBar.Low <= lower.Extremum && lastBar.Close > lower.Extremum && lower.CurrentToPeakVol > upper.CurrentToPeakVol {
 		fmt.Println("\t=> 短线止跌")
 	}
-	if prevBar.Close < lower.Closest && lastBar.Close > lower.Extremum && lastBar.Close > lower.Closest && lower.Volume > upper.Volume {
+	if prevBar.Close < lower.Closest && lastBar.Close > lower.Extremum && lastBar.Close > lower.Closest && lower.CurrentToPeakVol > upper.CurrentToPeakVol {
 		fmt.Println("\t=> 短线突破")
 	}
-	upperVolume := calculator.RealVolume(upper.Proportion)
+	upperVolume := cd.RealVolume(upper.CurrentToPeakRatio)
 	tradeDate = exchange.NextTradeDate(tradeDate)
 	fmt.Printf("交易日期: %s\n", tradeDate)
 	minutes := base.GetMinutes(securityCode, tradeDate)
@@ -153,7 +113,7 @@ func TestChips(t *testing.T) {
 		fmt.Println("\t=>放量突破")
 	}
 	todayVol = totalMinutes(minutes, lower.Closest, lower.Closest*1.01)
-	lowerVolume := calculator.RealVolume(lower.Proportion)
+	lowerVolume := cd.RealVolume(lower.CurrentToPeakRatio)
 	fmt.Printf("支撑位: 预计支撑=%.2f, 实际成交=%.2f\n", lowerVolume, todayVol*100)
 	if todayVol*100 > lowerVolume {
 		fmt.Println("\t=>获得强支撑")
