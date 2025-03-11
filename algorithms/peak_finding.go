@@ -31,8 +31,8 @@ func adjustIndex(i, length int, mode string) int {
 	return i
 }
 
-// ArgrelExtrema 检测数据中的相对极值点
-func ArgrelExtrema(data []float64, comparator func(a, b float64) bool, order int, mode string) ([]bool, error) {
+// ArgRelExtrema 检测数据中的相对极值点
+func ArgRelExtrema(data []float64, comparator func(a, b float64) bool, order int, mode string) ([]bool, error) {
 	if order < 1 {
 		return nil, errors.New("order必须为大于等于1的整数")
 	}

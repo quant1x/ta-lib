@@ -12,7 +12,7 @@ func TestBoolRelExtrema(t *testing.T) {
 	order := 1
 	mode := "clip"
 
-	extrema, err := ArgrelExtrema(data, comparator, order, mode)
+	extrema, err := ArgRelExtrema(data, comparator, order, mode)
 	if err != nil {
 		fmt.Println("错误:", err)
 		return
