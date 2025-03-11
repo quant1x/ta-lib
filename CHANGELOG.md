@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.8.5] - 2025-03-11
+### Changed
+- 调整部分代码
+
 ## [0.8.4] - 2025-03-09
 ### Changed
 - 新增切片内存对齐函数
@@ -18,6 +22,7 @@ All notable changes to this project will be documented in this file.
 - 新增最小二拟合方式, num里面也有, 这里作为一个新的实现方法
 - 修订昨日收盘的获取方式
 - 更新依赖库版本
+- update changelog
 
 ## [0.8.3] - 2025-02-26
 ### Changed
@@ -546,7 +551,8 @@ All notable changes to this project will be documented in this file.
 - 第一次提交
 
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.4...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.5...HEAD
+[0.8.5]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.4...v0.8.5
 [0.8.4]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.3...v0.8.4
 [0.8.3]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.2...v0.8.3
 [0.8.2]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.1...v0.8.2
