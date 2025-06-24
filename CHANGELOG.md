@@ -3,9 +3,18 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.8.6] - 2025-06-25
+### Changed
+- 更新依赖库版本
+- 新增成交量加权价格区间(VPVR)函数
+- 新增归一化功能函数，通过输入算法名称区别不同的归一化算法
+- 新增一个工具类函数，并行计算，对超大数据集可结合 goroutine 分块处理
+- 更新依赖库版本
+
 ## [0.8.5] - 2025-03-11
 ### Changed
 - 调整部分代码
+- update changelog
 
 ## [0.8.4] - 2025-03-09
 ### Changed
@@ -551,7 +560,8 @@ All notable changes to this project will be documented in this file.
 - 第一次提交
 
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.5...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.6...HEAD
+[0.8.6]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.5...v0.8.6
 [0.8.5]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.4...v0.8.5
 [0.8.4]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.3...v0.8.4
 [0.8.3]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.2...v0.8.3
