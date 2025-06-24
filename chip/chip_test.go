@@ -7,12 +7,12 @@ import (
 	"gitee.com/quant1x/gotdx/quotes"
 	"gitee.com/quant1x/gotdx/securities"
 	"gitee.com/quant1x/num"
+	"github.com/shopspring/decimal" // 使用decimal库处理精确计算
 	"testing"
-	// 使用decimal库处理精确计算
-	"github.com/shopspring/decimal"
 )
 
 func TestChisDecimal(t *testing.T) {
+	fmt.Println("9÷2+1 =", 9/2+1)
 	low := 0.853
 	price := decimal.NewFromFloat(low)
 	price.Round(2).Float64()
@@ -62,7 +62,28 @@ func TestChips(t *testing.T) {
 	//code = "002195"
 	//code = "600633"
 	//code = "300076"
-	date := "2025-03-06"
+	code = "600392"
+	code = "600633"
+	code = "000701"
+	//code = "603999"
+	//code = "600725"
+	//code = "002730"
+	//code = "301171"
+	//code = "002632"
+	//code = "300017"
+	//code = "300699"
+	//code = "001914"
+	code = "002730"
+	code = "600348"
+	code = "601001"
+	code = "002741"
+	code = "600398"
+	code = "600580"
+	code = "002332"
+	code = "600580"
+	code = "000521"
+	code = "300773"
+	date := "2025-05-28"
 	securityCode := exchange.CorrectSecurityCode(code)
 	securityName := securities.GetStockName(securityCode)
 	tradeDate := exchange.GetCurrentDate(date)

@@ -23,7 +23,9 @@ func TestWedge_basic(t *testing.T) {
 	//code = "300019"
 	//code = "300107"
 	//code = "600719"
-	date := "2024-06-28"
+	code = "sz000158"
+	date := "2024-04-01"
+	date = "2025-06-23"
 	//date = "2024-03-29"
 	//date = cache.DefaultCanReadDate()
 	date = exchange.FixTradeDate(date)

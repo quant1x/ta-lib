@@ -342,7 +342,7 @@ func (cd *ChipDistribution) applyDecayAndMerge(day DailyData, newChip map[float6
 	}
 
 	// 清理接近零的筹码
-	cleanupThreshold := 1e-6 // 根据实际情况调整阈值
+	cleanupThreshold := minValidVolume // 根据实际情况调整阈值
 	for price := range cd.chip {
 		if cd.chip[price] < cleanupThreshold {
 			delete(cd.chip, price)
@@ -353,8 +353,16 @@ func (cd *ChipDistribution) applyDecayAndMerge(day DailyData, newChip map[float6
 	//cd.saveChipState(day.Date)
 }
 
+const (
+	minValidVolume = 1e-8  // 最小有效成交量阈值
+	maxIterations  = 10000 // 最大迭代次数防止死循环
+)
+
 // 生成价格区间网格
 func generatePriceGrid(low, high, step float64, digits int) []float64 {
+	if high < low {
+		low, high = high, low
+	}
 	scale := math.Pow10(digits)
 	lowInt := int(math.Round(low * scale))
 	highInt := int(math.Round(high * scale))
@@ -364,7 +372,12 @@ func generatePriceGrid(low, high, step float64, digits int) []float64 {
 		stepInt = 1
 	}
 
-	var grid []float64
+	//var grid []float64
+	length := (highInt-lowInt)/stepInt + 1
+	if length > maxIterations {
+		stepInt = int(math.Ceil(float64(highInt-lowInt) / maxIterations))
+	}
+	grid := make([]float64, 0, length)
 	for priceInt := lowInt; priceInt <= highInt; priceInt += stepInt {
 		price := float64(priceInt) / scale
 		price = num.Decimal(price, digits) // 确保四舍五入
