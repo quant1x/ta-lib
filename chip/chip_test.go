@@ -82,8 +82,8 @@ func TestChips(t *testing.T) {
 	code = "002332"
 	code = "600580"
 	code = "000521"
-	code = "300773"
-	date := "2025-05-28"
+	code = "000158"
+	date := "2025-06-30"
 	securityCode := exchange.CorrectSecurityCode(code)
 	securityName := securities.GetStockName(securityCode)
 	tradeDate := exchange.GetCurrentDate(date)

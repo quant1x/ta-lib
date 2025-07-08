@@ -3,13 +3,13 @@ module gitee.com/quant1x/ta-lib
 go 1.24
 
 require (
-	gitee.com/quant1x/engine v1.9.12
-	gitee.com/quant1x/exchange v0.6.5
-	gitee.com/quant1x/gotdx v1.23.7
-	gitee.com/quant1x/gox v1.22.11
+	gitee.com/quant1x/engine v1.9.13
+	gitee.com/quant1x/exchange v0.6.6
+	gitee.com/quant1x/gotdx v1.23.8
+	gitee.com/quant1x/gox v1.22.12
 	gitee.com/quant1x/num v0.5.0
 	gitee.com/quant1x/pandas v1.5.2
-	gitee.com/quant1x/pkg v0.5.1
+	gitee.com/quant1x/pkg v0.5.2
 	github.com/shopspring/decimal v1.4.0
 	github.com/stretchr/testify v1.10.0
 )
