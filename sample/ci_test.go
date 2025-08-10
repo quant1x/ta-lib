@@ -2,8 +2,9 @@ package sample
 
 import (
 	"fmt"
-	"gitee.com/quant1x/engine/factors"
 	"testing"
+
+	"gitee.com/quant1x/engine/factors"
 )
 
 func TestConfidenceInterval(t *testing.T) {

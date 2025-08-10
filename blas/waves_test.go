@@ -2,9 +2,10 @@ package blas
 
 import (
 	"fmt"
+	"testing"
+
 	"gitee.com/quant1x/engine/datasource/base"
 	"gitee.com/quant1x/exchange"
-	"testing"
 )
 
 func TestWaves_basic(t *testing.T) {

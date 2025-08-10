@@ -2,10 +2,11 @@ package blas
 
 import (
 	"fmt"
+	"testing"
+
 	"gitee.com/quant1x/engine/datasource/base"
 	"gitee.com/quant1x/exchange"
 	"gitee.com/quant1x/gotdx/securities"
-	"testing"
 )
 
 func TestWedge_basic(t *testing.T) {
@@ -25,7 +26,7 @@ func TestWedge_basic(t *testing.T) {
 	//code = "600719"
 	code = "sz000158"
 	date := "2024-04-01"
-	date = "2025-06-23"
+	date = "2025-07-10"
 	//date = "2024-03-29"
 	//date = cache.DefaultCanReadDate()
 	date = exchange.FixTradeDate(date)

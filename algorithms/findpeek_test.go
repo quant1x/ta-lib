@@ -4,6 +4,12 @@ import (
 	"bytes"
 	"encoding/base64"
 	"fmt"
+	"math"
+	"math/rand"
+	"os"
+	"testing"
+	"time"
+
 	"gitee.com/quant1x/engine/datasource/base"
 	"gitee.com/quant1x/gox/api"
 	"gitee.com/quant1x/num"
@@ -12,11 +18,6 @@ import (
 	"gitee.com/quant1x/pkg/chart/drawing"
 	"gitee.com/quant1x/ta-lib/plot"
 	"github.com/stretchr/testify/assert"
-	"math"
-	"math/rand"
-	"os"
-	"testing"
-	"time"
 )
 
 const (

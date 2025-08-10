@@ -2,13 +2,14 @@ package chip
 
 import (
 	"fmt"
+	"testing"
+
 	"gitee.com/quant1x/engine/datasource/base"
 	"gitee.com/quant1x/exchange"
 	"gitee.com/quant1x/gotdx/quotes"
 	"gitee.com/quant1x/gotdx/securities"
 	"gitee.com/quant1x/num"
 	"github.com/shopspring/decimal" // 使用decimal库处理精确计算
-	"testing"
 )
 
 func TestChisDecimal(t *testing.T) {
@@ -83,7 +84,8 @@ func TestChips(t *testing.T) {
 	code = "600580"
 	code = "000521"
 	code = "000158"
-	date := "2025-06-30"
+	//code = "300046"
+	date := "2025-08-01"
 	securityCode := exchange.CorrectSecurityCode(code)
 	securityName := securities.GetStockName(securityCode)
 	tradeDate := exchange.GetCurrentDate(date)

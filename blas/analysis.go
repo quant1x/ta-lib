@@ -2,6 +2,7 @@ package blas
 
 import (
 	"cmp"
+
 	"gitee.com/quant1x/num"
 	"gitee.com/quant1x/ta-lib/plot"
 )

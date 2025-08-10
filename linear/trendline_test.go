@@ -2,10 +2,11 @@ package linear
 
 import (
 	"fmt"
+	"testing"
+
 	"gitee.com/quant1x/engine/datasource/base"
 	"gitee.com/quant1x/exchange"
 	"gitee.com/quant1x/pandas"
-	"testing"
 )
 
 func TestTrendLine(t *testing.T) {

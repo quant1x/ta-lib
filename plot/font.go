@@ -2,10 +2,11 @@ package plot
 
 import (
 	"embed"
-	"gitee.com/quant1x/gox/api"
-	"gitee.com/quant1x/pkg/freetype/truetype"
 	"io"
 	"sync"
+
+	"gitee.com/quant1x/gox/api"
+	"gitee.com/quant1x/pkg/freetype/truetype"
 )
 
 const (

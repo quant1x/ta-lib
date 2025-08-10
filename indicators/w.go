@@ -2,6 +2,7 @@ package indicators
 
 import (
 	"fmt"
+
 	"gitee.com/quant1x/num"
 	"gitee.com/quant1x/pandas"
 	"gitee.com/quant1x/ta-lib/linear"

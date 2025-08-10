@@ -2,11 +2,12 @@ package indicators
 
 import (
 	"fmt"
+	"testing"
+
 	"gitee.com/quant1x/engine/datasource/base"
 	"gitee.com/quant1x/exchange"
 	"gitee.com/quant1x/gotdx/securities"
 	"gitee.com/quant1x/pandas"
-	"testing"
 )
 
 func TestM(t *testing.T) {

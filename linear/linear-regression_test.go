@@ -2,17 +2,18 @@ package linear
 
 import (
 	"fmt"
+	"testing"
+
 	"gitee.com/quant1x/engine/datasource/base"
 	"gitee.com/quant1x/exchange"
 	"gitee.com/quant1x/num"
 	"gitee.com/quant1x/pandas"
-	"testing"
 )
 
 func TestPredictStock(t *testing.T) {
-	code := "600839"
+	code := "000158"
 	code = exchange.CorrectSecurityCode(code)
-	date := exchange.GetCurrentlyDay()
+	date := "2025-08-07"
 	rawData := base.CheckoutKLines(code, date)
 	df := pandas.LoadStructs(rawData)
 	fmt.Println(df)
@@ -34,7 +35,7 @@ func TestPredictStock(t *testing.T) {
 	}
 
 	fmt.Println("------------------------------------------------------------")
-	p1 := num.PolyFit(y, x, 2)
+	p1 := num.PolyFit(y, x, 1)
 	fmt.Println("p1 =", p1)
 	fmt.Println("------------------------------------------------------------")
 

@@ -1,11 +1,12 @@
 package blas
 
 import (
+	"strings"
+
 	"gitee.com/quant1x/engine/config"
 	"gitee.com/quant1x/engine/datasource/base"
 	"gitee.com/quant1x/num"
 	"gitee.com/quant1x/ta-lib/plot"
-	"strings"
 )
 
 // DataSample 数据样本

@@ -2,9 +2,10 @@ package blas
 
 import (
 	"fmt"
+	"slices"
+
 	"gitee.com/quant1x/num"
 	"gitee.com/quant1x/ta-lib/plot"
-	"slices"
 )
 
 // MatchWedge 模式匹配 楔形

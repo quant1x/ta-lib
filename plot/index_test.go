@@ -2,8 +2,9 @@ package plot
 
 import (
 	"fmt"
-	"gitee.com/quant1x/num"
 	"testing"
+
+	"gitee.com/quant1x/num"
 )
 
 func TestSeriesIndex(t *testing.T) {

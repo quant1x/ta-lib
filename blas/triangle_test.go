@@ -2,10 +2,11 @@ package blas
 
 import (
 	"fmt"
+	"testing"
+
 	"gitee.com/quant1x/engine/datasource/base"
 	"gitee.com/quant1x/exchange"
 	"gitee.com/quant1x/gotdx/securities"
-	"testing"
 )
 
 func TestChartKLine_Triangle(t *testing.T) {
@@ -19,7 +20,7 @@ func TestChartKLine_Triangle(t *testing.T) {
 	//code = "300462"
 	//code = "003001"
 	code = "000158"
-	date := "2025-06-23"
+	date := "2025-08-01"
 	//date = cache.DefaultCanReadDate()
 	list := base.CheckoutKLines(code, date)
 	if len(list) >= requiredKLines {

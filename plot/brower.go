@@ -4,9 +4,10 @@ import (
 	"bytes"
 	"encoding/base64"
 	"fmt"
-	"gitee.com/quant1x/pkg/chart"
 	"os/exec"
 	"runtime"
+
+	"gitee.com/quant1x/pkg/chart"
 )
 
 // OpenURL 用系统默认的浏览器打开一个url

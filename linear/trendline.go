@@ -2,6 +2,7 @@ package linear
 
 import (
 	"fmt"
+
 	"gitee.com/quant1x/num"
 	"gitee.com/quant1x/pandas"
 )

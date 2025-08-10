@@ -3,15 +3,16 @@ package algorithms
 import (
 	"bytes"
 	"fmt"
+	"log"
+	"os"
+	"testing"
+
 	"gitee.com/quant1x/engine/datasource/base"
 	"gitee.com/quant1x/gox/api"
 	"gitee.com/quant1x/num"
 	"gitee.com/quant1x/pandas"
 	"gitee.com/quant1x/pkg/chart" //exposes "chart"
 	"gitee.com/quant1x/ta-lib/plot"
-	"log"
-	"os"
-	"testing"
 )
 
 func TestPeakDetect(t *testing.T) {

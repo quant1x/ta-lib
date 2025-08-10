@@ -3,11 +3,12 @@ package plot
 import (
 	"bytes"
 	"fmt"
+	"os"
+	_ "unsafe" // for go:linkname
+
 	"gitee.com/quant1x/gox/api"
 	"gitee.com/quant1x/pkg/chart"
 	"gitee.com/quant1x/pkg/chart/drawing"
-	"os"
-	_ "unsafe" // for go:linkname
 )
 
 const (

@@ -2,15 +2,16 @@ package chip
 
 import (
 	"errors"
-	"gitee.com/quant1x/engine/datasource/base"
-	"gitee.com/quant1x/engine/factors"
-	"gitee.com/quant1x/exchange"
-	"gitee.com/quant1x/num"
 	"math"
 	"slices"
 	"sort"
 	"strings"
 	"time"
+
+	"gitee.com/quant1x/engine/datasource/base"
+	"gitee.com/quant1x/engine/factors"
+	"gitee.com/quant1x/exchange"
+	"gitee.com/quant1x/num"
 )
 
 // TechSignal 技术信号位掩码 (支持组合信号)
