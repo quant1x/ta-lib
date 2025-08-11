@@ -3,9 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.8.15] - 2025-08-11
+### Changed
+- 调整部分实验性质的代码到labs
+
 ## [0.8.14] - 2025-08-11
 ### Changed
 - 更新依赖库版本
+- update changelog
 
 ## [0.8.13] - 2025-08-11
 ### Changed
@@ -601,7 +606,8 @@ All notable changes to this project will be documented in this file.
 - 第一次提交
 
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.14...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.15...HEAD
+[0.8.15]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.14...v0.8.15
 [0.8.14]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.13...v0.8.14
 [0.8.13]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.12...v0.8.13
 [0.8.12]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.11...v0.8.12
