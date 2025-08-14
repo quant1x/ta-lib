@@ -3,9 +3,15 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.9.0] - 2025-08-14
+### Changed
+- 删除部分实验性质的代码
+- 要求go版本最低1.25
+
 ## [0.8.15] - 2025-08-11
 ### Changed
 - 调整部分实验性质的代码到labs
+- update changelog
 
 ## [0.8.14] - 2025-08-11
 ### Changed
@@ -606,7 +612,8 @@ All notable changes to this project will be documented in this file.
 - 第一次提交
 
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.15...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.9.0...HEAD
+[0.9.0]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.15...v0.9.0
 [0.8.15]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.14...v0.8.15
 [0.8.14]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.13...v0.8.14
 [0.8.13]: https://gitee.com/quant1x/ta-lib.git/compare/v0.8.12...v0.8.13
