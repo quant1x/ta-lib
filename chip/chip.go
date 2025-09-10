@@ -443,9 +443,9 @@ func findMaxPeak(current float64, prices []float64, data map[float64]float64) (p
 		high, low = low, high
 	}
 	var vol float64
-	for _, p := range prices {
+	for p, v := range data {
 		if p >= low && p <= high {
-			vol += data[p]
+			vol += v
 		}
 	}
 	return peak, vol
