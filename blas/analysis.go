@@ -3,8 +3,8 @@ package blas
 import (
 	"cmp"
 
-	"gitee.com/quant1x/num"
-	"gitee.com/quant1x/ta-lib/plot"
+	"github.com/quant1x/num"
+	"github.com/quant1x/ta-lib/plot"
 )
 
 // TendencyDirection 交易方向

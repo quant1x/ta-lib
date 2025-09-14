@@ -5,8 +5,8 @@ import (
 	"io"
 	"sync"
 
-	"gitee.com/quant1x/gox/api"
-	"gitee.com/quant1x/pkg/freetype/truetype"
+	"github.com/quant1x/pkg/freetype/truetype"
+	"github.com/quant1x/x/api"
 )
 
 const (

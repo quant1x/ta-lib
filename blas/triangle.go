@@ -1,8 +1,8 @@
 package blas
 
 import (
-	"gitee.com/quant1x/num"
-	"gitee.com/quant1x/ta-lib/plot"
+	"github.com/quant1x/num"
+	"github.com/quant1x/ta-lib/plot"
 )
 
 const (

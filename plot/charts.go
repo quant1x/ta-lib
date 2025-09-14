@@ -6,9 +6,9 @@ import (
 	"os"
 	_ "unsafe" // for go:linkname
 
-	"gitee.com/quant1x/gox/api"
-	"gitee.com/quant1x/pkg/chart"
-	"gitee.com/quant1x/pkg/chart/drawing"
+	"github.com/quant1x/pkg/chart"
+	"github.com/quant1x/pkg/chart/drawing"
+	"github.com/quant1x/x/api"
 )
 
 const (
@@ -84,13 +84,13 @@ type Renderable = chart.Renderable
 type AnnotationSeries = chart.AnnotationSeries
 type Value2 = chart.Value2
 
-////go:linkname LegendThin gitee.com/quant1x/pkg/chart.LegendThin
+////go:linkname LegendThin github.com/quant1x/pkg/chart.LegendThin
 //func LegendThin(c *Chart, userDefaults ...Style) Renderable
 //
-////go:linkname PNG gitee.com/quant1x/pkg/chart.PNG
+////go:linkname PNG github.com/quant1x/pkg/chart.PNG
 //func PNG(width, height int) (chart.Renderer, error)
 
-//go:linkname LastValueAnnotationSeries gitee.com/quant1x/pkg/chart.LastValueAnnotationSeries
+//go:linkname LastValueAnnotationSeries github.com/quant1x/pkg/chart.LastValueAnnotationSeries
 func LastValueAnnotationSeries(innerSeries chart.ValuesProvider, vfs ...chart.ValueFormatter) chart.AnnotationSeries
 
 // CreateChart 创建一个默认的图标

@@ -1,7 +1,7 @@
 package linear
 
 import (
-	"gitee.com/quant1x/gox/logger"
+	"github.com/quant1x/x/logger"
 )
 
 // LeastSquares 最简单的最小二乘法

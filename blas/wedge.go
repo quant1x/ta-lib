@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"slices"
 
-	"gitee.com/quant1x/num"
-	"gitee.com/quant1x/ta-lib/plot"
+	"github.com/quant1x/num"
+	"github.com/quant1x/ta-lib/plot"
 )
 
 // MatchWedge 模式匹配 楔形

@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"testing"
 
-	"gitee.com/quant1x/engine/datasource/base"
-	"gitee.com/quant1x/exchange"
-	"gitee.com/quant1x/gotdx/securities"
+	"github.com/quant1x/engine/datasource/base"
+	"github.com/quant1x/exchange"
+	"github.com/quant1x/gotdx/securities"
 )
 
 func TestWedge_basic(t *testing.T) {

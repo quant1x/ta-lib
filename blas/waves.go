@@ -1,9 +1,9 @@
 package blas
 
 import (
-	"gitee.com/quant1x/exchange"
-	"gitee.com/quant1x/gotdx/securities"
-	"gitee.com/quant1x/num"
+	"github.com/quant1x/exchange"
+	"github.com/quant1x/gotdx/securities"
+	"github.com/quant1x/num"
 )
 
 // Wave 波浪 波峰波谷

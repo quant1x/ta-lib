@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"gitee.com/quant1x/engine/factors"
+	"github.com/quant1x/engine/factors"
 )
 
 func TestConfidenceInterval(t *testing.T) {

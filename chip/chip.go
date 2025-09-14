@@ -8,10 +8,10 @@ import (
 	"strings"
 	"time"
 
-	"gitee.com/quant1x/engine/datasource/base"
-	"gitee.com/quant1x/engine/factors"
-	"gitee.com/quant1x/exchange"
-	"gitee.com/quant1x/num"
+	"github.com/quant1x/engine/datasource/base"
+	"github.com/quant1x/engine/factors"
+	"github.com/quant1x/exchange"
+	"github.com/quant1x/num"
 )
 
 // TechSignal 技术信号位掩码 (支持组合信号)

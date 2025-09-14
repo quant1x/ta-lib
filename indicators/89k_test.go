@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"testing"
 
-	"gitee.com/quant1x/engine/datasource/base"
-	"gitee.com/quant1x/exchange"
-	"gitee.com/quant1x/pandas"
+	"github.com/quant1x/engine/datasource/base"
+	"github.com/quant1x/exchange"
+	"github.com/quant1x/pandas"
 )
 
 func TestF89K(t *testing.T) {

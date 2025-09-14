@@ -10,13 +10,13 @@ import (
 	"testing"
 	"time"
 
-	"gitee.com/quant1x/engine/datasource/base"
-	"gitee.com/quant1x/gox/api"
-	"gitee.com/quant1x/num"
-	"gitee.com/quant1x/pandas"
-	"gitee.com/quant1x/pkg/chart"
-	"gitee.com/quant1x/pkg/chart/drawing"
-	"gitee.com/quant1x/ta-lib/plot"
+	"github.com/quant1x/engine/datasource/base"
+	"github.com/quant1x/num"
+	"github.com/quant1x/pandas"
+	"github.com/quant1x/pkg/chart"
+	"github.com/quant1x/pkg/chart/drawing"
+	"github.com/quant1x/ta-lib/plot"
+	"github.com/quant1x/x/api"
 	"github.com/stretchr/testify/assert"
 )
 

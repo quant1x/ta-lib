@@ -3,10 +3,10 @@ package blas
 import (
 	"strings"
 
-	"gitee.com/quant1x/engine/config"
-	"gitee.com/quant1x/engine/datasource/base"
-	"gitee.com/quant1x/num"
-	"gitee.com/quant1x/ta-lib/plot"
+	"github.com/quant1x/engine/config"
+	"github.com/quant1x/engine/datasource/base"
+	"github.com/quant1x/num"
+	"github.com/quant1x/ta-lib/plot"
 )
 
 // DataSample 数据样本
