@@ -3,13 +3,13 @@ module github.com/quant1x/ta-lib
 go 1.25
 
 require (
-	github.com/quant1x/engine v1.11.0
-	github.com/quant1x/exchange v0.8.2
-	github.com/quant1x/gotdx v1.26.1
-	github.com/quant1x/num v0.7.2
-	github.com/quant1x/pandas v1.6.1
+	github.com/quant1x/engine v1.11.7
+	github.com/quant1x/exchange v0.8.5
+	github.com/quant1x/gotdx v1.26.5
+	github.com/quant1x/num v0.7.5
+	github.com/quant1x/pandas v1.6.5
 	github.com/quant1x/pkg v0.8.1
-	github.com/quant1x/x v0.1.22
+	github.com/quant1x/x v0.1.25
 	github.com/shopspring/decimal v1.4.0
 	github.com/stretchr/testify v1.11.1
 )
@@ -19,7 +19,6 @@ require (
 	github.com/dlclark/regexp2 v1.11.5 // indirect
 	github.com/go-co-op/gocron/v2 v2.16.5 // indirect
 	github.com/go-sourcemap/sourcemap v2.1.4+incompatible // indirect
-	github.com/gocarina/gocsv v0.0.0-20240520201108-78e41c74b4b1 // indirect
 	github.com/google/pprof v0.0.0-20250903194437-c28834ac2320 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/jonboulle/clockwork v0.5.0 // indirect
