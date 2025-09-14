@@ -3,9 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.10.3] - 2025-09-14
+### Changed
+- 更新依赖库版本
+
 ## [0.10.2] - 2025-09-14
 ### Changed
 - 更新依赖库版本
+- update changelog
 
 ## [0.10.1] - 2025-09-14
 ### Changed
@@ -648,7 +653,8 @@ All notable changes to this project will be documented in this file.
 - 第一次提交
 
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.10.2...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.10.3...HEAD
+[0.10.3]: https://gitee.com/quant1x/ta-lib.git/compare/v0.10.2...v0.10.3
 [0.10.2]: https://gitee.com/quant1x/ta-lib.git/compare/v0.10.1...v0.10.2
 [0.10.1]: https://gitee.com/quant1x/ta-lib.git/compare/v0.10.0...v0.10.1
 [0.10.0]: https://gitee.com/quant1x/ta-lib.git/compare/v0.9.4...v0.10.0
