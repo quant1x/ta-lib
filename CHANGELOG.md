@@ -3,9 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.10.0] - 2025-09-14
+### Changed
+- ta-lib仓库改为github
+
 ## [0.9.4] - 2025-09-10
 ### Changed
 - 修复筹码峰的统计bug
+- update changelog
 
 ## [0.9.3] - 2025-08-19
 ### Changed
@@ -633,7 +638,8 @@ All notable changes to this project will be documented in this file.
 - 第一次提交
 
 
-[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.9.4...HEAD
+[Unreleased]: https://gitee.com/quant1x/ta-lib.git/compare/v0.10.0...HEAD
+[0.10.0]: https://gitee.com/quant1x/ta-lib.git/compare/v0.9.4...v0.10.0
 [0.9.4]: https://gitee.com/quant1x/ta-lib.git/compare/v0.9.3...v0.9.4
 [0.9.3]: https://gitee.com/quant1x/ta-lib.git/compare/v0.9.2...v0.9.3
 [0.9.2]: https://gitee.com/quant1x/ta-lib.git/compare/v0.9.1...v0.9.2
