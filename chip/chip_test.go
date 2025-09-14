@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/quant1x/engine/datasource/base"
-	"github.com/quant1x/exchange"
-	"github.com/quant1x/gotdx/quotes"
-	"github.com/quant1x/gotdx/securities"
-	"github.com/quant1x/num"
+	"gitee.com/quant1x/engine/datasource/base"
+	"gitee.com/quant1x/exchange"
+	"gitee.com/quant1x/gotdx/quotes"
+	"gitee.com/quant1x/gotdx/securities"
+	"gitee.com/quant1x/num"
 	"github.com/shopspring/decimal" // 使用decimal库处理精确计算
 )
 

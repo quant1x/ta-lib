@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/quant1x/engine/datasource/base"
-	"github.com/quant1x/exchange"
-	"github.com/quant1x/gotdx/securities"
+	"gitee.com/quant1x/engine/datasource/base"
+	"gitee.com/quant1x/exchange"
+	"gitee.com/quant1x/gotdx/securities"
 )
 
 func TestChartKLine_Triangle(t *testing.T) {

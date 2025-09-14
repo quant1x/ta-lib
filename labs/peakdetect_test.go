@@ -7,12 +7,12 @@ import (
 	"os"
 	"testing"
 
-	"github.com/quant1x/engine/datasource/base"
-	"github.com/quant1x/num"
-	"github.com/quant1x/pandas"
-	"github.com/quant1x/pkg/chart" //exposes "chart"
-	"github.com/quant1x/ta-lib/plot"
-	"github.com/quant1x/x/api"
+	"gitee.com/quant1x/engine/datasource/base"
+	"gitee.com/quant1x/gox/api"
+	"gitee.com/quant1x/num"
+	"gitee.com/quant1x/pandas"
+	"gitee.com/quant1x/pkg/chart" //exposes "chart"
+	"gitee.com/quant1x/ta-lib/plot"
 )
 
 func TestPeakDetect(t *testing.T) {

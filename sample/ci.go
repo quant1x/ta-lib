@@ -1,9 +1,9 @@
 package sample
 
 import (
-	"github.com/quant1x/num"
-	"github.com/quant1x/pandas"
-	. "github.com/quant1x/pandas/formula"
+	"gitee.com/quant1x/num"
+	"gitee.com/quant1x/pandas"
+	. "gitee.com/quant1x/pandas/formula"
 )
 
 // ConfidenceInterval 置信区间(Confidence Interval, CI)

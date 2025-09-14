@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/quant1x/engine/datasource/base"
-	"github.com/quant1x/exchange"
-	"github.com/quant1x/x/api"
+	"gitee.com/quant1x/engine/datasource/base"
+	"gitee.com/quant1x/exchange"
+	"gitee.com/quant1x/gox/api"
 )
 
 func TestWaves_basic(t *testing.T) {

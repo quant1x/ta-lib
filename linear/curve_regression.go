@@ -1,9 +1,9 @@
 package linear
 
 import (
-	"github.com/quant1x/num"
-	"github.com/quant1x/pandas"
-	"github.com/quant1x/x/api"
+	"gitee.com/quant1x/gox/api"
+	"gitee.com/quant1x/num"
+	"gitee.com/quant1x/pandas"
 )
 
 // CurveRegression 曲线回归
