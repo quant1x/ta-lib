@@ -8,9 +8,9 @@ import (
 	"strings"
 	"time"
 
+	"gitee.com/quant1x/data/exchange"
 	"gitee.com/quant1x/engine/datasource/base"
 	"gitee.com/quant1x/engine/factors"
-	"gitee.com/quant1x/exchange"
 	"gitee.com/quant1x/num"
 )
 

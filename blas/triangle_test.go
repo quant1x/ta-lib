@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"testing"
 
+	"gitee.com/quant1x/data/exchange"
+	"gitee.com/quant1x/data/level1/securities"
 	"gitee.com/quant1x/engine/datasource/base"
-	"gitee.com/quant1x/exchange"
-	"gitee.com/quant1x/gotdx/securities"
 )
 
 func TestChartKLine_Triangle(t *testing.T) {

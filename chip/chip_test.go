@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"testing"
 
+	"gitee.com/quant1x/data/exchange"
+	"gitee.com/quant1x/data/level1/quotes"
+	"gitee.com/quant1x/data/level1/securities"
 	"gitee.com/quant1x/engine/datasource/base"
-	"gitee.com/quant1x/exchange"
-	"gitee.com/quant1x/gotdx/quotes"
-	"gitee.com/quant1x/gotdx/securities"
 	"gitee.com/quant1x/num"
 	"github.com/shopspring/decimal" // 使用decimal库处理精确计算
 )
